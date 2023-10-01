@@ -1,0 +1,57 @@
+[
+{
+    "id": "1",
+    "name": "Wheat",
+    "sname": "Triticum aestivum",
+    "pathogen": ["tindica", "psyringaewheat", "pgramini", "pstriiformis","ptriticina","bgraminiswheat" ]
+},
+{
+    "id": "2",
+    "name": "Maize",
+    "sname": "Zea Mays",
+    "pathogen": ["bmaydis",    "czeaemydis",     "psorghi", "umaydis", "xvasicola"]
+},
+{
+    "id": "3",
+    "name": "Barley",
+    "sname": "Hordeum vulgare",
+    "pathogen": ["bgraminisbarley", "fgramineadrum",  "psyringaeatrofaciens", "pgramini", "pteres"]
+  
+},
+{
+    "id": "4",
+    "name": "Rice",
+    "sname": "Oryza sativa",
+    "pathogen": ["boryzae","bglumae","moryzae","rsolani","xoryzae"]
+  
+},
+{
+    "id": "5",
+    "name": "Rye",
+    "sname": "Secale_cereale",
+    "pathogen": ["bgraminisef2","cgraminicola"]
+   
+},
+{
+    "id": "6",
+    "name": "Sorghum",
+    "sname": "Sorghum bicolor",
+    "pathogen": ["cgraminicola","mphaseolina", "psyringae"]
+   
+},
+{
+    "id": "7",
+    "name": "Oat",
+    "sname": "Avena sativa",
+    "pathogen": ["bgraminisef2","cgraminicola","fpoae","pcoronafaciens","pcoronta" ]
+    
+},
+{
+    "id": "8",
+    "name": "Foxtail",
+    "sname": "Setaria_italica",
+    "pathogen": ["aavenae"]
+
+}
+
+]

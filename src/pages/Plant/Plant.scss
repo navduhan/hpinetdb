@@ -1,0 +1,49 @@
+@import 'scss/colors';
+@import 'scss/globals';
+
+
+a{
+    text-decoration: none
+}
+.ditem{
+    font-style: italic!important;
+}
+.option:before{
+    font-style: italic;
+}
+.cardd{
+    border-radius: 12px;
+    padding-bottom: 10px;
+    text-align: left;
+    
+}
+
+.cr {
+    padding-left:20px;
+}
+
+.scname{
+font-style: italic;
+font-weight: bold;
+}
+
+.heading{
+    padding: 0.7rem 0.5rem;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background-color: $palette-2;
+    color:white;
+    font-weight: 500;
+    font-size: 16px;
+    font-family: "Roboto", "Helvetica Neue", Arial, Tahoma;
+}
+.divider{
+	z-index: 0;
+    position: relative;
+    height: 2px;
+    background-color: #e4f0f0;
+    display: block;
+    // margin-top: -12px;
+    margin: auto;
+    text-align: center;
+}
