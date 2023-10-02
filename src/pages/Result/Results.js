@@ -1,5 +1,5 @@
 import React from "react";
-import {Table, Modal} from "react-bootstrap";
+import {Table} from "react-bootstrap";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 import "./Results.scss";
@@ -41,7 +41,7 @@ if (pdata){
     console.log("yes")
     genes = []
   }
-  if (pdata.genes !=''){
+  if (pdata.genes !==''){
       genes = pdata.genes.split(", ")
   }
   
@@ -467,7 +467,7 @@ export default class Results extends React.Component {
                 )
               }
               
-              return null;
+           
             })()}
             
             
@@ -501,7 +501,7 @@ export default class Results extends React.Component {
                 )
               }
               
-              return null;
+             
             })()}
               </td>
              </> )}

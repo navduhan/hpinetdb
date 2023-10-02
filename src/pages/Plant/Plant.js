@@ -1,6 +1,6 @@
 import React from "react";
 import { env } from '../../env';
-import { Divider} from "antd";
+// import { Divider} from "antd";
 import "./Plant.scss";
 import 'scss/components/buttons.scss';
 import 'scss/style.scss'

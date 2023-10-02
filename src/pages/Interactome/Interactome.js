@@ -11,7 +11,7 @@ import { pathogen } from "../Plant/pathogen";
 import { host_genes } from "./genes";
 import { Modal, Form} from "react-bootstrap";
 import FileInput  from '../../components/FileInput/FileInput';
-const pdata = JSON.parse(localStorage.getItem("param"));
+// const pdata = JSON.parse(localStorage.getItem("param"));
 
 
 

@@ -3,7 +3,7 @@ import { env } from '../../env';
 import "./Home.scss";
 // import CookieConsent from "react-cookie-consent";
 import Table from 'react-bootstrap/Table';
-import { Divider } from "antd";
+
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
