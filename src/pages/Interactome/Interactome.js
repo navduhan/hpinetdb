@@ -12,7 +12,7 @@ import { host_genes } from "./genes";
 import { Modal, Form} from "react-bootstrap";
 import FileInput  from '../../components/FileInput/FileInput';
 // const pdata = JSON.parse(localStorage.getItem("param"));
-
+import test from 'test.gif';
 
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -956,8 +956,38 @@ export default class Interactome extends React.Component {
                 </div>
                 <Divider />
               </div>
-              
+              <div className="row flex-lg-row justify-content-center g-2 my-3">
+              <div className="col-md-5">
+            <h5>Enter Host Protein IDs</h5>
+                    <Form.Control className="kbl-form mb-4" as="textarea" rows={4} placeholder={genePlaceholder} onChange={ this.handleHostGeneChange }
+                      value={this.state.hgenes} onMouseEnter={() => this.setGeneHint(true)} onMouseLeave={() => this.setGeneHint(false)} spellCheck={false}/>
+                   
+         </div>
+         <div className="col-md-5">
+            <h5>Enter Pathogen Protein IDs</h5>
+                    <Form.Control className="kbl-form mb-4" as="textarea" rows={4} placeholder={genePlaceholder} onChange={ this.handlePathogenGeneChange }
+                      value={this.state.pgenes} onMouseEnter={() => this.setGeneHint(true)} onMouseLeave={() => this.setGeneHint(false)} spellCheck={false}/>
+                   
+         </div>
+         </div>
+         <div className="row flex-lg-row justify-content-center my-3">
+          <div className="col-md-4">
+
+         <Button className="kbl-btn-1 mx-3" onClick={e => {
+                        this.setState({pgenes: geneSample});
+                        this.setState({hgenes: geneSample});
+                      }}>Sample Data</Button>
+                    <Button className="kbl-btn-2" onClick={e => {
+                        this.setState({pgenes: ""})
+                        this.setState({hgenes: ""})
+                      }}>Clear Data</Button>
+          </div>
+         
+         </div>
+         <Divider />
             </div>
+              
+            
           )}
 
         <div className="row flex-lg-row justify-content-center g-2 my-3">
@@ -966,7 +996,7 @@ export default class Interactome extends React.Component {
             <div className="col-md-8">
               <h5 className="mb-3">Please wait your query is processing</h5>
               <img
-                src="./test.gif"
+                src={test}
                 className="loading"
                 height="50px"
                 alt=""
