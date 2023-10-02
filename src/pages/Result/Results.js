@@ -75,7 +75,7 @@ export default class Results extends React.Component {
       dResult:[],
       isOpen:false,
       species:species,
-      domsp: `${pdata.species}_${pdata.pathogen}`,
+      domsp:'',
       category:category,
       idt:idt,
       genes:genes,
@@ -90,7 +90,7 @@ export default class Results extends React.Component {
 
   fetchResults() {
     const postBody = {
-      species:domsp,
+      species:`${pdata.species}_${pdata.pathogen}`,
       page:this.state.currentPage,
       size: this.state.perPage,
       genes: this.state.genes,
