@@ -10,7 +10,7 @@ import { env } from '../../env';
 const urlParams = new URLSearchParams(window.location.search);
 
 const idt = urlParams.get("id");
-
+console.log(idt)
 export default class GO extends React.Component {
   constructor({ props }) {
     super(props);
@@ -54,6 +54,7 @@ export default class GO extends React.Component {
     if (idt ==='effector_and_secretory'){
         term = 'effector and secretory protein'
     }
+    console.log(term)
     axios
       .get(
         `${env.BACKEND}/api/effector/?species=${term}&page=${this.state.currentPage}&size=${this.state.perPage}`
@@ -89,8 +90,8 @@ export default class GO extends React.Component {
             {this.state.total} {idt.charAt(0).toUpperCase() + idt.slice(1)} Proteins
           </h5>
         </div>
-        <Table responsive className="go-table table-borderless">
-          <thead className="go-thead">
+        <Table responsive className="kbl-table table-borderless">
+          <thead className="kbl-thead">
             <tr>
               <th>Protein</th>
               <th>Protein Length</th>
@@ -134,23 +135,7 @@ export default class GO extends React.Component {
           ellipsisItem={null}
         />
 
-        <div className="row flex-lg-row justify-content-center g-2 ">
-          <Divider />
-          <p>
-            &copy; 2022 |&nbsp;{" "}
-            <a
-              href="http://bioinfo.usu.edu"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Kaundal Artificial Intelligence and Advanced Bioinformatics Lab
-            </a>
-            &nbsp; |&nbsp;{" "}
-            <a href="https://usu.edu" target="_blank" rel="noopener noreferrer">
-              Utah State University
-            </a>
-          </p>
-        </div>
+       
       </div>
     );
   }

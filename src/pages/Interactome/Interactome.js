@@ -870,6 +870,96 @@ export default class Interactome extends React.Component {
              
         )}
 
+{this.state.status !== "interolog" &&
+          this.state.status !== "domain" &&
+          this.state.status !== "gosim" &&
+        
+          this.state.status !== "consensus" && (
+            <div>
+     
+              <div className="row flex-lg-row justify-content-center">
+                <div className="col-md-6">
+                <div className="row flex-lg-row justify-content-center">
+                <h5>Host Alignment Filtering Options</h5>
+                <div className="col-sm-4">
+                  <div className="form-inline">
+                    <label className="label-text">Identity %</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={this.state.identity}
+                      onChange={this.identityHandler}
+                    ></input>
+                  </div>
+                </div>
+                <div className="col-sm-4">
+                  <div className="form-inline">
+                    <label className="label-text">Coverage %</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={this.state.coverage}
+                      onChange={this.coverageHandler}
+                    ></input>
+                  </div>
+                </div>
+                <div className="col-sm-4">
+                  <div className="form-inline">
+                    <label className="label-text">Evalue</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={this.state.evalue}
+                      onChange={this.evalueHandler}
+                    ></input>
+                  </div>
+                </div>
+                </div>
+                </div>
+                <div className="col-md-6">
+                <div className="row flex-lg-row justify-content-center">
+                <h5>Pathogen Alignment Filtering Options</h5>
+                <div className="col-sm-4">
+                  <div className="form-inline">
+                    <label className="label-text">Identity %</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={this.state.pidentity}
+                      onChange={this.pidentityHandler}
+                    ></input>
+                  </div>
+                </div>
+                <div className="col-sm-4">
+                  <div className="form-inline">
+                    <label className="label-text">Coverage %</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={this.state.pcoverage}
+                      onChange={this.pcoverageHandler}
+                    ></input>
+                  </div>
+                </div>
+                <div className="col-sm-4">
+                  <div className="form-inline">
+                    <label className="label-text">Evalue</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={this.state.pevalue}
+                      onChange={this.pevalueHandler}
+                    ></input>
+                  </div>
+                </div>
+                  </div>
+                </div>
+                <Divider />
+              </div>
+              
+            </div>
+          )}
+
         <div className="row flex-lg-row justify-content-center g-2 my-3">
           {this.state.isOpen && (
            

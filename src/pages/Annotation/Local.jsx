@@ -78,8 +78,8 @@ export default class GO extends React.Component {
             {this.state.total} Proteins Localizations
           </h5>
         </div>
-        <Table responsive className="go-table table-borderless">
-          <thead className="go-thead">
+        <Table responsive className="kbl-table table-borderless">
+          <thead className="kbl-thead">
             <tr>
               <th>Protein</th>
               <th>Localization</th>
