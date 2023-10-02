@@ -18,8 +18,8 @@ const tdata = urlParams.get("id");
 // const tdata = 'hpinet1696211121764results'
 
 const pdata = JSON.parse(localStorage.getItem("param"));
-console.log(pdata)
-const domsp = `${pdata.species}_${pdata.pathogen}`
+// console.log(pdata)
+// const domsp = `${pdata.species}_${pdata.pathogen}`
 
 
 
@@ -75,7 +75,7 @@ export default class Results extends React.Component {
       dResult:[],
       isOpen:false,
       species:species,
-      domsp:domsp,
+      domsp: `${pdata.species}_${pdata.pathogen}`,
       category:category,
       idt:idt,
       genes:genes,
