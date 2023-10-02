@@ -12,7 +12,7 @@ import { host_genes } from "./genes";
 import { Modal, Form} from "react-bootstrap";
 import FileInput  from '../../components/FileInput/FileInput';
 // const pdata = JSON.parse(localStorage.getItem("param"));
-import test from 'test.gif';
+import test from './test.gif';
 
 
 const urlParams = new URLSearchParams(window.location.search);
