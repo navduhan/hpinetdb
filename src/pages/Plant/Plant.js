@@ -107,13 +107,13 @@ render(){
     
 <div className="row mt-2">
 <div className="divider my-3">&nbsp;</div>
-<div className="col-md-4 ">
+<div className="col-md-6">
 <h4>Host: {this.state.species}</h4>
 </div>
 <div className="col-md-3 ">
 <h5>OR select other species:</h5>
 </div>
-<div className="col-md-4">
+<div className="col-md-3">
 
 <select className="form-select ditem" onChange={this.handleSpecies} value={this.state.species}>
         {/* <option value={fd[0].name}>{fd[0].sname}</option> */}

@@ -60,7 +60,7 @@ export default class Interactome extends React.Component {
       isOpen: false,
       ppiOpen: false,
       genes: '',
-      hgene:'',
+      hgenes:'',
       pgenes:'',
       gomethod:'wang',
       goscore:'bwa',
@@ -251,15 +251,30 @@ export default class Interactome extends React.Component {
     if (this.state.status === 'gosim'){
       let postBody ={
         category: this.state.status,
-        hspecies: hspecies,
-        pspecies: pspecies,
+        hspecies: this.state.species,
+        pspecies: this.state.pathogen,
         host_genes:this.state.hgenes,
-        pathpgen_genes:this.state.pgenes,
+        pathogen_genes:this.state.pgenes,
         method: this.state.gomethod,
         score: this.state.goscore,
         threshold:this.state.gothreshold
       }
       console.log(postBody)
+      axios
+      .post(
+        // `${env.BACKEND}/api/ppi/?species=${this.state.species}&identity=${this.state.identity}&coverage=${this.state.coverage}&evalue=${this.state.evalue}&intdb=${intdb}`
+        `${env.BACKEND}/api/goppi/`,
+        postBody
+      )
+      .then((res) => {
+        const rid = res.data;
+        console.log(rid);
+        this.setState({ resultid: rid });
+
+        this.closeModel();
+        window.location.replace(`${env.BASE_URL}/results/?id=${rid}`);
+      })
+      .catch((err) => console.log(err));
       
     }
     else{

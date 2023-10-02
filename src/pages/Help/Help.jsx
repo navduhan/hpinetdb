@@ -9,18 +9,15 @@ export default class Help extends React.Component {
             <div className="container">
                 <Divider />
                 <div className="row flex-lg-row justify-content-center g-2 my-2 mx-2">
-                    <h5><b>TritiKBdb Tutorial</b></h5>
+                    <h5><b>HPInet Tutorial</b></h5>
                     <Divider />
                     <p className="infot">
                         Introduction
                     </p>
                     <p className="infoh">
-                        Wheat, the most widely cultivated crop in the world, ranks third and accounts for around 35% of the total grains produced around the globe.
-                        Among some critical fungal diseases, the occurrence of Karnal Bunt (<b><i>Tilletia indica</i></b>, also known as partial bunt) in two of the most widely
-                        cultivated species of Wheat (<b><i>Triticum aestivum</i></b>, <b><i>Triticum turgidum</i></b>) has affected the grain yield and quality of the crop to a great extent,
-                        thus being a major threat to the agriculture industry worldwide. Karnal bunt is recognized to have a severe economic impact due to the loss
-                        of grain weight (about 0.25%), followed by the imposition of various international regulatory/quarantine restrictions on the crop grown in
-                        Karnal bunt infected regions. Most countries have a zero tolerance for Karnal bunt in import shipments.
+                    Cereal crops serve as a fundamental pillar of global food security, providing sustenance to billions of people and forming the basis of numerous industrial and economic sectors. These crops consist of several essential nutrients such as proteins, vitamins, carbohydrates, minerals, and others. However, cereal crops face persistent threats in the form of biotic stresses (mainly phytopathogens), necessitating the exploration of innovative strategies for disease management. The deleterious effects of these pathogens range from fungal infections to viral agents, substantially affecting agricultural yield losses and economic repercussions. In this context, the development of a protein-protein interaction (PPI) database assumes a pivotal role, as it enables the elucidation of molecular mechanisms underlying host-pathogen interactions, facilitating the identification of potential targets for intervention. PPIs play a crucial role in numerous biological processes, influencing various cellular functions, signal transduction cascades, and regulatory network. Such interactions also regulate the interplay between host cell surface receptors and pathogen effector proteins, and the downstream activation of host defense signaling pathways.
+In pursuit of disseminating the wealth of information, we aim to develop a comprehensive database, named “HPInet”, dedicated to cereal disease protein-protein interactions. HPInet encompasses eight prominent cereal crops, including wheat, rice, maize, barley, oats, sorghum, rye, and foxtail, and their corresponding major bacterial, fungal, and viral diseases, resulting in 32 plant-disease combinatorial possibilities. This expansive coverage is essential, as it addresses the complex and interconnected value of cereal crop diseases, providing a holistic perspective on host-pathogen interactions. Each crop-disease combination is analyzed using a multifaceted computational framework, integrating a suite of sequence-based algorithms that includes computational models such as (i) interolog, (ii) domain, (iii) gene ontology, and  (iv) phylogenetic profiling predictions. The integration of these computational models harnesses the collective power of functional and evolutionary information, thus providing a multi-dimensional view of protein-protein interactions. The resulting database not only serves as a comprehensive resource of potential interactions but also provide functional annotations (gene ontology, KEGG pathways, pathogen effectors, host transcription factors, and subcellular localization) of the host and pathogen proteins involved in the predicted interactions, thus offering insights into disease resistance strategies and the development of improved crop varieties. This database empowers researchers to decipher regulatory nodes within candidate PPI pairs using network visualization tool, thereby fortifying crop resilience. By integrating various computational models, HPInet will serve as an invaluable resource for the scientific community, aiding in the development of disease-resistant crop cultivars. 
+
                     </p>
                     <img src="images/home.png" className="imk" alt="" />
                     <Divider />
@@ -38,7 +35,7 @@ export default class Help extends React.Component {
                     </p>
                     <p className="infoh">
                         The <a href="interactome" >Interactomics <sup> <i> <LinkOutlined /></i></sup></a> tool allows the user to find the interactions between host
-                        (Triticum aestivum) and pathogen (T. caries & T. laevis) proteins. In this module, the user has the option to select the specific
+                        and pathogen  proteins. In this module, the user has the option to select the specific
                         protein-protein interaction database(s) that will be used as a template in the prediction process, or to define BLASTp alignment
                         filters to determine homolog proteins. By default, three databases (HPIDB, MINT & DIP) have been selected. All the seven databases
                         can be selected at once using the option 'ALL'.
@@ -64,7 +61,7 @@ export default class Help extends React.Component {
                         Host-pathogen interactions Network
                     </p>
                     <p className="infoh">
-                    WeCoNET provides an efficient network visualization platform, implemented using Cytoscape. This plugin was specially chosen given its performance at displaying large networks. From the host-pathogen network visualization, a user can visualize a set of traits for each node (species, description, degree), and also can easily identify hub nodes (nodes with a higher number of edges). This is useful as hub nodes have been found crucial in infectious disease pathways. A user is not limited to the network analysis that is provided through our database, the resulted network can be further examined in any network analyzer that could handle JSON or tabular network files.
+                    HPInet provides an efficient network visualization platform, implemented using Cytoscape. This plugin was specially chosen given its performance at displaying large networks. From the host-pathogen network visualization, a user can visualize a set of traits for each node (species, description, degree), and also can easily identify hub nodes (nodes with a higher number of edges). This is useful as hub nodes have been found crucial in infectious disease pathways. A user is not limited to the network analysis that is provided through our database, the resulted network can be further examined in any network analyzer that could handle JSON or tabular network files.
 In the network, the color of the edges correspond to the respective databases chosen. The edges from each database are represented with different colors as shown on the top right corner of the page. The blue nodes represent host proteins while the red nodes are pathogen proteins.
 The user can click on any node (one at a time) in the network to see the respective description of the protein, which is shown on the top left corner of the page.
 To analyze the network within the database, the user can select a particular node and move it around. The layout of the network can also be reset using 'Force Atlas' button. 
@@ -72,23 +69,7 @@ To analyze the network within the database, the user can select a particular nod
                     </p>
                     <img src="images/network.png" className="imk" alt="" />
                 </div>
-                <div className="row  flex-lg-row justify-content-center g-2">
-          <Divider />
-          <p>
-            &copy; 2022 |&nbsp;{" "}
-            <a
-              href="http://bioinfo.usu.edu"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Kaundal Artificial Intelligence and Advanced Bioinformatics Lab
-            </a>
-            &nbsp; |&nbsp;{" "}
-            <a href="https://usu.edu" target="_blank" rel="noopener noreferrer">
-              Utah State University
-            </a>
-          </p>
-        </div>
+                <Divider />
             </div>
         )
     }

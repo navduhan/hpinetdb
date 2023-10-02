@@ -15,14 +15,15 @@ import { foxtail_genes } from "./foxtail";
 const urlParams = new URLSearchParams(window.location.search);
 
 const tdata = urlParams.get("id");
+// const tdata = 'hpinet1696211121764results'
 
 const pdata = JSON.parse(localStorage.getItem("param"));
-// console.log(tdata)
+console.log(pdata)
 const domsp = `${pdata.species}_${pdata.pathogen}`
 
 
 
-console.log()
+
 let category;
 let species;
 let genes;
@@ -32,6 +33,7 @@ if (pdata){
   category = pdata.category
   species = pdata.species
   idt = pdata.ids
+
   if (category==='domain'){
 
   
@@ -121,12 +123,12 @@ export default class Results extends React.Component {
     else{
     axios
       .get(
-        `${env.BACKEND}/api/results/?results=${tdata}&page=${this.state.currentPage}&size=${this.state.perPage}`,{ crossDomain: true }
+        `${env.BACKEND}/api/results/?results=${tdata}&category=${category}&page=${this.state.currentPage}&size=${this.state.perPage}`
       )
       .then((res) => {
         const List = res.data.results;
         const dl = Math.ceil(res.data.total / this.state.perPage);
-        console.log(res.data.results)
+        console.log(res.data.total)
         this.setState({
           List,
           pageCount: dl,
@@ -147,6 +149,7 @@ export default class Results extends React.Component {
       .then((res) => {
         const dResult = res.data.results 
         this.setState({dResult})
+        console.log(dResult)
       })
     }
     else{
@@ -157,6 +160,7 @@ export default class Results extends React.Component {
       .then((res) => {
         const dResult = res.data.results 
         this.setState({dResult})
+       
       })
     }
   }
@@ -265,14 +269,13 @@ export default class Results extends React.Component {
               onChange={(e) => this.onMasterCheck(e)}
             />
           </th>
-
+          {this.state.category ==='interolog' && (
+          <>
           <th>Host</th>
           <th>Pathogen</th>
           <th>InteractorA</th>
           <th>InteractorB</th>
           <th>Interaction Source</th>
-        {this.state.category ==='interolog' && (
-          <>
           <th>Method</th>
           <th>Type</th>
           <th>Confidence</th>
@@ -281,11 +284,26 @@ export default class Results extends React.Component {
 )}
         {this.state.category ==='domain' && (
           <>
+          <th>Host</th>
+          <th>Pathogen</th>
+          <th>InteractorA</th>
+          <th>InteractorB</th>
+          <th>Interaction Source</th>
           <th>InteractoA Name</th>
           <th>InteractorA Interpro</th>
           <th>InteractoB Name</th>
           <th>InteractorB Interpro</th>
           <th>Confidence</th>
+          </>
+)}
+ {this.state.category ==='gosim' && (
+          <>
+          <th>Host</th>
+          <th>Pathogen</th>
+          <th>Host GO Terms</th>
+          <th>Pathogen Go Terms</th>
+          <th>Score</th>
+        
           </>
 )}
         </tr>
@@ -416,9 +434,11 @@ export default class Results extends React.Component {
                 {result["Pathogen_Protein"]}
               </a>
             </td>
-           
+{this.state.category !=='gosim' && (
+  <>
             <td>
             {console.log(result["ProteinA"])}
+
             {(() => {
               if (onlyNumbers(result['ProteinA'])){
                   return (
@@ -484,6 +504,7 @@ export default class Results extends React.Component {
               return null;
             })()}
               </td>
+             </> )}
      {this.state.category==='interolog' &&(
        <>
             <td>{result["intdb_x"]}</td>
@@ -500,6 +521,13 @@ export default class Results extends React.Component {
             <td>{result["DomainA_interpro"]}</td>
             <td>{result["DomainB_name"]}</td>
             <td>{result["DomainB_interpro"]}</td>
+            <td>{result["Score"]}</td>
+            </>
+     )}
+      {this.state.category==='gosim' &&(
+       <>
+            <td>{result["Host_GO"]}</td>
+            <td>{result["Pathogen_GO"]}</td>
             <td>{result["Score"]}</td>
             </>
      )}
@@ -576,6 +604,17 @@ export default class Results extends React.Component {
         {results}
         </>
         )}
+    {this.state.category ==='gosim' &&(
+      <>
+      <Divider />
+       <div className="row flex-lg-row align-items-center ">
+          <h4> Gene Ontology Sementic Similarity</h4>
+          <Divider/>
+          </div>
+       {results}
+      </>
+     
+    )}
 
     {this.state.category ==='domain' && (
       <>
