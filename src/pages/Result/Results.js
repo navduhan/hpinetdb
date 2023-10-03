@@ -11,6 +11,8 @@ import { downloadCsv } from "components/CSVDownload/CSVDownload";
 import ReactLoading from 'react-loading';
 import { sorghum_genes } from "./sorghum";
 import { foxtail_genes } from "./foxtail";
+import { Exception } from "sass";
+import { disease } from "pages/Plant/disease";
 
 const urlParams = new URLSearchParams(window.location.search);
 
@@ -87,7 +89,7 @@ export default class Results extends React.Component {
 
   openModel = () => this.setState({ isOpen: true, dList:[]});
   closeModel = () => this.setState({ isOpen: false });
-
+  
   fetchResults() {
     const postBody = {
       species:`${pdata.species}_${pdata.pathogen}`,
@@ -233,8 +235,12 @@ export default class Results extends React.Component {
   }
   render() {
     let results;
+    let ddata;
     if (tdata){
       localStorage.setItem("resultid", JSON.stringify(tdata))
+
+      ddata = disease[`${pdata.species}_${pdata.pathogen}`]
+      console.log(ddata)
     }
     const csvButton = <Button type="primary" shape="round" size="large" onClick={() => downloadCsv(this.state.dResult, this.state.category)}> Download CSV</Button>;
     if (this.state.List.length>1){
@@ -272,10 +278,11 @@ export default class Results extends React.Component {
           {this.state.category ==='interolog' && (
           <>
           <th>Host</th>
+          <th>Expression</th>
           <th>Pathogen</th>
           <th>InteractorA</th>
           <th>InteractorB</th>
-          <th>Interaction Source</th>
+          <th>Source</th>
           <th>Method</th>
           <th>Type</th>
           <th>Confidence</th>
@@ -285,10 +292,11 @@ export default class Results extends React.Component {
         {this.state.category ==='domain' && (
           <>
           <th>Host</th>
+          <th>Expression</th>
           <th>Pathogen</th>
           <th>InteractorA</th>
           <th>InteractorB</th>
-          <th>Interaction Source</th>
+          <th>Source</th>
           <th>InteractoA Name</th>
           <th>InteractorA Interpro</th>
           <th>InteractoB Name</th>
@@ -299,6 +307,7 @@ export default class Results extends React.Component {
  {this.state.category ==='gosim' && (
           <>
           <th>Host</th>
+          <th>Expression</th>
           <th>Pathogen</th>
           <th>Host GO Terms</th>
           <th>Pathogen Go Terms</th>
@@ -329,7 +338,18 @@ export default class Results extends React.Component {
                 id={result._id}
                 onChange={(e) => this.onItemCheck(e, result)}
               />
+         
             </td>
+            <td>
+            <a
+                href={`https://plants.ensembl.org/Multi/Search/Results?species=all;idx=;q=${result["Host_Protein"]};site=ensemblunit`}
+                target="_blank"
+                rel="noreferrer"
+                className="host"
+              >
+                {result["Host_Protein"]}
+              </a>
+              </td>
 {pdata.species==='Maize' &&(<>
 
   <td>
@@ -337,10 +357,18 @@ export default class Results extends React.Component {
                 href={`https://www.ebi.ac.uk/gxa/genes/${result["Host_Protein"].split("_")[0]}?bs={"zea mays"%3A["ORGANISM_PART"%2C"CULTIVAR"%2C"DEVELOPMENTAL_STAGE"%2C"SAMPLING_SITE"%2C"SAMPLING_TIME_POINT"]%2C"sorghum bicolor"%3A["ORGANISM_PART"%2C"CELL_TYPE"]}&ds={"kingdom"%3A["plants"]}#differential`}
                 target="_blank"
                 rel="noreferrer"
-                className="host"
+                className="button"
               >
-                {result["Host_Protein"]}
-              </a>
+ <Button type="primary" shape="round"  size={'small'}>exp</Button>
+            </a>
+            <a
+              href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
+              target="_blank"
+              rel="noreferrer"
+            
+            >
+  <Button type="primary" shape="round"  size={'small'}>pubmed</Button>
+            </a>
             </td>
 </>)}
 {pdata.species==='Rice' &&(<>
@@ -352,7 +380,15 @@ export default class Results extends React.Component {
               rel="noreferrer"
               className="host"
             >
-              {result["Host_Protein"]}
+ <Button type="primary" shape="round"  size={'small'}>exp</Button>
+            </a>
+            <a
+              href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
+              target="_blank"
+              rel="noreferrer"
+            
+            >
+  <Button type="primary" shape="round"  size={'small'}>pubmed</Button>
             </a>
           </td>
 </>)}
@@ -365,7 +401,15 @@ export default class Results extends React.Component {
               rel="noreferrer"
               className="host"
             >
-              {result["Host_Protein"]}
+ <Button type="primary" shape="round"  size={'small'}>exp</Button>
+            </a>
+            <a
+              href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
+              target="_blank"
+              rel="noreferrer"
+            
+            >
+  <Button type="primary" shape="round"  size={'small'}>pubmed</Button>
             </a>
           </td>
 </>)}
@@ -378,7 +422,15 @@ export default class Results extends React.Component {
               rel="noreferrer"
               className="host"
             >
-              {result["Host_Protein"]}
+ <Button type="primary" shape="round"  size={'small'}>exp</Button>
+            </a>
+            <a
+              href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
+              target="_blank"
+              rel="noreferrer"
+            
+            >
+  <Button type="primary" shape="round"  size={'small'}>pubmed</Button>
             </a>
           </td>
 </>)}
@@ -392,7 +444,15 @@ export default class Results extends React.Component {
               rel="noreferrer"
               className="host"
             >
-              {result["Host_Protein"]}
+ <Button type="primary" shape="round"  size={'small'}>exp</Button>
+            </a>
+            <a
+              href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
+              target="_blank"
+              rel="noreferrer"
+            
+            >
+  <Button type="primary" shape="round"  size={'small'}>pubmed</Button>
             </a>
           </td>
 </>)}
@@ -403,9 +463,17 @@ export default class Results extends React.Component {
               href={`http://wheat-expression.com/genes/show?gene_set=RefSeq1.1&name=${result["Host_Protein"].split(".")[0]}&search_by=gene`}
               target="_blank"
               rel="noreferrer"
-              className="host"
+            
             >
-              {result["Host_Protein"]}
+  <Button type="primary" shape="round"  size={'small'}>exp</Button>
+            </a>
+            <a
+              href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
+              target="_blank"
+              rel="noreferrer"
+            
+            >
+  <Button type="primary" shape="round"  size={'small'}>pubmed</Button>
             </a>
           </td>
 </>)}
@@ -528,7 +596,7 @@ export default class Results extends React.Component {
        <>
             <td>{result["Host_GO"]}</td>
             <td>{result["Pathogen_GO"]}</td>
-            <td>{result["Score"]}</td>
+            <td>{result["Score"]*100}</td>
             </>
      )}
 

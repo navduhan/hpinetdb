@@ -1,13 +1,13 @@
 import React from "react";
 import { env } from '../../env';
-// import { Divider} from "antd";
+import { Divider} from "antd";
 import "./Plant.scss";
 import 'scss/components/buttons.scss';
 import 'scss/style.scss'
 import Data from './plants.json';
 import {pathogen} from './pathogen.js';
 import scientific from "./pscientific.json"
-
+import { disease } from "./disease";
 
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -100,13 +100,13 @@ render(){
      pathogen: this.state.pathogen
     })
   );
-
+    const  ddata = disease[`${this.state.species}_${this.state.pathogen}`]
     return(
         <div className="container">
 
     
 <div className="row mt-2">
-<div className="divider my-3">&nbsp;</div>
+<Divider />
 <div className="col-md-6">
 <h4>Host: {this.state.species}</h4>
 </div>
@@ -125,7 +125,7 @@ render(){
           )})}
         </select>
 </div>
-<div className="divider my-3">&nbsp;</div>
+<Divider />
 </div>
 
 <div className="row  mb-4">
@@ -148,8 +148,14 @@ render(){
 </div>
 
 
-<div className="divider my-3">&nbsp;</div>
+<Divider />
+<div className="row  mb-4">
+<div className="col-md-6 ">
+<h4>Disease: {ddata} </h4>
+</div>
+</div>
 
+<Divider />
 <div className="row justify-content-center">
 <div className="col-md-4">
 <div className="card cardd mb-3">
@@ -268,7 +274,7 @@ return(<li key={index}>{sp}</li>)
 </div>
 
   
-<div className="divider my-3">&nbsp;</div>
+<Divider />
 </div>
 <div className="row justify-content-center">
   <div className="col-md-3">
@@ -279,7 +285,8 @@ return(<li key={index}>{sp}</li>)
                 </a>
   </div>
 </div>
-<div className="divider my-3">&nbsp;</div>
+<Divider />
+
       
 
 

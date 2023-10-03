@@ -3,7 +3,7 @@ import { env } from '../../env';
 import "./Home.scss";
 // import CookieConsent from "react-cookie-consent";
 import Table from 'react-bootstrap/Table';
-
+import { Divider } from "antd";
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -69,9 +69,111 @@ In pursuit of disseminating the wealth of information, we aim to develop a compr
   </tbody>
   </Table>
 
-	<div className="divider">&nbsp;</div>
 
-     
+
+  <div className="row flex-lg-row justify-content-center g-2 my-2">
+  <h1>Data Sources</h1>
+  <div className="divider">&nbsp;</div>
+          
+        </div>
+
+       
+        <div className="row flex-lg-row justify-content-center g-2 my-2">
+          <a
+            href="https://hpidb.igbb.msstate.edu/"
+            className="col-md-1 hpidb"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="./images/hpidb.png" alt="" />
+            <figcaption>HPIDB</figcaption>
+          </a>
+
+          <a
+            href="http://www.ebi.ac.uk/intact/"
+            className="col-md-1 db"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="./images/intact.png" alt="" />
+            <figcaption>IntAct</figcaption>
+          </a>
+
+          <a
+            href="http://mint.bio.uniroma2.it"
+            className="col-md-1 db"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="./images/mint.png" alt="" />
+            <figcaption>MINT</figcaption>
+          </a>
+
+          <a
+            href="https://thebiogrid.org/"
+            className="col-md-1 db"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="./images/biogrid.png" alt="" />
+            <figcaption>BioGRID</figcaption>
+          </a>
+          <a
+            href="https://string-db.org/"
+            className="col-md-1 db"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="./images/string.png" alt="" />
+            <figcaption>STRING</figcaption>
+          </a>
+          <a
+            href="http://dip.doe-mbi.ucla.edu/"
+            className="col-md-1 db"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="./images/dip.png" alt="dip" />
+            <figcaption>DIP</figcaption>
+          </a>
+          <a
+            href="https://manticore.niehs.nih.gov/cgi-bin/Domine"
+            className="col-md-1 db2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="./images/domine.png" alt="dip" />
+            <figcaption>DOMINE</figcaption>
+          </a>
+          <a
+            href="https://3did.irbbarcelona.org/"
+            className="col-md-1 hpidb"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="./images/3did.png" alt="" />
+            <figcaption>3did</figcaption>
+          </a>
+          <a
+            href="http://www.uniprot.org/"
+            className="col-md-1 db"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="./images/uniprot.png" alt="" />
+            <figcaption>UniProt</figcaption>
+          </a>
+          <a
+            href="https://ensembl.org"
+            className="col-md-1 hpidb"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="./images/ensembl.png" alt="" />
+            <figcaption>ENSEMBL</figcaption>
+          </a>
+        </div>
+        <div className="divider">&nbsp;</div>
 
     </div>
 

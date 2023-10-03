@@ -5,6 +5,7 @@
         "pgramini": ["Fungi","Basidiomycota", "Pucciniomycetes","Pucciniales", "Pucciniaceae", "Puccinia", "P. graminis"],
         "pstriiformis":["Fungi","Basidiomycota", "Urediniomycetes", "Uredinales", "Pucciniastraceae", "Puccinia", "P. striiformis"], 
         "ptriticina":["Fungi","Basidiomycota", "Pucciniomycetes","Pucciniales", "Pucciniaceae", "Puccinia", "P. triticina"],
+        "bgraminiswheat":["Fungi","Ascomycota", "Leotiomycetes", "Erysiphales","Erysiphaceae", "Blumeria","B. graminis f sp tritici"],
        "bmaydis":["Fungi","Ascomycota","Dothideomycetes","Pleosporales", "Pleosporaceae", "Bipolaris", "Bipolaris maydis c5"], 
         "czeaemydis":["Fungi","Ascomycota","Dothideomycetes"," Capnodiales","Mycosphaerellaceae","Cercospora", "Cercospora zeae maydis scoh1"], 
         "psorghi":["Fungi","Basidiomycota", "Pucciniomycetes","Pucciniales", "Pucciniaceae", "Puccinia", "P. sorghi"], 
@@ -26,7 +27,7 @@
         "pcoronta":["Fungi","Basidiomycota", "Pucciniomycetes","Pucciniales", "Pucciniaceae", "Puccinia","P. coronata var_avenae_f_sp_avenae"],
         "pcoronafaciens":["Bacteria","Pseudomonadota", "Gammaproteobacteria","Pseudomonadales", "Pseudomonadaceae", "Pseudomonas","P. coronafaciens pv_coronafaciens"],
         "mphaseolina":["Fungi","Ascomycota","Dothideomycetes","Botryosphaeriales","Botryosphaeriaceae","Macrophomina", "M. phaseolina ms6"],
-       " psyringae":["Bacteria","Pseudomonadota", "Gammaproteobacteria","Pseudomonadales", "Pseudomonadaceae", "Pseudomonas","P. syringae"]
+       "psyringae":["Bacteria","Pseudomonadota", "Gammaproteobacteria","Pseudomonadales", "Pseudomonadaceae", "Pseudomonas","P. syringae"]
         
     }
     
