@@ -3,7 +3,7 @@ import { env } from '../../env';
 import "./Home.scss";
 // import CookieConsent from "react-cookie-consent";
 import Table from 'react-bootstrap/Table';
-import { Divider } from "antd";
+import { images } from "./images";
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -85,7 +85,7 @@ In pursuit of disseminating the wealth of information, we aim to develop a compr
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src="./images/hpidb.png" alt="" />
+            <img src="./images/hpidb..png" alt="" />
             <figcaption>HPIDB</figcaption>
           </a>
 
@@ -95,7 +95,7 @@ In pursuit of disseminating the wealth of information, we aim to develop a compr
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src="./images/intact.png" alt="" />
+            <img src='./images/intact.png' height='40px' width='80px' alt="" />
             <figcaption>IntAct</figcaption>
           </a>
 

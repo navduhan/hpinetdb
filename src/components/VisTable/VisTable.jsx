@@ -53,8 +53,8 @@ export const VisTable = ({tableRowClicked, handleSearchChange}) => {
 
           <tr>
             <th className="light">#</th>
-            <th className="light">Gene</th>
-            <th className="dark">Protein</th>
+            <th className="light">Host</th>
+            <th className="dark">Pathogen</th>
           </tr>
         </thead>
 
