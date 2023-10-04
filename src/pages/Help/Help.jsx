@@ -34,6 +34,15 @@ export default class Help extends React.Component {
 
                     <Divider />
                     <p className="infot">
+                        Host-pathogen selection page
+                    </p>
+                    <p className="infoh">
+                        The host and their corresponding pathogen can be selected for interactome search.
+                    </p>
+                    <img src="images/plant.png" className="imk" alt="" />
+
+                    <Divider />
+                    <p className="infot">
                         Host-pathogen interactomics module
                     </p>
                     <p className="infoh">
