@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { env } from "../../env";
 import './HNavbar.scss';
-import 'scss/style.scss';
+import '../../scss/style.scss';
 import lablogo from './lab_logo_red.png';
 import usulogo from './usulogo2.png';
 import dblogo from './db_logo2.png';
