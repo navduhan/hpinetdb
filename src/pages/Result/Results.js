@@ -104,14 +104,10 @@ export default class Results extends React.Component {
     if (category === 'domain'){
       // console.log(this.state.genes)
       this.openModel();
-      const mydata = async () =>{ 
-        const res = await axios
+      axios
       .post(
-        `${env.BACKEND}/api/domain_results/`, postBody
+        `${env.BACKEND}/api/domain_results/`, postBody, { crossDomain: true }
       )
-      return res
-      }
-      mydata()
       .then((res) => {
         this.closeModel();
         const dList = res.data.results;
@@ -124,10 +120,13 @@ export default class Results extends React.Component {
           hostp: res.data.hostcount,
           pathogenp: res.data.pathogencount,
         });
-      });
+      }).catch(e => {
+        console.log(e);
+    });
     }
     else{
-     axios.get(
+     axios
+      .get(
         `${env.BACKEND}/api/results/?results=${tdata}&category=${category}&page=${this.state.currentPage}&size=${this.state.perPage}`
       )
       .then((res) => {
@@ -145,7 +144,7 @@ export default class Results extends React.Component {
     }
   }
 
-downloadResults(){
+  downloadResults(){
     if (category ==='domain'){
       const species =`${pdata.species}_${pdata.pathogen}`
       axios
@@ -174,7 +173,7 @@ downloadResults(){
   componentDidMount() {
     
     this.fetchResults();
-    this.downloadResults()
+    this.downloadResults();
     
     
   }
