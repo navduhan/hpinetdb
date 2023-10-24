@@ -90,7 +90,7 @@ export default class Results extends React.Component {
   openModel = () => this.setState({ isOpen: true, dList:[]});
   closeModel = () => this.setState({ isOpen: false });
   
-  fetchResults() {
+    fetchResults() {
     const postBody = {
       species:`${pdata.species}_${pdata.pathogen}`,
       page:this.state.currentPage,
@@ -104,10 +104,14 @@ export default class Results extends React.Component {
     if (category === 'domain'){
       // console.log(this.state.genes)
       this.openModel();
-      axios
+      const mydata = async () =>{ 
+        const res = await axios
       .post(
-        `${env.BACKEND}/api/domain_results/`, postBody, { crossDomain: true }
+        `${env.BACKEND}/api/domain_results/`, postBody
       )
+      return res
+      }
+      mydata()
       .then((res) => {
         this.closeModel();
         const dList = res.data.results;
@@ -123,8 +127,7 @@ export default class Results extends React.Component {
       });
     }
     else{
-    axios
-      .get(
+     axios.get(
         `${env.BACKEND}/api/results/?results=${tdata}&category=${category}&page=${this.state.currentPage}&size=${this.state.perPage}`
       )
       .then((res) => {
@@ -142,11 +145,12 @@ export default class Results extends React.Component {
     }
   }
 
-  downloadResults(){
+downloadResults(){
     if (category ==='domain'){
+      const species =`${pdata.species}_${pdata.pathogen}`
       axios
       .get(
-        `${env.BACKEND}/api/domain_download/?species=${this.state.species}&intdb=${pdata.domdb}`
+        `${env.BACKEND}/api/domain_download/?species=${species}&intdb=${pdata.domdb}`
       )
       .then((res) => {
         const dResult = res.data.results 
