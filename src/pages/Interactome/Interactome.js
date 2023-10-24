@@ -47,7 +47,7 @@ export default class Interactome extends React.Component {
       dcheckedList: domainCheckedList,
       checkAll: false,
       dcheckAll: false,
-      status: "interolog",
+      status: "phylo",
       species:mhost ,
       pathogen:mpath,
       identity: 80,
@@ -59,6 +59,8 @@ export default class Interactome extends React.Component {
       resultid: "",
       isOpen: false,
       ppiOpen: false,
+      genomePool:'UP82',
+      phylothreshold:0.98,
       genes: '',
       hgenes:'',
       pgenes:'',
@@ -92,6 +94,9 @@ export default class Interactome extends React.Component {
     this.handleHostGeneChange=this.handleHostGeneChange.bind(this);
     this.handlePathogenGeneChange=this.handlePathogenGeneChange.bind(this);
     this.getValue = this.getValue.bind(this);
+    this.pgHandler = this.pgHandler.bind(this);
+    this.phyloThresholdHandler = this.phyloThresholdHandler.bind(this)
+
   }
 
   radioHandler(e) {
@@ -121,6 +126,9 @@ export default class Interactome extends React.Component {
   idHandler = (e) =>{
     this.setState({searchType: e.target.value})
   }
+  pgHandler = (e) =>{
+    this.setState({genomePool: e.target.value})
+  }
 
   accessionHandler = (e) =>{
     this.setState({idType:e.target.value})
@@ -128,6 +136,9 @@ export default class Interactome extends React.Component {
 
   identityHandler(e) {
     this.setState({ identity: e.target.value });
+  }
+  phyloThresholdHandler(e) {
+    this.setState({ phylothreshold: e.target.value });
   }
   coverageHandler(e) {
     this.setState({ coverage: e.target.value });
@@ -239,6 +250,7 @@ export default class Interactome extends React.Component {
         pi: this.state.pidentity,
         pc: this.state.pcoverage,
         pe: this.state.pevalue,
+
         intdb: intdbd,
         domdb: domdb,
       };
@@ -273,6 +285,41 @@ export default class Interactome extends React.Component {
 
         this.closeModel();
         window.location.replace(`${env.BASE_URL}/results/?id=${rid}`);
+      })
+      .catch((err) => console.log(err));
+      
+    }
+    if (this.state.status === 'phylo'){
+      let postBody ={
+        category: this.state.status,
+        hspecies: this.state.species,
+        pspecies: this.state.pathogen,
+        host_genes:this.state.hgenes,
+        pathogen_genes:this.state.pgenes,
+        method: this.state.genomePool,
+        threshold:this.state.phylothreshold,
+        category: this.state.status,
+        hi: this.state.identity,
+        hc: this.state.coverage,
+        he: this.state.evalue,
+        pi: this.state.pidentity,
+        pc: this.state.pcoverage,
+        pe: this.state.pevalue,
+      }
+      console.log(postBody)
+      axios
+      .post(
+        // `${env.BACKEND}/api/ppi/?species=${this.state.species}&identity=${this.state.identity}&coverage=${this.state.coverage}&evalue=${this.state.evalue}&intdb=${intdb}`
+        `${env.BACKEND}/api/phyloppi/`,
+        postBody
+      )
+      .then((res) => {
+        const rid = res.data;
+        console.log(rid);
+        this.setState({ resultid: rid });
+
+        this.closeModel();
+        // window.location.replace(`${env.BASE_URL}/results/?id=${rid}`);
       })
       .catch((err) => console.log(err));
       
@@ -876,7 +923,37 @@ export default class Interactome extends React.Component {
         
           this.state.status !== "consensus" && (
             <div>
-     
+              <div className="row flex-lg-row justify-content-center">
+              <div className="col-md-6">
+                <Radio.Group name="radiogroup" defaultValue={"UP82"}>
+                <h5>Select Genome Pool</h5>
+              <Radio value="UP82" onClick={this.pgHandler}>
+                UP82
+              </Radio>
+              <Radio value="BC18" onClick={this.pgHandler}>
+                BC18
+              </Radio>
+              <Radio value="protphylo490" onClick={this.pgHandler}>
+              ProtPhylo490
+              </Radio>
+            </Radio.Group>
+              </div>
+              <div className="col-md-4">
+                
+                <h5>Threshold (Min Similarity)</h5>
+                <div className="form-inline">
+                    {/* <label className="label-text">Identity %</label> */}
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={this.state.phylothreshold}
+                      onChange={this.phyloThresholdHandler}
+                    ></input>
+                  </div>
+              
+              </div>
+              </div>
+              <Divider />
               <div className="row flex-lg-row justify-content-center">
                 <div className="col-md-6">
                 <div className="row flex-lg-row justify-content-center">

@@ -27,8 +27,8 @@ export default class Plant extends React.Component {
       super(props);
       this.state = {
         isOpen: false,
-        species:fd[0].name,
-        pathogen:fd[0].pathogen[0],
+        species: fd[0].name,
+        pathogen: fd[0].pathogen[0],
         disease: 'Select a Disease',
         plantMap: {},
         currentPathogens: fd[0].pathogen,
@@ -73,7 +73,8 @@ export default class Plant extends React.Component {
         this.setState({
             species: e.target.value,
             currentPathogens: this.state.plantMap[species],
-            currentdisease: this.state.diseaseMap[species]
+            currentdisease: this.state.diseaseMap[species],
+            pathogen: this.state.plantMap[species][0]
         })
        
     }
@@ -93,6 +94,7 @@ export default class Plant extends React.Component {
 
 
 render(){
+  console.log(this.state.currentPathogens[0])
   localStorage.setItem(
     "param",
     JSON.stringify({
@@ -115,7 +117,7 @@ render(){
 </div>
 <div className="col-md-3">
 
-<select className="form-select ditem" onChange={this.handleSpecies} value={this.state.species}>
+<select className="form-select ditem" onChange={this.handleSpecies} defaultValue={this.state.species}>
         {/* <option value={fd[0].name}>{fd[0].sname}</option> */}
           {Data.map((sp,index) =>{return (
             <option  key={index} value={sp.name}>         
@@ -136,7 +138,7 @@ render(){
 <h5>OR select other species:</h5>
 </div>
 <div className="col-md-3">
-<select className="form-select ditem" onChange={this.handlePathogen} value={this.state.pathogen}>
+<select className="form-select ditem" onChange={this.handlePathogen} defaultValue={this.state.currentPathogens[0]}>
         {/* <option value="">Select a Pathogen Species</option> */}
           {this.state.currentPathogens.map((sp,index) =>(
             <option  key={index} value={sp}>

@@ -75,6 +75,12 @@ return(
                   <NavDropdown.Item href={`${env.BASE_URL}/plants/?id=8`} className={'species' === this.props.active ? active : className}>
                     <i>Setaria italica</i> (Foxtail)
                   </NavDropdown.Item>
+                  <NavDropdown.Item href={`${env.BASE_URL}/plants/?id=9`} className={'species' === this.props.active ? active : className}>
+                    <i>Chenopodium quinoa</i> (Quinoa)
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href={`${env.BASE_URL}/plants/?id=10`} className={'species' === this.props.active ? active : className}>
+                    <i>Eleusine coracana</i> (Ragi)
+                  </NavDropdown.Item>
 </NavDropdown>
             <Nav.Link href={`${env.BASE_URL}/datasets`} className={'datasets' === this.props.active ? active : className}>
               Datasets

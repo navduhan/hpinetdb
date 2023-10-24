@@ -43,6 +43,7 @@ export default class GO extends React.Component {
   };
 
   fetchResults() {
+    console.log( `${env.BACKEND}/api/tf/?species=${species}&sptype=${sptype}&page=${this.state.currentPage}&size=${this.state.perPage}`)
     axios
       .get(
         `${env.BACKEND}/api/tf/?species=${species}&sptype=${sptype}&page=${this.state.currentPage}&size=${this.state.perPage}`

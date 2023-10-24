@@ -52,6 +52,20 @@
     "sname": "Setaria_italica",
     "pathogen": ["aavenae"]
 
+},
+{
+    "id": "9",
+    "name": "Quinoa",
+    "sname": "Chenopodium quinoa",
+    "pathogen": ["aavenae"]
+
+},
+{
+    "id": "10",
+    "name": "Ragi",
+    "sname": "Eleusine coracana",
+    "pathogen": ["aavenae"]
+
 }
 
 ]
