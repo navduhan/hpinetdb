@@ -3,15 +3,14 @@ import {Table} from "react-bootstrap";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 import "./Results.scss";
-import 'scss/components/buttons.scss';
-import 'scss/style.scss'
+import '../../scss/components/buttons.scss';
+import '../../scss/style.scss'
 import { Divider, Button } from "antd";
 import { env } from 'env';
 import { downloadCsv } from "components/CSVDownload/CSVDownload";
 import ReactLoading from 'react-loading';
 import { sorghum_genes } from "./sorghum";
 import { foxtail_genes } from "./foxtail";
-import { Exception } from "sass";
 import { disease } from "pages/Plant/disease";
 
 const urlParams = new URLSearchParams(window.location.search);

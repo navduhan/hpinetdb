@@ -2,8 +2,8 @@ import React from "react";
 import { Divider, Radio, Checkbox, Button, Slider } from "antd";
 
 import "./Interactome.scss";
-import 'scss/components/buttons.scss';
-import 'scss/style.scss'
+import '../../scss/components/buttons.scss';
+import '../../scss/style.scss'
 import { InfoCircleOutlined} from "@ant-design/icons";
 import axios from "axios";
 import { env } from "../../env";

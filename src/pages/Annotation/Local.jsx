@@ -1,6 +1,6 @@
 import React from "react";
 import "./Local.scss";
-import 'scss/style.scss';
+import '../../scss/style.scss';
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 import Table from "react-bootstrap/Table";

@@ -1,7 +1,7 @@
 import React from "react";
 import { Divider } from "antd";
 import './Help.scss'
-import 'scss/style.scss';
+import '../../scss/style.scss';
 import { LinkOutlined } from "@ant-design/icons";
 import { Table } from "react-bootstrap";
 
