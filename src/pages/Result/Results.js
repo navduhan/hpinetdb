@@ -29,6 +29,7 @@ const pdata = JSON.parse(localStorage.getItem("param"));
 let category;
 let species;
 let genes;
+let dgenes;
 let idt;
 if (pdata) {
 
@@ -44,7 +45,11 @@ if (pdata) {
       genes = []
     }
     if (pdata.genes !== '') {
+      
       genes = pdata.genes.split(", ")
+
+      dgenes = genes['0'].split(",")
+      
     }
 
   }
@@ -81,6 +86,7 @@ export default class Results extends React.Component {
       category: category,
       idt: idt,
       genes: genes,
+      dgenes:dgenes,
     };
     this.handlePageClick = this.handlePageClick.bind(this);
     this.downloadResults = this.downloadResults.bind(this)
@@ -92,13 +98,13 @@ export default class Results extends React.Component {
  
   fetchResults() {
   
-    // console.log(postBody)
+    console.log(this.state.dgenes)
     if (category === 'domain') {
       const postBody = {
         species: `${pdata.species}_${pdata.pathogen}`,
         page: this.state.currentPage,
         size: this.state.perPage,
-        genes: this.state.genes[0].split(','),
+        genes: this.state.dgenes,
         idt: this.state.idt,
         intdb: pdata.domdb,
   
@@ -148,11 +154,12 @@ export default class Results extends React.Component {
   downloadResults() {
    
     if (category === 'domain') {
+    
       const postBody = {
         species: `${pdata.species}_${pdata.pathogen}`,
         page: this.state.currentPage,
         size: this.state.perPage,
-        genes: this.state.genes[0].split(','),
+        genes:this.state.dgenes,
         idt: this.state.idt,
         intdb: pdata.domdb,
   
