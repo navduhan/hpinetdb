@@ -102,7 +102,7 @@ export default class Results extends React.Component {
     }
     // console.log(postBody)
     if (category === 'domain') {
-      // console.log(this.state.genes)
+      console.log(postBody)
       this.openModel();
       axios
         .post(
