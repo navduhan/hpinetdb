@@ -217,9 +217,12 @@ export default class Interactome extends React.Component {
       .filter((gene) => gene); // Remove empty entries
 
     const genesString = genesArray.join(',')
+
+    
   
     this.setState({ genes: genesString });
   }
+
   handleHostGeneChange(e) {
     this.setState({ hgenes: e.target.value });
   }
@@ -265,7 +268,7 @@ export default class Interactome extends React.Component {
         domdb: domdb,
       };
     
-    console.log(postBody)
+    console.log(this.state.genes)
     
     if (this.state.status === 'domain'){
       window.location.replace(`${env.BASE_URL}/results`);

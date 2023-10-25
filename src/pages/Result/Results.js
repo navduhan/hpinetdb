@@ -8,12 +8,12 @@ import '../../scss/style.scss'
 import { Divider, Button } from "antd";
 import { env } from 'env';
 import { downloadCsv } from "components/CSVDownload/CSVDownload";
-import ReactLoading from 'react-loading';
+// import ReactLoading from 'react-loading';
 import { sorghum_genes } from "./sorghum";
 import { foxtail_genes } from "./foxtail";
 import { disease } from "pages/Plant/disease";
 import { data } from "../Annotation/data";
-
+import test from "../Interactome/test.gif"
 const urlParams = new URLSearchParams(window.location.search);
 
 const tdata = urlParams.get("id");
@@ -89,13 +89,13 @@ export default class Results extends React.Component {
 
   openModel = () => this.setState({ isOpen: true, dList: [] });
   closeModel = () => this.setState({ isOpen: false });
-
+ 
   fetchResults() {
     const postBody = {
       species: `${pdata.species}_${pdata.pathogen}`,
       page: this.state.currentPage,
       size: this.state.perPage,
-      genes: this.state.genes,
+      genes: this.state.genes[0].split(','),
       idt: this.state.idt,
       intdb: pdata.domdb,
 
@@ -336,7 +336,13 @@ export default class Results extends React.Component {
               <tr>
                 <td colSpan={6}></td>
                 <td >
-                  <ReactLoading type={'spokes'} color={'#bff1de'} />
+                  {/* <ReactLoading type={'spokes'} color={'#bff1de'} /> */}
+                  <img
+                src={test}
+                className="loading"
+                height="50px"
+                alt=""
+              ></img>
                 </td>
               </tr>
 
@@ -770,7 +776,13 @@ export default class Results extends React.Component {
                     <tr>
                       <td colSpan={6}></td>
                       <td >
-                        <ReactLoading type={'spokes'} color={'#bff1de'} />
+                        {/* <ReactLoading type={'spokes'} color={'#bff1de'} /> */}
+                        <img
+                src={test}
+                className="loading"
+                height="50px"
+                alt=""
+              ></img>
                       </td>
                     </tr>
                   </>
