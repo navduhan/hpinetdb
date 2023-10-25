@@ -298,7 +298,6 @@ export default class Interactome extends React.Component {
         pathogen_genes:this.state.pgenes,
         method: this.state.genomePool,
         threshold:this.state.phylothreshold,
-        category: this.state.status,
         hi: this.state.identity,
         hc: this.state.coverage,
         he: this.state.evalue,
