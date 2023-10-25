@@ -158,7 +158,7 @@ export default class Results extends React.Component {
      
       axios
         .post(
-          `${env.BACKEND}/api/domain_results/`, postBody, { crossDomain: true }
+          `${env.BACKEND}/api/domain_download/`, postBody, { crossDomain: true }
         )
         .then((res) => {
           const dResult = res.data.results
