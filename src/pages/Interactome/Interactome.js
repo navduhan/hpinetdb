@@ -236,7 +236,7 @@ export default class Interactome extends React.Component {
     this.setState({geneHintOn: hint});
   }
   getInteractions() {
-    this.openModel();
+    
 
     const intdb = this.state.checkedList.map((element) => {
       return element.toLowerCase();
@@ -274,6 +274,7 @@ export default class Interactome extends React.Component {
       window.location.replace(`${env.BASE_URL}/results`);
     }
     if (this.state.status === 'gosim'){
+      this.openModel();
       let postBody ={
         category: this.state.status,
         hspecies: this.state.species,
@@ -303,6 +304,7 @@ export default class Interactome extends React.Component {
       
     }
     if (this.state.status === 'phylo'){
+      this.openModel();
       let postBody ={
         category: this.state.status,
         hspecies: this.state.species,
@@ -331,12 +333,13 @@ export default class Interactome extends React.Component {
         this.setState({ resultid: rid });
 
         this.closeModel();
-        // window.location.replace(`${env.BASE_URL}/results/?id=${rid}`);
+        window.location.replace(`${env.BASE_URL}/results/?id=${rid}`);
       })
       .catch((err) => console.log(err));
       
     }
     else{
+      this.openModel();
     axios
       .post(
         // `${env.BACKEND}/api/ppi/?species=${this.state.species}&identity=${this.state.identity}&coverage=${this.state.coverage}&evalue=${this.state.evalue}&intdb=${intdb}`
@@ -372,6 +375,8 @@ export default class Interactome extends React.Component {
         domdb: this.state.dcheckedList,
         ids: this.state.idType,
         genes:this.state.genes,
+        hgenes:this.state.hgenes,
+        pgenes:this.state.pgenes
       })
     );
     let genePlaceholder = 'Example ENSEMBL-IDs: TraesCS6A02G059000, TraesCS5A02G216600, TraesCS2A02G417800';

@@ -91,17 +91,18 @@ export default class Results extends React.Component {
   closeModel = () => this.setState({ isOpen: false });
  
   fetchResults() {
-    const postBody = {
-      species: `${pdata.species}_${pdata.pathogen}`,
-      page: this.state.currentPage,
-      size: this.state.perPage,
-      genes: this.state.genes[0].split(','),
-      idt: this.state.idt,
-      intdb: pdata.domdb,
-
-    }
+  
     // console.log(postBody)
     if (category === 'domain') {
+      const postBody = {
+        species: `${pdata.species}_${pdata.pathogen}`,
+        page: this.state.currentPage,
+        size: this.state.perPage,
+        genes: this.state.genes[0].split(','),
+        idt: this.state.idt,
+        intdb: pdata.domdb,
+  
+      }
       console.log(postBody)
       this.openModel();
       axios
@@ -145,17 +146,17 @@ export default class Results extends React.Component {
   }
 
   downloadResults() {
-    const postBody = {
-      species: `${pdata.species}_${pdata.pathogen}`,
-      page: this.state.currentPage,
-      size: this.state.perPage,
-      genes: this.state.genes[0].split(','),
-      idt: this.state.idt,
-      intdb: pdata.domdb,
-
-    }
+   
     if (category === 'domain') {
-     
+      const postBody = {
+        species: `${pdata.species}_${pdata.pathogen}`,
+        page: this.state.currentPage,
+        size: this.state.perPage,
+        genes: this.state.genes[0].split(','),
+        idt: this.state.idt,
+        intdb: pdata.domdb,
+  
+      }
       axios
         .post(
           `${env.BACKEND}/api/domain_download/`, postBody, { crossDomain: true }
