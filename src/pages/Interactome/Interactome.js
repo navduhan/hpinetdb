@@ -47,7 +47,7 @@ export default class Interactome extends React.Component {
       dcheckedList: domainCheckedList,
       checkAll: false,
       dcheckAll: false,
-      status: "phylo",
+      status: "interolog",
       species:mhost ,
       pathogen:mpath,
       identity: 80,
@@ -1084,7 +1084,7 @@ export default class Interactome extends React.Component {
             <div className="col-md-2">
               <Button
                 type="primary"
-                shape="round"
+                shape="square"
                 size="large"
                 onClick={this.getInteractions}
               >

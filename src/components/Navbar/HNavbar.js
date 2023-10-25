@@ -40,7 +40,7 @@ return(
       <img src={lablogo} height={50} alt=''></img>
     </div>
     <div className="col-md-2">
-    <img src={dblogo} height={50} alt=''></img>
+    <img src={dblogo} height={40} alt=''></img>
 
     </div>
     <div className=" col-md-6 mt-2 nav-wrapper mx-auto">

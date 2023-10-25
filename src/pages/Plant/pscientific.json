@@ -27,8 +27,17 @@
         "pcoronta":["Fungi","Basidiomycota", "Pucciniomycetes","Pucciniales", "Pucciniaceae", "Puccinia","P. coronata var_avenae_f_sp_avenae"],
         "pcoronafaciens":["Bacteria","Pseudomonadota", "Gammaproteobacteria","Pseudomonadales", "Pseudomonadaceae", "Pseudomonas","P. coronafaciens pv_coronafaciens"],
         "mphaseolina":["Fungi","Ascomycota","Dothideomycetes","Botryosphaeriales","Botryosphaeriaceae","Macrophomina", "M. phaseolina ms6"],
-       "psyringae":["Bacteria","Pseudomonadota", "Gammaproteobacteria","Pseudomonadales", "Pseudomonadaceae", "Pseudomonas","P. syringae"]
-        
+        "psyringae":["Bacteria","Pseudomonadota", "Gammaproteobacteria","Pseudomonadales", "Pseudomonadaceae", "Pseudomonas","P. syringae"],
+        "mgrisea":["Fungi", "Ascomycota", "Sordariomycetes", "Magnaporthales", "Magnaporthaceae", "Magnaporthe", "grisea"],
+        "meleuinis": ["Fungi", "Ascomycota", "Sordariomycetes", "Xylariales", "Xylariaceae", "Melanopsichium", "eleusinis"],
+        "smacrospora":["Fungi", "Oomycota", "Peronosporomycetes", "Pythiales", "Pythiaceae", "Sclerophthora", "macrospora"],
+        "ueragrostidis": ["Fungi", "Basidiomycota", "Pucciniomycetes", "Pucciniales", "Pucciniaceae", "Uromyces", "eragrostidis"],
+        "xeleusinae":["Bacteria", "Proteobacteria", "Gammaproteobacteria", "Xanthomonadales", "Xanthomonadaceae", "Xanthomonas", "eleusinae"],
+        "pfarinosa":["Fungi", "Oomycota", "Peronosporomycetes", "Peronosporales", "Peronosporaceae", "Peronospora", "farinosa"],
+        "pexifua": ["Fungi", "Ascomycota", "Dothideomycetes", "Pleosporales", "Incertae sedis", "Phoma", "exiguavar. foveata"],
+        "ahyalospora":["Fungi", "Ascomycota", "Dothideomycetes", "Pleosporales", "Ascochytiaceae", "Ascochyta", "hyalospora"],
+        "srolfsii":["Fungi", "Basidiomycota", "Agaricomycetes", "Agaricales", "Atheliaceae", "Sclerotium", "rolfsii"],
+        "pzingerberum":["Fungi", "Oomycota", "Pythiomycetes", "Pythiales", "Pythiaceae", "Pythium", "zingiberum"]
     }
     
 ]

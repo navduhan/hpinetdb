@@ -57,15 +57,14 @@
     "id": "9",
     "name": "Quinoa",
     "sname": "Chenopodium quinoa",
-    "pathogen": ["aavenae"]
-
+    "pathogen": ["pfarinosa","pexifua","ahyalospora","srolfsii","pzingerberum"]
+    
 },
 {
     "id": "10",
     "name": "Ragi",
     "sname": "Eleusine coracana",
-    "pathogen": ["aavenae"]
-
+    "pathogen": ["mgrisea","meleuinis","smacrospora", "ueragrostidis", "xeleusinae"]
 }
 
 ]

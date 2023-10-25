@@ -31,4 +31,16 @@ export const disease={
     Wheat_pstriiformis: "Stripe rust",
     Wheat_ptriticina: "Leaf rust",
     Wheat_tindica: "Karnal bunt",
+    Ragi_mgrisea:"Blast",
+    Ragi_meleuinis:"Smut",
+    Ragi_smacrospora:"Downy mildew",
+    Ragi_ueragrostidis:"Rust",
+    Ragi_xeleusinae:"Bacterial leaf spot",
+    Quinoa_pfarinosa: "Downy mildew",
+    Quinoa_pexifua:	"Brown stalk rot",
+    Quinoa_ahyalospora:"Leaf spot",
+    Quinoa_srolfsii: "Seed rot",
+    Quinoa_pzingerberum: "Damping off"
 }
+
+

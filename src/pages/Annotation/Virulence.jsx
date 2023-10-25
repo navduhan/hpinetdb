@@ -6,7 +6,7 @@ import ReactPaginate from "react-paginate";
 import Table from "react-bootstrap/Table";
 import { Divider } from "antd";
 import { env } from '../../env';
-
+import {data} from "./data";
 const urlParams = new URLSearchParams(window.location.search);
 
 const idt = urlParams.get("id");
@@ -80,7 +80,7 @@ export default class GO extends React.Component {
       <div className="container">
         <Divider />
         <div className="row flex-lg-row justify-content-center g-2 my-2">
-          <h5>Virulence Proteins </h5>
+          <h5>Virulence Proteins of <i>{data[idt]}</i></h5>
           <Divider />
         </div>
         <div className="row flex-lg-row align-items-center g-2 my-2">

@@ -12,6 +12,7 @@ import ReactLoading from 'react-loading';
 import { sorghum_genes } from "./sorghum";
 import { foxtail_genes } from "./foxtail";
 import { disease } from "pages/Plant/disease";
+import {data} from "../Annotation/data";
 
 const urlParams = new URLSearchParams(window.location.search);
 
@@ -244,7 +245,7 @@ export default class Results extends React.Component {
       ddata = disease[`${pdata.species}_${pdata.pathogen}`]
       console.log(ddata)
     }
-    const csvButton = <Button type="primary" shape="round" size="large" onClick={() => downloadCsv(this.state.dResult, this.state.category)}> Download CSV</Button>;
+    const csvButton = <Button type="primary" shape="round" size="large" onClick={() => downloadCsv(this.state.dResult, this.state.category)}> <b>Download CSV</b></Button>;
     if (this.state.List.length>1){
       
       results = ( <><div className="row flex-lg-row align-items-center g-2 my-2 mx-2">
@@ -314,6 +315,17 @@ export default class Results extends React.Component {
           <th>Host GO Terms</th>
           <th>Pathogen Go Terms</th>
           <th>Score</th>
+        
+          </>
+)}
+ {this.state.category ==='phylo' && (
+          <>
+          <th>Host</th>
+          <th>Expression</th>
+          <th>Pathogen</th>
+          <th>Score</th>
+          <th>Host Pattern</th>
+          <th>Pathogen Pattern</th>
         
           </>
 )}
@@ -601,6 +613,15 @@ export default class Results extends React.Component {
             <td>{result["Score"]*100}</td>
             </>
      )}
+        {this.state.category==='phylo' &&(
+       <>
+           
+            <td>{result["Score"]}</td>
+            <td>{result["Host_Pattern"]}</td>
+            <td>{result["Pathogen_Pattern"]}</td>
+            </>
+     )}
+
 
           </tr>
         ))}
@@ -639,27 +660,31 @@ export default class Results extends React.Component {
          <>
         <Divider />
         <div className="row flex-lg-row align-items-center ">
-          <p className="heading2"> Your Selected Search Parameters are:</p>
-          <div className="col-md-6">
+          <h5> <b>Host:</b> <i>{data[pdata.species]}</i> ({pdata.species})&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <b>Pathogen:</b> <i>{data[pdata.pathogen]}</i></h5>
+         <Divider/>
+          <div className="col-md-2">
+            <b>Parameters:</b>
+          </div>
+          <div className="col-md-5">
             <div className="row mx-4">
               <div className="col-md-2 heading2">
                 <b>Host:</b>
               </div>
-              <div className="col-md-8">
+              <div className="col-md-10">
                 <p className="heading2">
                   {" "}
-                  evalue:&nbsp; {pdata.he}&nbsp; &nbsp; identity:&nbsp;{" "}
-                  {pdata.hi} &nbsp; &nbsp; coverage:&nbsp; {pdata.hc}
+                  Evalue:&nbsp; {pdata.he}&nbsp; &nbsp; Identity:&nbsp;{" "}
+                  {pdata.hi} &nbsp; &nbsp; Coverage:&nbsp; {pdata.hc}
                 </p>
               </div>
             </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-5">
             <div className="row mx-4">
               <div className="col-md-2 heading2">
                 <b>Pathogen:</b>
               </div>
-              <div className="col-md-8">
+              <div className="col-md-10">
                 <p className="heading2">
                   {" "}
                   evalue:&nbsp; {pdata.pe}&nbsp; &nbsp; identity:&nbsp;{" "}
@@ -690,8 +715,10 @@ export default class Results extends React.Component {
       <>
       <Divider />
         <div className="row flex-lg-row align-items-center ">
-          <p className="heading2"> Your Selected Search Parameters are: &nbsp;{pdata.domdb}</p>
+        <h5> <b>Host:</b> <i>{data[pdata.species]}</i> ({pdata.species})&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <b>Pathogen:</b> <i>{data[pdata.pathogen]}</i></h5>
+          
           <Divider/>
+          <p className="heading2"> Your selected domain databases: &nbsp;{pdata.domdb.toString()}</p>
           </div>
       <div className="row flex-lg-row align-items-center g-2 my-2 mx-2">
       <div className="col-md-2">
@@ -841,9 +868,7 @@ export default class Results extends React.Component {
         </td>
 </>)}
 {pdata.species!=='Wheat' && pdata.species!=='Maize' && pdata.species!=='Rice' && pdata.species!=='Sorghum' && pdata.species!=='Foxtail' && pdata.species!=='Barley' &&(
-
 <>
-
           <td>
             <a
               href={`https://plants.ensembl.org/Multi/Search/Results?species=all;idx=;q=${result["Host_Protein"]};site=ensemblunit`}

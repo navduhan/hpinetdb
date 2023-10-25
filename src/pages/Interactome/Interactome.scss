@@ -36,6 +36,14 @@
 .contbg{
     background-color: whitesmoke;
 }
+.ant-btn-primary {
+  background-color: $palette-2;
+  border-radius: 12px;
+}
+.ant-btn-primary:hover {
+  background-color: $palette-1;
+}
+
 
 
 

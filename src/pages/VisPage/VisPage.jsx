@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Divider } from 'antd';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
@@ -115,6 +115,7 @@ export default class VisPage extends Component {
           {menuComponent}
         </Col>
       </Row>
+      <Divider />
       </div>
     );
   }

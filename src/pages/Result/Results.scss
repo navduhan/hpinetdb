@@ -15,7 +15,7 @@
 
   }
   .pagination > .active > a{
-    background-color: #47ccde ;
+    background-color: $palette-2 ;
     /* border-color: #47ccde ; */
     color: #fff;
   }
@@ -24,7 +24,7 @@
     margin: 2px;
     position: relative;
     display: block;
-    color: #1890ff;
+    color: $palette-2;
     font-weight: 600;
     text-decoration: none;
     background-color: #fff;
@@ -34,12 +34,12 @@
   .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
     z-index: 3;
     color: #fff;
-    background-color: #1890ff;
-    border-color: #1890ff;
+    background-color: $palette-2;
+    border-color: $palette-2;
    
   }
   .pagination > li > a, .pagination > li > span{
-    color: #1890ff
+    color: $palette-2
   }
   .pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span{
     border-radius: unset
@@ -130,4 +130,11 @@
 
 .modal-backdrop{
   background-color: rgba(0, 0, 0, 0) !important;
+}
+.ant-btn-primary {
+  background-color: $palette-2;
+  border-radius: 12px;
+}
+.ant-btn-primary:hover {
+  background-color: $palette-1;
 }

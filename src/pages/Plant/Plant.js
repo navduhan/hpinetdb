@@ -155,6 +155,9 @@ render(){
 <div className="col-md-6 ">
 <h4>Disease: {ddata} </h4>
 </div>
+<div className="col-md-6 ">
+<h4>Pathogen Type: {scientific[0][`${this.state.pathogen}`][0]} </h4>
+</div>
 </div>
 
 <Divider />

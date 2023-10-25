@@ -1,4 +1,14 @@
-export const pathogen = {
+export const data = {
+    Wheat: "Triticum aestivum",
+    Maize:"Zea mays",
+    Rice:"Oryza sativa",
+    Sorghum: "Sorghum bicolor",
+    Barley:"Hordeum vulgare",
+    Rye:"Secale_cereale",
+    Oat:"Avena sativa",
+    Foxtail:"Setaria_italica",
+    Ragi:"Eleusine coracana",
+    Quinoa:"Chenopodium quinoa",
     psyringaewheat:"Pseudomonas syringae b728a",
     pstriiformis:"Puccinia striiformis PST-130", 
     ptriticina:"Puccinia triticina", 
@@ -26,17 +36,7 @@ export const pathogen = {
     pcoronta:"Puccinia coronata var_avenae_f_sp_avenae",
     pcoronafaciens:"Pseudomonas coronafaciens pv_coronafaciens",
     mphaseolina:"Macrophomina phaseolina ms6",
-    psyringae:"Pseudomonas_syringae",
-    mgrisea:"Magnaporthe grisea",
-    meleuinis:"Melanopsichium eleusinis",
-    smacrospora:"Sclerophthora macrospora",
-    ueragrostidis:"Uromyces eragrostidis",
-    xeleusinae:"Xanthomonas eleusinae",
-    pfarinosa:"Peronospora farinosa",
-    pexifua:"Phoma exiguavar. foveata",
-    ahyalospora:"Ascochyta hyalospora",
-    srolfsii:"Sclerotium rolfsii",
-    pzingerberum:"Pythium zingiberum",
+    psyringae:"Pseudomonas_syringae"
 }
 
 
