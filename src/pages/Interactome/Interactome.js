@@ -65,7 +65,7 @@ export default class Interactome extends React.Component {
       hgenes:'',
       pgenes:'',
       gomethod:'wang',
-      goscore:'bwa',
+      goscore:'max',
       gothreshold:0.5,
       geneHintOn:false,
     };
@@ -288,7 +288,6 @@ export default class Interactome extends React.Component {
       console.log(postBody)
       axios
       .post(
-        // `${env.BACKEND}/api/ppi/?species=${this.state.species}&identity=${this.state.identity}&coverage=${this.state.coverage}&evalue=${this.state.evalue}&intdb=${intdb}`
         `${env.BACKEND}/api/goppi/`,
         postBody
       )
@@ -338,7 +337,7 @@ export default class Interactome extends React.Component {
       .catch((err) => console.log(err));
       
     }
-    else{
+    if (this.state.status === 'interolog'){
       this.openModel();
     axios
       .post(
@@ -376,16 +375,20 @@ export default class Interactome extends React.Component {
         ids: this.state.idType,
         genes:this.state.genes,
         hgenes:this.state.hgenes,
-        pgenes:this.state.pgenes
+        pgenes:this.state.pgenes,
+        gomethod:this.state.gomethod,
+       goscore:this.state.goscore,
+       gothreshold:this.state.gothreshold
       })
     );
     let genePlaceholder = 'Example ENSEMBL-IDs: TraesCS6A02G059000, TraesCS5A02G216600, TraesCS2A02G417800';
     // let geneSample = 'TraesCS6A02G059000, TraesCS5A02G216600, TraesCS2A02G417800, TraesCS7A02G408100, TraesCS7A02G434500, TraesCS2A02G203000, TraesCS7A02G178900, TraesCS4B02G350800';
       let geneSample = host_genes['Wheat']
-    if (this.state.idType === 'pathogen') {
-      genePlaceholder = 'Example NCBI-IDs: OAJ02622, OAI99867, OAJ05030';
-      geneSample = 'OAJ02622, OAI99867, OAJ05030, OAI99147';
-    }
+      let pathogenGeneSample = host_genes['tindica']
+    // if (this.state.idType === 'pathogen') {
+    //   genePlaceholder = 'Example NCBI-IDs: OAJ02622, OAI99867, OAJ05030';
+    //   geneSample = 'OAJ02622, OAI99867, OAJ05030, OAI99147';
+    // }
       // console.log(this.state.resultid)
     return (
       <div className="container">
@@ -878,7 +881,7 @@ export default class Interactome extends React.Component {
 
                 </div>
                 <div className="col-md-4">
-                <Radio.Group name="radiogroup" defaultValue={"bma"}>
+                <Radio.Group name="radiogroup" defaultValue={"max"}>
                 <h5>Select GO Sem Similarity Scoring</h5>
               <Radio value="bma" onClick={this.goScoreradioHandler}>
                 Best-match average
@@ -919,7 +922,7 @@ export default class Interactome extends React.Component {
           <div className="col-md-4">
 
          <Button className="kbl-btn-1 mx-3" onClick={e => {
-                        this.setState({pgenes: geneSample});
+                        this.setState({pgenes: pathogenGeneSample});
                         this.setState({hgenes: geneSample});
                       }}>Sample Data</Button>
                     <Button className="kbl-btn-2" onClick={e => {
@@ -1068,8 +1071,8 @@ export default class Interactome extends React.Component {
           <div className="col-md-4">
 
          <Button className="kbl-btn-1 mx-3" onClick={e => {
-                        this.setState({pgenes: geneSample});
-                        this.setState({hgenes: geneSample});
+                    this.setState({pgenes: pathogenGeneSample});
+                    this.setState({hgenes: geneSample});
                       }}>Sample Data</Button>
                     <Button className="kbl-btn-2" onClick={e => {
                         this.setState({pgenes: ""})

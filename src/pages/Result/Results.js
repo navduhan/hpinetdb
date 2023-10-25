@@ -133,7 +133,7 @@ export default class Results extends React.Component {
         .then((res) => {
           const List = res.data.results;
           const dl = Math.ceil(res.data.total / this.state.perPage);
-          console.log(res.data.total)
+          console.log(res.data)
           this.setState({
             List,
             pageCount: dl,
@@ -336,7 +336,6 @@ export default class Results extends React.Component {
                   <th>Score</th>
                   <th>Host Pattern</th>
                   <th>Pathogen Pattern</th>
-
                 </>
               )}
             </tr>
@@ -532,7 +531,7 @@ export default class Results extends React.Component {
                     {result["Pathogen_Protein"]}
                   </a>
                 </td>
-                {this.state.category !== 'gosim' && (
+                {this.state.category !== 'gosim' && this.state.category !=='phylo' && (
                   <>
                     <td>
                       {console.log(result["ProteinA"])}
@@ -631,9 +630,8 @@ export default class Results extends React.Component {
                 )}
                 {this.state.category === 'phylo' && (
                   <>
-
-                    <td>{result["Score"]}</td>
-                    <td>{result["Host_Pattern"]}</td>
+                    <td>{parseFloat(result["Score"]).toFixed(2)}</td>
+                    <td className="tdd">{result["Host_Pattern"].match(/.{1,10}/g)}</td>
                     <td>{result["Pathogen_Pattern"]}</td>
                   </>
                 )}
@@ -676,7 +674,7 @@ export default class Results extends React.Component {
           <>
             <Divider />
             <div className="row flex-lg-row align-items-center ">
-              <h5> <b>Host:</b> <i>{data[pdata.species]}</i> ({pdata.species})&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <b>Pathogen:</b> <i>{data[pdata.pathogen]}</i></h5>
+              <h5> <b>Host:</b> <i>{data[pdata.species]}</i> ({pdata.species})&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <b>Pathogen:</b> <i>{data[pdata.pathogen]}</i>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<b>Method:</b>  Interolog</h5>
               <Divider />
               <div className="col-md-2">
                 <b>Parameters:</b>
@@ -719,7 +717,65 @@ export default class Results extends React.Component {
           <>
             <Divider />
             <div className="row flex-lg-row align-items-center ">
-              <h4> Gene Ontology Sementic Similarity</h4>
+              <h5> <b>Host:</b> <i>{data[pdata.species]}</i> ({pdata.species})&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <b>Pathogen:</b> <i>{data[pdata.pathogen]}</i>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<b>Method:</b>  Gene Ontology Sementic Similarity </h5>
+              <Divider />
+              <div className="col-md-3">
+                <b>Parameters:</b>
+              </div>
+              <div className="col-md-3">
+                <b>Method:</b>&nbsp;&nbsp;{pdata.gomethod}
+              </div>
+              <div className="col-md-3">
+                <b>Scoring:</b>&nbsp;&nbsp;{pdata.goscore}
+              </div>
+              <div className="col-md-3">
+                <b>Score Threashold:</b>&nbsp;&nbsp;{pdata.gothreshold}
+              </div>
+              <Divider/>
+            </div>
+           
+            {results}
+          </>
+
+        )}
+         {this.state.category === 'phylo' && (
+          <>
+            <Divider />
+            <div className="row flex-lg-row align-items-center ">
+              <h5> <b>Host:</b> <i>{data[pdata.species]}</i> ({pdata.species})&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <b>Pathogen:</b> <i>{data[pdata.pathogen]}</i>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<b>Method:</b>  Phylogenetic Profiling</h5>
+              <Divider />
+              <div className="col-md-2">
+                <b>Parameters:</b>
+              </div>
+              <div className="col-md-5">
+                <div className="row mx-4">
+                  <div className="col-md-2 heading2">
+                    <b>Host:</b>
+                  </div>
+                  <div className="col-md-10">
+                    <p className="heading2">
+                      {" "}
+                      Evalue:&nbsp; {pdata.he}&nbsp; &nbsp; Identity:&nbsp;{" "}
+                      {pdata.hi} &nbsp; &nbsp; Coverage:&nbsp; {pdata.hc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-5">
+                <div className="row mx-4">
+                  <div className="col-md-2 heading2">
+                    <b>Pathogen:</b>
+                  </div>
+                  <div className="col-md-10">
+                    <p className="heading2">
+                      {" "}
+                      evalue:&nbsp; {pdata.pe}&nbsp; &nbsp; identity:&nbsp;{" "}
+                      {pdata.pi} &nbsp; &nbsp; coverage:&nbsp; {pdata.pc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <Divider />
             </div>
             {results}
