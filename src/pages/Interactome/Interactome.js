@@ -208,7 +208,17 @@ export default class Interactome extends React.Component {
    
   }
   handleGeneChange(e) {
-    this.setState({ genes: e.target.value });
+    const input = e.target.value;
+  
+    // Split the input based on commas, new lines, and tabs
+    const genesArray = input
+      .split(/,|\n|\t/)
+      .map((gene) => gene.trim()) // Trim each gene
+      .filter((gene) => gene); // Remove empty entries
+
+    const genesString = genesArray.join(',')
+  
+    this.setState({ genes: genesString });
   }
   handleHostGeneChange(e) {
     this.setState({ hgenes: e.target.value });

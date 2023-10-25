@@ -10,7 +10,19 @@ import {data} from "./data";
 const urlParams = new URLSearchParams(window.location.search);
 
 const idt = urlParams.get("id");
-console.log(idt)
+let term = ''
+let tm = ''
+    if (idt ==='effector'){
+        term = 'Effector'
+    }
+    if (idt === 'secretory'){
+        term = 'Secretory'
+    }
+    if (idt ==='effector_and_secretory'){
+        tm = idt.split("_")
+        term = `${tm[0].charAt(0).toUpperCase() + tm[0].slice(1)} ${tm[1]} ${tm[2].charAt(0).toUpperCase() + tm[2].slice(1)}`
+
+    }
 export default class GO extends React.Component {
   constructor({ props }) {
     super(props);
@@ -80,14 +92,14 @@ export default class GO extends React.Component {
       <div className="container">
         <Divider />
         <div className="row flex-lg-row justify-content-center g-2 my-2">
-          <h5>Virulence Proteins of <i>{data[idt]}</i></h5>
+          <h5>{term} Proteins of <i>{data[idt]}</i></h5>
           <Divider />
         </div>
         <div className="row flex-lg-row align-items-center g-2 my-2">
           <h5>
             {" "}
             Showing {this.state.offset + 1} to {this.state.offset + 25} of{" "}
-            {this.state.total} {idt.charAt(0).toUpperCase() + idt.slice(1)} Proteins
+            {this.state.total} {term} Proteins
           </h5>
         </div>
         <Table responsive className="kbl-table table-borderless">

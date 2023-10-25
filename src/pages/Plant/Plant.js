@@ -225,17 +225,17 @@ return(<li key={index}>{sp}</li>)
                   </a>
                 </li>
                 <li>
-                  <a className="linked" href={`${env.BASE_URL}/virulence/?id=effector`}>
+                  <a className="linked" href={`${env.BASE_URL}/virulence/?id=effector&species=${this.state.pathogen}`}>
                     Effector Proteins
                   </a>
                 </li>
                 <li>
-                  <a className="linked" href={`${env.BASE_URL}/virulence/?id=secretory`}>
+                  <a className="linked" href={`${env.BASE_URL}/virulence/?id=secretory&species=${this.state.pathogen}`}>
                     Secretory Proteins
                   </a>
                 </li>
                 <li>
-                  <a className="linked" href={`${env.BASE_URL}/virulence/?id=effector_and_secretory`}>
+                  <a className="linked" href={`${env.BASE_URL}/virulence/?id=effector_and_secretory&species=${this.state.pathogen}`}>
                     Effector and Secretory Proteins
                   </a>
                 </li>
