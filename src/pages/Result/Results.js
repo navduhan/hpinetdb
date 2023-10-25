@@ -145,11 +145,20 @@ export default class Results extends React.Component {
   }
 
   downloadResults() {
+    const postBody = {
+      species: `${pdata.species}_${pdata.pathogen}`,
+      page: this.state.currentPage,
+      size: this.state.perPage,
+      genes: this.state.genes[0].split(','),
+      idt: this.state.idt,
+      intdb: pdata.domdb,
+
+    }
     if (category === 'domain') {
-      const species = `${pdata.species}_${pdata.pathogen}`
+     
       axios
-        .get(
-          `${env.BACKEND}/api/domain_download/?species=${species}&intdb=${pdata.domdb}`
+        .post(
+          `${env.BACKEND}/api/domain_results/`, postBody, { crossDomain: true }
         )
         .then((res) => {
           const dResult = res.data.results
