@@ -58,8 +58,51 @@ export const downloadCsv = (data, tid) => {
           item.DomainA_interpro,
           item.DomainB_name,
           item.DomainB_interpro,
-          item.score,
+          item.Score,
           
+        ]),
+      ]
+        .map((e) => e.join(","))
+        .join("\n");
+      //  console.log(csvString);
+    }
+    if (tid === "gosim") {
+      csvString = [
+        [
+          "Host Protein",
+          "Pathogen Protein",
+          "Host GO Terms",
+          "Pathogen Go Terms",
+          "Score"
+        ],
+        ...data.map((item) => [
+          item.Host_Protein,
+          item.Pathogen_Protein,
+          item.Host_GO,
+          item.Pathogen_GO,
+          item.Score,
+          
+        ]),
+      ]
+        .map((e) => e.join(","))
+        .join("\n");
+      //  console.log(csvString);
+    }
+    if (tid === "phylo") {
+      csvString = [
+        [
+          "Host Protein",
+          "Pathogen Protein",
+          "Score",
+          "Host Pattern",
+          "Pathogen Pattern",
+        ],
+        ...data.map((item) => [
+          item.Host_Protein,
+          item.Pathogen_Protein,
+          item.Score,
+          item.Host_Pattern,
+          item.Pathogen_Pattern,  
         ]),
       ]
         .map((e) => e.join(","))

@@ -224,11 +224,30 @@ export default class Interactome extends React.Component {
   }
 
   handleHostGeneChange(e) {
-    this.setState({ hgenes: e.target.value });
+    const input = e.target.value;
+  
+    // Split the input based on commas, new lines, and tabs
+    const genesArray = input
+      .split(/,|\n|\t/)
+      .map((gene) => gene.trim()) // Trim each gene
+      .filter((gene) => gene); // Remove empty entries
+
+    const genesString = genesArray.join(',')
+    this.setState({ hgenes: genesString });
   }
 
   handlePathogenGeneChange(e) {
-    this.setState({ pgenes: e.target.value });
+    const input = e.target.value;
+  
+    // Split the input based on commas, new lines, and tabs
+    const genesArray = input
+      .split(/,|\n|\t/)
+      .map((gene) => gene.trim()) // Trim each gene
+      .filter((gene) => gene); // Remove empty entries
+
+    const genesString = genesArray.join(',')
+
+    this.setState({ pgenes: genesString });
   }
 
 
@@ -299,7 +318,7 @@ export default class Interactome extends React.Component {
         this.closeModel();
         window.location.replace(`${env.BASE_URL}/results/?id=${rid}`);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err.response));
       
     }
     if (this.state.status === 'phylo'){
@@ -324,7 +343,7 @@ export default class Interactome extends React.Component {
       .post(
         // `${env.BACKEND}/api/ppi/?species=${this.state.species}&identity=${this.state.identity}&coverage=${this.state.coverage}&evalue=${this.state.evalue}&intdb=${intdb}`
         `${env.BACKEND}/api/phyloppi/`,
-        postBody
+        postBody, {timeout:300000}
       )
       .then((res) => {
         const rid = res.data;
@@ -334,7 +353,7 @@ export default class Interactome extends React.Component {
         this.closeModel();
         window.location.replace(`${env.BASE_URL}/results/?id=${rid}`);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err.response));
       
     }
     if (this.state.status === 'interolog'){
