@@ -75,10 +75,10 @@ export default class Home extends React.Component {
      <td> <i>Setaria italica</i> </td> <td> Foxtail</td> <td>38,826</td><td>5948</td><td>139</td><td>1,886</td> <td><a href={`${env.BASE_URL}/plants/?id=8`}>Get interactions</a></td>
     </tr>  
     <tr>
-     <td> <i>Chenopodium quinoa</i> </td> <td>Quinoa</td> <td>53,699</td><td>5948</td><td>139</td><td>3,056</td> <td><a href={`${env.BASE_URL}/plants/?id=8`}>Get interactions</a></td>
+     <td> <i>Chenopodium quinoa</i> </td> <td>Quinoa</td> <td>53,699</td><td>5948</td><td>139</td><td>3,056</td> <td><a href={`${env.BASE_URL}/plants/?id=9`}>Get interactions</a></td>
     </tr>   
     <tr>
-     <td> <i>Eleusine coracana</i> </td> <td>Ragi</td> <td>54,698</td><td>5948</td><td>139</td><td>2,611</td> <td><a href={`${env.BASE_URL}/plants/?id=8`}>Get interactions</a></td>
+     <td> <i>Eleusine coracana</i> </td> <td>Ragi</td> <td>54,698</td><td>5948</td><td>139</td><td>2,611</td> <td><a href={`${env.BASE_URL}/plants/?id=10`}>Get interactions</a></td>
     </tr>                              
   </tbody>
   </Table>
