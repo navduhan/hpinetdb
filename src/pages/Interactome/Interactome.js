@@ -343,7 +343,7 @@ export default class Interactome extends React.Component {
       .post(
         // `${env.BACKEND}/api/ppi/?species=${this.state.species}&identity=${this.state.identity}&coverage=${this.state.coverage}&evalue=${this.state.evalue}&intdb=${intdb}`
         `${env.BACKEND}/api/phyloppi/`,
-        postBody, {timeout:300000}
+        postBody
       )
       .then((res) => {
         const rid = res.data;
