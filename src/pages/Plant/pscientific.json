@@ -28,16 +28,18 @@
         "pcoronafaciens":["Bacteria","Pseudomonadota", "Gammaproteobacteria","Pseudomonadales", "Pseudomonadaceae", "Pseudomonas","P. coronafaciens pv_coronafaciens"],
         "mphaseolina":["Fungi","Ascomycota","Dothideomycetes","Botryosphaeriales","Botryosphaeriaceae","Macrophomina", "M. phaseolina ms6"],
         "psyringae":["Bacteria","Pseudomonadota", "Gammaproteobacteria","Pseudomonadales", "Pseudomonadaceae", "Pseudomonas","P. syringae"],
-        "mgrisea":["Fungi", "Ascomycota", "Sordariomycetes", "Magnaporthales", "Magnaporthaceae", "Magnaporthe", "grisea"],
         "meleuinis": ["Fungi", "Ascomycota", "Sordariomycetes", "Xylariales", "Xylariaceae", "Melanopsichium", "eleusinis"],
-        "smacrospora":["Fungi", "Oomycota", "Peronosporomycetes", "Pythiales", "Pythiaceae", "Sclerophthora", "macrospora"],
-        "ueragrostidis": ["Fungi", "Basidiomycota", "Pucciniomycetes", "Pucciniales", "Pucciniaceae", "Uromyces", "eragrostidis"],
-        "xeleusinae":["Bacteria", "Proteobacteria", "Gammaproteobacteria", "Xanthomonadales", "Xanthomonadaceae", "Xanthomonas", "eleusinae"],
         "pfarinosa":["Fungi", "Oomycota", "Peronosporomycetes", "Peronosporales", "Peronosporaceae", "Peronospora", "farinosa"],
-        "pexifua": ["Fungi", "Ascomycota", "Dothideomycetes", "Pleosporales", "Incertae sedis", "Phoma", "exiguavar. foveata"],
-        "ahyalospora":["Fungi", "Ascomycota", "Dothideomycetes", "Pleosporales", "Ascochytiaceae", "Ascochyta", "hyalospora"],
-        "srolfsii":["Fungi", "Basidiomycota", "Agaricomycetes", "Agaricales", "Atheliaceae", "Sclerotium", "rolfsii"],
-        "pzingerberum":["Fungi", "Oomycota", "Pythiomycetes", "Pythiales", "Pythiaceae", "Pythium", "zingiberum"]
+        "pgriesea":["Fungi", "Ascomycota", "Sordariomycetes", "Magnaporthales", "Magnaporthaceae", "Pyricularia", "grisea"],
+        "eturcica":["Fungi", "Ascomycota", "Dothideomycetes", "Pleosporales", "Pleosporaceae", "Exserohilum", "turcica"],
+        "cpurpurea": ["Fungi", "Ascomycota", "Sordariomycetes", "Hypocreales", "Clavicipitaceae", "Claviceps", "purpurea"],
+        "ztritici":["Fungi", "Ascomycota", "Dothideomycetes", "Capnodiales", "Mycosphaerellaceae", "Zymoseptoria", "tritici"],
+        "ptriticirep":["Fungi", "Ascomycota", "Dothideomycetes", "Pleosporales", "Pleosporaceae", "Pyrenophora", "tritici-repentis"],
+        "tcaries":["Fungi", "Basidiomycota", "Ustilaginomycetes", "Tilletiales", "Tilletiaceae", "Tilletia", "caries"],
+        "tlaevis":["Fungi", "Basidiomycota", "Ustilaginomycetes", "Tilletiales", "Tilletiaceae", "Tilletia", "laevis"],
+        "utritici":["Fungi", "Basidiomycota", "Ustilaginomycetes", "Ustilaginales", "Ustilaginaceae", "Ustilago", "tritici"],
+        "tcontroversa":["Fungi", "Basidiomycota", "Ustilaginomycetes", "Tilletiales", "Tilletiaceae", "Tilletia", "controversa"]
+
     }
     
 ]

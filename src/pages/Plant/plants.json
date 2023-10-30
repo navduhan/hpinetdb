@@ -3,13 +3,13 @@
     "id": "1",
     "name": "Wheat",
     "sname": "Triticum aestivum",
-    "pathogen": ["tindica", "psyringaewheat", "pgramini", "pstriiformis","ptriticina","bgraminiswheat" ]
+    "pathogen": ["tindica", "psyringaewheat", "pgramini", "pstriiformis","ptriticina","bgraminiswheat","fgramineadrum","tcaries","tlaevis","utritici","tcontroversa" ]
 },
 {
     "id": "2",
     "name": "Maize",
     "sname": "Zea Mays",
-    "pathogen": ["bmaydis",    "czeaemydis",     "psorghi", "umaydis", "xvasicola"]
+    "pathogen": ["bmaydis", "czeaemydis", "psorghi", "umaydis", "xvasicola","cgraminicola","eturcica", "psyringaewheat"]
 },
 {
     "id": "3",
@@ -29,14 +29,14 @@
     "id": "5",
     "name": "Rye",
     "sname": "Secale_cereale",
-    "pathogen": ["bgraminisef2","cgraminicola"]
+    "pathogen": ["bgraminisef2","cgraminicola", "pteres","utritici", "cpurpurea"]
    
 },
 {
     "id": "6",
     "name": "Sorghum",
     "sname": "Sorghum bicolor",
-    "pathogen": ["cgraminicola","mphaseolina", "psyringae"]
+    "pathogen": ["cgraminicola","mphaseolina", "psyringae", "eturcica","psorghi"]
    
 },
 {
@@ -57,14 +57,14 @@
     "id": "9",
     "name": "Quinoa",
     "sname": "Chenopodium quinoa",
-    "pathogen": ["pfarinosa","pexifua","ahyalospora","srolfsii","pzingerberum"]
+    "pathogen": ["pgriesea", "meleuinis"]
     
 },
 {
     "id": "10",
     "name": "Ragi",
     "sname": "Eleusine coracana",
-    "pathogen": ["mgrisea","meleuinis","smacrospora", "ueragrostidis", "xeleusinae"]
+    "pathogen": ["pfarinosa","pgriesea"]
 }
 
 ]
