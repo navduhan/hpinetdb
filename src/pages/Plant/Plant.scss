@@ -38,3 +38,36 @@ font-weight: bold;
     font-family: "Roboto", "Helvetica Neue", Arial, Tahoma;
     text-align: center;
 }
+
+.op{
+    font-style: italic;
+}
+select option {
+    font-style: italic;
+  }
+
+.ant-btn-primary {
+background-color: $palette-2;
+border-radius: 12px;
+}
+
+.ant-btn-primary:hover {
+background-color: $palette-1;
+}
+
+.ant-radio-checked .ant-radio-inner{
+    border-color:  #4fa2a2!important ;
+}
+
+.ant-radio-checked .ant-radio-inner:after{
+    background-color:  #4fa2a2;;;
+}
+
+.ant-radio:hover .ant-radio-inner {
+    border-color:  #4fa2a2;; ;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+    background-color: #4fa2a2;
+    border-color: #4fa2a2;
+}

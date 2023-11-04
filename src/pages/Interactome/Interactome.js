@@ -1,19 +1,19 @@
 import React from "react";
 import { Divider, Radio, Checkbox, Button, Slider } from "antd";
-
 import "./Interactome.scss";
 import '../../scss/components/buttons.scss';
 import '../../scss/style.scss'
-import { InfoCircleOutlined} from "@ant-design/icons";
+import { InfoCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { env } from "../../env";
 import { pathogen } from "../Plant/pathogen";
 import { host_genes } from "./genes";
-import { Modal, Form} from "react-bootstrap";
-import FileInput  from '../../components/FileInput/FileInput';
-// const pdata = JSON.parse(localStorage.getItem("param"));
+import { Modal, Form } from "react-bootstrap";
+import FileInput from '../../components/FileInput/FileInput';
 import test from './test.gif';
 
+const pdata = JSON.parse(localStorage.getItem("param"));
+console.log(pdata)
 
 const urlParams = new URLSearchParams(window.location.search);
 
@@ -41,15 +41,15 @@ export default class Interactome extends React.Component {
     this.state = {
       interactomeType: "interactome",
       searchType: "proteome",
-      idType:'host',
+      idType: 'host',
       ostype: "unique",
       checkedList: interologCheckedList,
       dcheckedList: domainCheckedList,
       checkAll: false,
       dcheckAll: false,
       status: "interolog",
-      species:mhost ,
-      pathogen:mpath,
+      species: mhost,
+      pathogen: mpath,
       identity: 80,
       coverage: 80,
       evalue: 1e-20,
@@ -59,15 +59,15 @@ export default class Interactome extends React.Component {
       resultid: "",
       isOpen: false,
       ppiOpen: false,
-      genomePool:'UP82',
-      phylothreshold:0.98,
+      genomePool: 'UP82',
+      phylothreshold: 0.98,
       genes: '',
-      hgenes:'',
-      pgenes:'',
-      gomethod:'wang',
-      goscore:'max',
-      gothreshold:0.5,
-      geneHintOn:false,
+      hgenes: '',
+      pgenes: '',
+      gomethod: 'wang',
+      goscore: 'max',
+      gothreshold: 0.5,
+      geneHintOn: false,
     };
     this.radioHandler = this.radioHandler.bind(this);
     this.speciesHandler = this.speciesHandler.bind(this);
@@ -84,15 +84,15 @@ export default class Interactome extends React.Component {
     this.interactomeHandler = this.interactomeHandler.bind(this);
     this.intHandler = this.intHandler.bind(this);
     this.fileSelected = this.fileSelected.bind(this);
-    this.handleGeneChange=this.handleGeneChange.bind(this);
+    this.handleGeneChange = this.handleGeneChange.bind(this);
     this.getInteractions = this.getInteractions.bind(this);
     this.setGeneHint = this.setGeneHint.bind(this);
     this.idHandler = this.idHandler.bind(this);
     this.accessionHandler = this.accessionHandler.bind(this);
-    this.goMethodradioHandler =this.goMethodradioHandler.bind(this);
-    this.goScoreradioHandler =this.goScoreradioHandler.bind(this);
-    this.handleHostGeneChange=this.handleHostGeneChange.bind(this);
-    this.handlePathogenGeneChange=this.handlePathogenGeneChange.bind(this);
+    this.goMethodradioHandler = this.goMethodradioHandler.bind(this);
+    this.goScoreradioHandler = this.goScoreradioHandler.bind(this);
+    this.handleHostGeneChange = this.handleHostGeneChange.bind(this);
+    this.handlePathogenGeneChange = this.handlePathogenGeneChange.bind(this);
     this.getValue = this.getValue.bind(this);
     this.pgHandler = this.pgHandler.bind(this);
     this.phyloThresholdHandler = this.phyloThresholdHandler.bind(this)
@@ -116,22 +116,23 @@ export default class Interactome extends React.Component {
   }
   getValue = (value) => {
 
-    this.setState({ gothreshold: (value/100) }, )};
+    this.setState({ gothreshold: (value / 100) },)
+  };
 
 
   speciesHandler = (e) => {
     this.setState({ species: e.target.value });
   };
 
-  idHandler = (e) =>{
-    this.setState({searchType: e.target.value})
+  idHandler = (e) => {
+    this.setState({ searchType: e.target.value })
   }
-  pgHandler = (e) =>{
-    this.setState({genomePool: e.target.value})
+  pgHandler = (e) => {
+    this.setState({ genomePool: e.target.value })
   }
 
-  accessionHandler = (e) =>{
-    this.setState({idType:e.target.value})
+  accessionHandler = (e) => {
+    this.setState({ idType: e.target.value })
   }
 
   identityHandler(e) {
@@ -204,12 +205,12 @@ export default class Interactome extends React.Component {
 
   fileSelected(fileText) {
     const protein = fileText.trim().split("\n");
-    this.setState({genes: protein});
-   
+    this.setState({ genes: protein });
+
   }
   handleGeneChange(e) {
     const input = e.target.value;
-  
+
     // Split the input based on commas, new lines, and tabs
     const genesArray = input
       .split(/,|\n|\t/)
@@ -218,14 +219,14 @@ export default class Interactome extends React.Component {
 
     const genesString = genesArray.join(',')
 
-    
-  
+
+
     this.setState({ genes: genesString });
   }
 
   handleHostGeneChange(e) {
     const input = e.target.value;
-  
+
     // Split the input based on commas, new lines, and tabs
     const genesArray = input
       .split(/,|\n|\t/)
@@ -238,7 +239,7 @@ export default class Interactome extends React.Component {
 
   handlePathogenGeneChange(e) {
     const input = e.target.value;
-  
+
     // Split the input based on commas, new lines, and tabs
     const genesArray = input
       .split(/,|\n|\t/)
@@ -252,85 +253,85 @@ export default class Interactome extends React.Component {
 
 
   setGeneHint(hint) {
-    this.setState({geneHintOn: hint});
+    this.setState({ geneHintOn: hint });
   }
   getInteractions() {
-    
+
 
     const intdb = this.state.checkedList.map((element) => {
       return element.toLowerCase();
     });
     const intdbd = intdb.toString()
 
-    const domdb =this.state.dcheckedList.map((element) => {
+    const domdb = this.state.dcheckedList.map((element) => {
       return element.toLowerCase();
     });
 
-  
-      let pspecies = "interolog_"+this.state.pathogen
-      let hspecies = "interolog_"+this.state.species
-      let postBody = {
-        category: this.state.status,
-        hspecies: hspecies,
-        pspecies: pspecies,
-        ids: this.state.idType,
-        genes:this.state.genes,
-        stype:this.state.searchType,
-        hi: this.state.identity,
-        hc: this.state.coverage,
-        he: this.state.evalue,
-        pi: this.state.pidentity,
-        pc: this.state.pcoverage,
-        pe: this.state.pevalue,
 
-        intdb: intdbd,
-        domdb: domdb,
-      };
+    let pspecies = "interolog_" + this.state.pathogen
+    let hspecies = "interolog_" + this.state.species
+    let postBody = {
+      category: this.state.status,
+      hspecies: hspecies,
+      pspecies: pspecies,
+      ids: this.state.idType,
+      genes: pdata.genes,
+      stype: this.state.searchType,
+      hi: this.state.identity,
+      hc: this.state.coverage,
+      he: this.state.evalue,
+      pi: this.state.pidentity,
+      pc: this.state.pcoverage,
+      pe: this.state.pevalue,
+      intdb: intdbd,
+      domdb: domdb,
+      keyword:pdata.keyword,
+    };
+
     
-    console.log(this.state.genes)
-    
-    if (this.state.status === 'domain'){
+
+    if (this.state.status === 'domain') {
       window.location.replace(`${env.BASE_URL}/results`);
     }
-    if (this.state.status === 'gosim'){
+    if (this.state.status === 'gosim') {
       this.openModel();
-      let postBody ={
+      let postBody = {
         category: this.state.status,
         hspecies: this.state.species,
         pspecies: this.state.pathogen,
-        host_genes:this.state.hgenes,
-        pathogen_genes:this.state.pgenes,
+        host_genes: this.state.hgenes,
+        pathogen_genes: this.state.pgenes,
         method: this.state.gomethod,
         score: this.state.goscore,
-        threshold:this.state.gothreshold
+        threshold: this.state.gothreshold
       }
       console.log(postBody)
       axios
-      .post(
-        `${env.BACKEND}/api/goppi/`,
-        postBody
-      )
-      .then((res) => {
-        const rid = res.data;
-        console.log(rid);
-        this.setState({ resultid: rid });
+        .post(
+          `${env.BACKEND}/api/goppi/`,
+          postBody
+        )
+        .then((res) => {
+          const rid = res.data;
+          console.log(rid);
+          this.setState({ resultid: rid });
 
-        this.closeModel();
-        window.location.replace(`${env.BASE_URL}/results/?id=${rid}`);
-      })
-      .catch((err) => console.log(err.response));
-      
+          this.closeModel();
+          window.location.replace(`${env.BASE_URL}/results/?id=${rid}`);
+        })
+        .catch((err) => console.log(err.response));
+
     }
-    if (this.state.status === 'phylo'){
+    if (this.state.status === 'phylo') {
       this.openModel();
-      let postBody ={
+      let postBody = {
         category: this.state.status,
         hspecies: this.state.species,
         pspecies: this.state.pathogen,
-        host_genes:this.state.hgenes,
-        pathogen_genes:this.state.pgenes,
+        host_genes: this.state.hgenes,
+        pathogen_genes: this.state.pgenes,
         method: this.state.genomePool,
-        threshold:this.state.phylothreshold,
+        threshold: this.state.phylothreshold,
         hi: this.state.identity,
         hc: this.state.coverage,
         he: this.state.evalue,
@@ -340,41 +341,62 @@ export default class Interactome extends React.Component {
       }
       console.log(postBody)
       axios
-      .post(
-        // `${env.BACKEND}/api/ppi/?species=${this.state.species}&identity=${this.state.identity}&coverage=${this.state.coverage}&evalue=${this.state.evalue}&intdb=${intdb}`
-        `${env.BACKEND}/api/phyloppi/`,
-        postBody
-      )
-      .then((res) => {
-        const rid = res.data;
-        console.log(rid);
-        this.setState({ resultid: rid });
+        .post(
+          // `${env.BACKEND}/api/ppi/?species=${this.state.species}&identity=${this.state.identity}&coverage=${this.state.coverage}&evalue=${this.state.evalue}&intdb=${intdb}`
+          `${env.BACKEND}/api/phyloppi/`,
+          postBody
+        )
+        .then((res) => {
+          const rid = res.data;
+          console.log(rid);
+          this.setState({ resultid: rid });
 
-        this.closeModel();
-        window.location.replace(`${env.BASE_URL}/results/?id=${rid}`);
-      })
-      .catch((err) => console.log(err.response));
-      
+          this.closeModel();
+          window.location.replace(`${env.BASE_URL}/results/?id=${rid}`);
+        })
+        .catch((err) => console.log(err.response));
+
     }
-    if (this.state.status === 'interolog'){
+    if (this.state.status === 'interolog') {
+      console.log(postBody)
       this.openModel();
-    axios
-      .post(
-        // `${env.BACKEND}/api/ppi/?species=${this.state.species}&identity=${this.state.identity}&coverage=${this.state.coverage}&evalue=${this.state.evalue}&intdb=${intdb}`
-        `${env.BACKEND}/api/ppi/`,
-        postBody
-      )
-      .then((res) => {
-        const rid = res.data;
-        console.log(rid);
-        this.setState({ resultid: rid });
+      axios
+        .post(
+          // `${env.BACKEND}/api/ppi/?species=${this.state.species}&identity=${this.state.identity}&coverage=${this.state.coverage}&evalue=${this.state.evalue}&intdb=${intdb}`
+          `${env.BACKEND}/api/ppi/`,
+          postBody
+        )
+        .then((res) => {
+          const rid = res.data;
+          console.log(rid);
+          this.setState({ resultid: rid });
 
-        this.closeModel();
-        window.location.replace(`${env.BASE_URL}/results/?id=${rid}`);
-      })
-      .catch((err) => console.log(err));
+          this.closeModel();
+          window.location.replace(`${env.BASE_URL}/results/?id=${rid}`);
+        })
+        .catch((err) => console.log(err));
+    }
+
+    if (this.state.status === 'consensus') {
+      this.openModel();
+      axios
+        .post(
+          // `${env.BACKEND}/api/ppi/?species=${this.state.species}&identity=${this.state.identity}&coverage=${this.state.coverage}&evalue=${this.state.evalue}&intdb=${intdb}`
+          `${env.BACKEND}/api/ppi/`,
+          postBody
+        )
+        .then((res) => {
+          const rid = res.data;
+          console.log(rid);
+          this.setState({ resultid: rid });
+
+          this.closeModel();
+          window.location.replace(`${env.BASE_URL}/results/?id=${rid}`);
+        })
+        .catch((err) => console.log(err));
     }
   }
+
 
   render() {
     localStorage.setItem(
@@ -389,39 +411,39 @@ export default class Interactome extends React.Component {
         resultid: this.state.resultid,
         category: this.state.status,
         species: this.state.species,
-        pathogen:this.state.pathogen,
+        pathogen: this.state.pathogen,
         domdb: this.state.dcheckedList,
         ids: this.state.idType,
-        genes:this.state.genes,
-        hgenes:this.state.hgenes,
-        pgenes:this.state.pgenes,
-        gomethod:this.state.gomethod,
-       goscore:this.state.goscore,
-       gothreshold:this.state.gothreshold
+        genes: this.state.genes,
+        hgenes: this.state.hgenes,
+        pgenes: this.state.pgenes,
+        gomethod: this.state.gomethod,
+        goscore: this.state.goscore,
+        gothreshold: this.state.gothreshold
       })
     );
     let genePlaceholder = 'Example ENSEMBL-IDs: TraesCS6A02G059000, TraesCS5A02G216600, TraesCS2A02G417800';
     // let geneSample = 'TraesCS6A02G059000, TraesCS5A02G216600, TraesCS2A02G417800, TraesCS7A02G408100, TraesCS7A02G434500, TraesCS2A02G203000, TraesCS7A02G178900, TraesCS4B02G350800';
-      let geneSample = host_genes['Wheat']
-      let pathogenGeneSample = host_genes['tindica']
+    let geneSample = host_genes['Wheat']
+    let pathogenGeneSample = host_genes['tindica']
     // if (this.state.idType === 'pathogen') {
     //   genePlaceholder = 'Example NCBI-IDs: OAJ02622, OAI99867, OAJ05030';
     //   geneSample = 'OAJ02622, OAI99867, OAJ05030, OAI99147';
     // }
-      // console.log(this.state.resultid)
+    // console.log(this.state.resultid)
     return (
       <div className="container">
         {localStorage.setItem("resultid", JSON.stringify(this.state.resultid))}
         <Divider />
         <div className="row justify-content-center">
           <div className="col-md-4">
-          <h5>Select Host: {mhost}</h5> 
+            <h5>Select Host: {mhost}</h5>
           </div>
-    
+
           <div className="col-md-4">
-          <h5>Selected Pathogen: <i>{pathogen[mpath]}</i></h5>
+            <h5>Selected Pathogen: <i>{pathogen[mpath]}</i></h5>
           </div>
-         
+
         </div>
         <Modal show={this.state.ppiOpen} onHide={this.ppiModalclose}>
           <Modal.Header closeButton></Modal.Header>
@@ -536,7 +558,7 @@ export default class Interactome extends React.Component {
         <Divider />
 
         <div className="row flex-lg-row justify-content-center">
-   
+
           <div className="col-md-6">
             <Radio.Group name="radiogroup" defaultValue={"interolog"}>
               <h5>Select Interaction Method</h5>
@@ -553,65 +575,65 @@ export default class Interactome extends React.Component {
                 GOsim
               </Radio>
               <Radio value="phylo" onClick={this.radioHandler}>
-                
+
                 Phylo-profiling
 
               </Radio>
-          
+
             </Radio.Group>
           </div>
-          {this.state.status!=='phylo' && this.state.status !=='gosim' && (
-          <div className="col-md-4">
-            <Radio.Group name="radiogroup" defaultValue={"proteome"}>
-              <h5>Select Search Type</h5>
-              <Radio value="proteome" onClick={this.idHandler}>
-                Whole Proteome
-              </Radio>
-              <Radio value="accession" onClick={this.idHandler}>
-                Provide Accessions
-              </Radio>
-            </Radio.Group>
-          </div>
-          )}
+          {/* {this.state.status !== 'phylo' && this.state.status !== 'gosim' && (
+            <div className="col-md-4">
+              <Radio.Group name="radiogroup" defaultValue={"proteome"}>
+                <h5>Select Search Type</h5>
+                <Radio value="proteome" onClick={this.idHandler}>
+                  Whole Proteome
+                </Radio>
+                <Radio value="accession" onClick={this.idHandler}>
+                  Provide Accessions
+                </Radio>
+              </Radio.Group>
+            </div>
+          )} */}
           <Divider />
         </div>
-{this.state.searchType==='accession' && this.state.status !=='gosim' && (
-        <div className="row flex-lg-row align-items-center">
-          
-          <div className="col-md-3">
-            <h5>Select IDs Type</h5>
-            <Radio.Group name="radiogroup" defaultValue={"host"}>
-              <Radio value="host" onChange={this.accessionHandler}>
-                Host
-              </Radio>
-              <Radio value="pathogen" onChange={this.accessionHandler}>
-                Pathogen
-              </Radio>
-              
-            </Radio.Group>
+        {this.state.searchType === 'accession' && this.state.status !== 'gosim' && this.state.status !== 'phylo' && (
+          <div className="row flex-lg-row align-items-center">
+
+            <div className="col-md-3">
+              <h5>Select IDs Type</h5>
+              <Radio.Group name="radiogroup" defaultValue={"host"}>
+                <Radio value="host" onChange={this.accessionHandler}>
+                  Host
+                </Radio>
+                <Radio value="pathogen" onChange={this.accessionHandler}>
+                  Pathogen
+                </Radio>
+
+              </Radio.Group>
+            </div>
+
+            <div className="col-md-5">
+              <h5>Enter protein or protein IDs here.</h5>
+              <Form.Control className="kbl-form mb-4" as="textarea" rows={4} placeholder={genePlaceholder} onChange={this.handleGeneChange}
+                value={this.state.genes} onMouseEnter={() => this.setGeneHint(true)} onMouseLeave={() => this.setGeneHint(false)} spellCheck={false} />
+              <Button className="kbl-btn-1 mx-3" onClick={e => {
+                this.setState({ genes: geneSample });
+              }}>Sample Data</Button>
+              <Button className="kbl-btn-3" onClick={e => {
+                this.setState({ genes: "" })
+              }}>Clear Data</Button>
+            </div>
+            <div className="col-md-1"><b>OR</b></div>
+            <div className="col-md-3 mb-5">
+              <h5 className="mt-5 pl-2"> Upload Protein IDs List</h5>
+
+              <FileInput handler={this.fileSelected} />
+            </div>
+            <Divider />
           </div>
 
-          <div className="col-md-5">
-            <h5>Enter protein or protein IDs here.</h5>
-                    <Form.Control className="kbl-form mb-4" as="textarea" rows={4} placeholder={genePlaceholder} onChange={ this.handleGeneChange }
-                      value={this.state.genes} onMouseEnter={() => this.setGeneHint(true)} onMouseLeave={() => this.setGeneHint(false)} spellCheck={false}/>
-                    <Button className="kbl-btn-1 mx-3" onClick={e => {
-                        this.setState({genes: geneSample});
-                      }}>Sample Data</Button>
-                    <Button className="kbl-btn-2" onClick={e => {
-                        this.setState({genes: ""})
-                      }}>Clear Data</Button>
-         </div>
-         <div className="col-md-1"><b>OR</b></div>
-          <div className="col-md-3 mb-5">
-<h5 className="mt-5 pl-2"> Upload Protein IDs List</h5>
-
-<FileInput handler={this.fileSelected} />
-</div>
-          <Divider />
-        </div>
-     
-     )}
+        )}
         {this.state.status === "interolog" &&
           this.state.status !== "domain" &&
           this.state.status !== "gosim" &&
@@ -642,90 +664,90 @@ export default class Interactome extends React.Component {
               </div>
               <div className="row flex-lg-row justify-content-center">
                 <div className="col-md-6">
-                <div className="row flex-lg-row justify-content-center">
-                <h5>Host Alignment Filtering Options</h5>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Identity %</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.identity}
-                      onChange={this.identityHandler}
-                    ></input>
+                  <div className="row flex-lg-row justify-content-center">
+                    <h5>Host Alignment Filtering Options</h5>
+                    <div className="col-sm-4">
+                      <div className="form-inline">
+                        <label className="label-text">Identity %</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          value={this.state.identity}
+                          onChange={this.identityHandler}
+                        ></input>
+                      </div>
+                    </div>
+                    <div className="col-sm-4">
+                      <div className="form-inline">
+                        <label className="label-text">Coverage %</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          value={this.state.coverage}
+                          onChange={this.coverageHandler}
+                        ></input>
+                      </div>
+                    </div>
+                    <div className="col-sm-4">
+                      <div className="form-inline">
+                        <label className="label-text">Evalue</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          value={this.state.evalue}
+                          onChange={this.evalueHandler}
+                        ></input>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Coverage %</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.coverage}
-                      onChange={this.coverageHandler}
-                    ></input>
-                  </div>
-                </div>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Evalue</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.evalue}
-                      onChange={this.evalueHandler}
-                    ></input>
-                  </div>
-                </div>
-                </div>
                 </div>
                 <div className="col-md-6">
-                <div className="row flex-lg-row justify-content-center">
-                <h5>Pathogen Alignment Filtering Options</h5>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Identity %</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.pidentity}
-                      onChange={this.pidentityHandler}
-                    ></input>
-                  </div>
-                </div>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Coverage %</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.pcoverage}
-                      onChange={this.pcoverageHandler}
-                    ></input>
-                  </div>
-                </div>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Evalue</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.pevalue}
-                      onChange={this.pevalueHandler}
-                    ></input>
-                  </div>
-                </div>
+                  <div className="row flex-lg-row justify-content-center">
+                    <h5>Pathogen Alignment Filtering Options</h5>
+                    <div className="col-sm-4">
+                      <div className="form-inline">
+                        <label className="label-text">Identity %</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          value={this.state.pidentity}
+                          onChange={this.pidentityHandler}
+                        ></input>
+                      </div>
+                    </div>
+                    <div className="col-sm-4">
+                      <div className="form-inline">
+                        <label className="label-text">Coverage %</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          value={this.state.pcoverage}
+                          onChange={this.pcoverageHandler}
+                        ></input>
+                      </div>
+                    </div>
+                    <div className="col-sm-4">
+                      <div className="form-inline">
+                        <label className="label-text">Evalue</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          value={this.state.pevalue}
+                          onChange={this.pevalueHandler}
+                        ></input>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <Divider />
               </div>
-              
+
             </div>
           )}
 
         {this.state.status !== "interolog" &&
-         this.state.status !== "gosim" &&
-         this.state.status !== "phylo" &&
+          this.state.status !== "gosim" &&
+          this.state.status !== "phylo" &&
           this.state.status !== "consensus" && (
             <div>
               <div className="row flex-lg-row justify-content-center g-2 my-3">
@@ -751,7 +773,7 @@ export default class Interactome extends React.Component {
             </div>
           )}
 
-        {this.state.status !== "interolog" && this.state.status !== "domain" &&  this.state.status !== "gosim" && this.state.status !== "phylo" && (
+        {this.state.status !== "interolog" && this.state.status !== "domain" && this.state.status !== "gosim" && this.state.status !== "phylo" && (
           <div>
             <div className="row flex-lg-row justify-content-center">
               <h5>Select Interaction Databases</h5>
@@ -792,195 +814,195 @@ export default class Interactome extends React.Component {
               <Divider />
             </div>
             <div className="row flex-lg-row justify-content-center">
-                <div className="col-md-6">
+              <div className="col-md-6">
                 <div className="row flex-lg-row justify-content-center">
-                <h5>Host Alignment Filtering Options</h5>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Identity %</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.identity}
-                      onChange={this.identityHandler}
-                    ></input>
-                  </div>
-                </div>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Coverage %</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.coverage}
-                      onChange={this.coverageHandler}
-                    ></input>
-                  </div>
-                </div>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Evalue</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.evalue}
-                      onChange={this.evalueHandler}
-                    ></input>
-                  </div>
-                </div>
-                </div>
-                </div>
-                <div className="col-md-6">
-                <div className="row flex-lg-row justify-content-center">
-                <h5>Pathogen Alignment Filtering Options</h5>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Identity %</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.pidentity}
-                      onChange={this.pidentityHandler}
-                    ></input>
-                  </div>
-                </div>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Coverage %</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.pcoverage}
-                      onChange={this.pcoverageHandler}
-                    ></input>
-                  </div>
-                </div>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Evalue</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.pevalue}
-                      onChange={this.pevalueHandler}
-                    ></input>
-                  </div>
-                </div>
-                  </div>
-                </div>
-                <Divider />
-              </div>
-          </div>
-        )}
-        {this.state.status !== "interolog" && this.state.status !== "domain" &&  this.state.status !== "consensus" && this.state.status !== "phylo" && (
-          <div>
-             <div className="row flex-lg-row justify-content-center g-2 my-3">
-               
-                <div className="col-md-4">
-                
-                <Radio.Group name="radiogroup" defaultValue={"wang"}>
-                <h5>Select GO Sem Similarity Method</h5>
-              <Radio value="wang" onClick={this.radioHandler}>
-                Wang
-              </Radio>
-              <Radio value="lowest_common_ancestor" onClick={this.goMethodradioHandler}>
-                LCA
-              </Radio>
-              <Radio value="resnik" onClick={this.goMethodradioHandler}>
-                Resnik
-              </Radio>
-              <Radio value="lin" onClick={this.goMethodradioHandler}>
-                Lin
-              </Radio>
-              <Radio value="pekar" onClick={this.goMethodradioHandler}>
-                Pekar
-              </Radio>
-          
-            </Radio.Group>
-
-                </div>
-                <div className="col-md-4">
-                <Radio.Group name="radiogroup" defaultValue={"max"}>
-                <h5>Select GO Sem Similarity Scoring</h5>
-              <Radio value="bma" onClick={this.goScoreradioHandler}>
-                Best-match average
-              </Radio>
-              <Radio value="max" onClick={this.goScoreradioHandler}>
-                Maximum
-              </Radio>
-              <Radio value="avg" onClick={this.goScoreradioHandler}>
-               Average
-              </Radio>
-             
-          
-            </Radio.Group>
-                </div>
-                <div className="col-md-3">
-                        <h5>Select Threshold (Min Similarity)</h5>
-                        <Slider defaultValue={50} marks={{ 0: '0', 100: '100' }} disabled={false} min={0} max={100} onChange={this.getValue} />
+                  <h5>Host Alignment Filtering Options</h5>
+                  <div className="col-sm-4">
+                    <div className="form-inline">
+                      <label className="label-text">Identity %</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={this.state.identity}
+                        onChange={this.identityHandler}
+                      ></input>
                     </div>
+                  </div>
+                  <div className="col-sm-4">
+                    <div className="form-inline">
+                      <label className="label-text">Coverage %</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={this.state.coverage}
+                        onChange={this.coverageHandler}
+                      ></input>
+                    </div>
+                  </div>
+                  <div className="col-sm-4">
+                    <div className="form-inline">
+                      <label className="label-text">Evalue</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={this.state.evalue}
+                        onChange={this.evalueHandler}
+                      ></input>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="row flex-lg-row justify-content-center">
+                  <h5>Pathogen Alignment Filtering Options</h5>
+                  <div className="col-sm-4">
+                    <div className="form-inline">
+                      <label className="label-text">Identity %</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={this.state.pidentity}
+                        onChange={this.pidentityHandler}
+                      ></input>
+                    </div>
+                  </div>
+                  <div className="col-sm-4">
+                    <div className="form-inline">
+                      <label className="label-text">Coverage %</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={this.state.pcoverage}
+                        onChange={this.pcoverageHandler}
+                      ></input>
+                    </div>
+                  </div>
+                  <div className="col-sm-4">
+                    <div className="form-inline">
+                      <label className="label-text">Evalue</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={this.state.pevalue}
+                        onChange={this.pevalueHandler}
+                      ></input>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <Divider />
+            </div>
+          </div>
+        )}
+        {this.state.status !== "interolog" && this.state.status !== "domain" && this.state.status !== "consensus" && this.state.status !== "phylo" && (
+          <div>
+            <div className="row flex-lg-row justify-content-center g-2 my-3">
 
-                <Divider />
+              <div className="col-md-4">
+
+                <Radio.Group name="radiogroup" defaultValue={"wang"}>
+                  <h5>Select GO Sem Similarity Method</h5>
+                  <Radio value="wang" onClick={this.radioHandler}>
+                    Wang
+                  </Radio>
+                  <Radio value="lowest_common_ancestor" onClick={this.goMethodradioHandler}>
+                    LCA
+                  </Radio>
+                  <Radio value="resnik" onClick={this.goMethodradioHandler}>
+                    Resnik
+                  </Radio>
+                  <Radio value="lin" onClick={this.goMethodradioHandler}>
+                    Lin
+                  </Radio>
+                  <Radio value="pekar" onClick={this.goMethodradioHandler}>
+                    Pekar
+                  </Radio>
+
+                </Radio.Group>
 
               </div>
-              <div className="row flex-lg-row justify-content-center g-2 my-3">
-              <div className="col-md-5">
-            <h5>Enter Host Protein IDs</h5>
-                    <Form.Control className="kbl-form mb-4" as="textarea" rows={4} placeholder={genePlaceholder} onChange={ this.handleHostGeneChange }
-                      value={this.state.hgenes} onMouseEnter={() => this.setGeneHint(true)} onMouseLeave={() => this.setGeneHint(false)} spellCheck={false}/>
-                   
-         </div>
-         <div className="col-md-5">
-            <h5>Enter Pathogen Protein IDs</h5>
-                    <Form.Control className="kbl-form mb-4" as="textarea" rows={4} placeholder={genePlaceholder} onChange={ this.handlePathogenGeneChange }
-                      value={this.state.pgenes} onMouseEnter={() => this.setGeneHint(true)} onMouseLeave={() => this.setGeneHint(false)} spellCheck={false}/>
-                   
-         </div>
-         </div>
-         <div className="row flex-lg-row justify-content-center my-3">
-          <div className="col-md-4">
+              <div className="col-md-4">
+                <Radio.Group name="radiogroup" defaultValue={"max"}>
+                  <h5>Select GO Sem Similarity Scoring</h5>
+                  <Radio value="bma" onClick={this.goScoreradioHandler}>
+                    Best-match average
+                  </Radio>
+                  <Radio value="max" onClick={this.goScoreradioHandler}>
+                    Maximum
+                  </Radio>
+                  <Radio value="avg" onClick={this.goScoreradioHandler}>
+                    Average
+                  </Radio>
 
-         <Button className="kbl-btn-1 mx-3" onClick={e => {
-                        this.setState({pgenes: pathogenGeneSample});
-                        this.setState({hgenes: geneSample});
-                      }}>Sample Data</Button>
-                    <Button className="kbl-btn-2" onClick={e => {
-                        this.setState({pgenes: ""})
-                        this.setState({hgenes: ""})
-                      }}>Clear Data</Button>
-          </div>
-         
-         </div>
-         <Divider />
+
+                </Radio.Group>
+              </div>
+              <div className="col-md-3">
+                <h5>Select Threshold (Min Similarity)</h5>
+                <Slider defaultValue={50} marks={{ 0: '0', 100: '100' }} disabled={false} min={0} max={100} onChange={this.getValue} />
+              </div>
+
+              <Divider />
+
             </div>
-             
+            <div className="row flex-lg-row justify-content-center g-2 my-3">
+              <div className="col-md-5">
+                <h5>Enter Host Protein IDs</h5>
+                <Form.Control className="kbl-form mb-4" as="textarea" rows={4} placeholder={genePlaceholder} onChange={this.handleHostGeneChange}
+                  value={this.state.hgenes} onMouseEnter={() => this.setGeneHint(true)} onMouseLeave={() => this.setGeneHint(false)} spellCheck={false} />
+
+              </div>
+              <div className="col-md-5">
+                <h5>Enter Pathogen Protein IDs</h5>
+                <Form.Control className="kbl-form mb-4" as="textarea" rows={4} placeholder={genePlaceholder} onChange={this.handlePathogenGeneChange}
+                  value={this.state.pgenes} onMouseEnter={() => this.setGeneHint(true)} onMouseLeave={() => this.setGeneHint(false)} spellCheck={false} />
+
+              </div>
+            </div>
+            <div className="row flex-lg-row justify-content-center my-3">
+              <div className="col-md-4">
+
+                <Button className="kbl-btn-1 mx-3" onClick={e => {
+                  this.setState({ pgenes: pathogenGeneSample });
+                  this.setState({ hgenes: geneSample });
+                }}>Sample Data</Button>
+                <Button className="kbl-btn-2" onClick={e => {
+                  this.setState({ pgenes: "" })
+                  this.setState({ hgenes: "" })
+                }}>Clear Data</Button>
+              </div>
+
+            </div>
+            <Divider />
+          </div>
+
         )}
 
-{this.state.status !== "interolog" &&
+        {this.state.status !== "interolog" &&
           this.state.status !== "domain" &&
           this.state.status !== "gosim" &&
-        
+
           this.state.status !== "consensus" && (
             <div>
               <div className="row flex-lg-row justify-content-center">
-              <div className="col-md-6">
-                <Radio.Group name="radiogroup" defaultValue={"UP82"}>
-                <h5>Select Genome Pool</h5>
-              <Radio value="UP82" onClick={this.pgHandler}>
-                UP82
-              </Radio>
-              <Radio value="BC18" onClick={this.pgHandler}>
-                BC18
-              </Radio>
-              <Radio value="protphylo490" onClick={this.pgHandler}>
-              ProtPhylo490
-              </Radio>
-            </Radio.Group>
-              </div>
-              <div className="col-md-4">
-                
-                <h5>Threshold (Min Similarity)</h5>
-                <div className="form-inline">
+                <div className="col-md-6">
+                  <Radio.Group name="radiogroup" defaultValue={"UP82"}>
+                    <h5>Select Genome Pool</h5>
+                    <Radio value="UP82" onClick={this.pgHandler}>
+                      UP82
+                    </Radio>
+                    <Radio value="BC18" onClick={this.pgHandler}>
+                      BC18
+                    </Radio>
+                    <Radio value="protphylo490" onClick={this.pgHandler}>
+                      ProtPhylo490
+                    </Radio>
+                  </Radio.Group>
+                </div>
+                <div className="col-md-4">
+
+                  <h5>Threshold (Min Similarity)</h5>
+                  <div className="form-inline">
                     {/* <label className="label-text">Identity %</label> */}
                     <input
                       className="form-control"
@@ -989,126 +1011,126 @@ export default class Interactome extends React.Component {
                       onChange={this.phyloThresholdHandler}
                     ></input>
                   </div>
-              
-              </div>
+
+                </div>
               </div>
               <Divider />
               <div className="row flex-lg-row justify-content-center">
                 <div className="col-md-6">
-                <div className="row flex-lg-row justify-content-center">
-                <h5>Host Alignment Filtering Options</h5>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Identity %</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.identity}
-                      onChange={this.identityHandler}
-                    ></input>
+                  <div className="row flex-lg-row justify-content-center">
+                    <h5>Host Alignment Filtering Options</h5>
+                    <div className="col-sm-4">
+                      <div className="form-inline">
+                        <label className="label-text">Identity %</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          value={this.state.identity}
+                          onChange={this.identityHandler}
+                        ></input>
+                      </div>
+                    </div>
+                    <div className="col-sm-4">
+                      <div className="form-inline">
+                        <label className="label-text">Coverage %</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          value={this.state.coverage}
+                          onChange={this.coverageHandler}
+                        ></input>
+                      </div>
+                    </div>
+                    <div className="col-sm-4">
+                      <div className="form-inline">
+                        <label className="label-text">Evalue</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          value={this.state.evalue}
+                          onChange={this.evalueHandler}
+                        ></input>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Coverage %</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.coverage}
-                      onChange={this.coverageHandler}
-                    ></input>
-                  </div>
-                </div>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Evalue</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.evalue}
-                      onChange={this.evalueHandler}
-                    ></input>
-                  </div>
-                </div>
-                </div>
                 </div>
                 <div className="col-md-6">
-                <div className="row flex-lg-row justify-content-center">
-                <h5>Pathogen Alignment Filtering Options</h5>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Identity %</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.pidentity}
-                      onChange={this.pidentityHandler}
-                    ></input>
-                  </div>
-                </div>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Coverage %</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.pcoverage}
-                      onChange={this.pcoverageHandler}
-                    ></input>
-                  </div>
-                </div>
-                <div className="col-sm-4">
-                  <div className="form-inline">
-                    <label className="label-text">Evalue</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={this.state.pevalue}
-                      onChange={this.pevalueHandler}
-                    ></input>
-                  </div>
-                </div>
+                  <div className="row flex-lg-row justify-content-center">
+                    <h5>Pathogen Alignment Filtering Options</h5>
+                    <div className="col-sm-4">
+                      <div className="form-inline">
+                        <label className="label-text">Identity %</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          value={this.state.pidentity}
+                          onChange={this.pidentityHandler}
+                        ></input>
+                      </div>
+                    </div>
+                    <div className="col-sm-4">
+                      <div className="form-inline">
+                        <label className="label-text">Coverage %</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          value={this.state.pcoverage}
+                          onChange={this.pcoverageHandler}
+                        ></input>
+                      </div>
+                    </div>
+                    <div className="col-sm-4">
+                      <div className="form-inline">
+                        <label className="label-text">Evalue</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          value={this.state.pevalue}
+                          onChange={this.pevalueHandler}
+                        ></input>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <Divider />
               </div>
               <div className="row flex-lg-row justify-content-center g-2 my-3">
-              <div className="col-md-5">
-            <h5>Enter Host Protein IDs</h5>
-                    <Form.Control className="kbl-form mb-4" as="textarea" rows={4} placeholder={genePlaceholder} onChange={ this.handleHostGeneChange }
-                      value={this.state.hgenes} onMouseEnter={() => this.setGeneHint(true)} onMouseLeave={() => this.setGeneHint(false)} spellCheck={false}/>
-                   
-         </div>
-         <div className="col-md-5">
-            <h5>Enter Pathogen Protein IDs</h5>
-                    <Form.Control className="kbl-form mb-4" as="textarea" rows={4} placeholder={genePlaceholder} onChange={ this.handlePathogenGeneChange }
-                      value={this.state.pgenes} onMouseEnter={() => this.setGeneHint(true)} onMouseLeave={() => this.setGeneHint(false)} spellCheck={false}/>
-                   
-         </div>
-         </div>
-         <div className="row flex-lg-row justify-content-center my-3">
-          <div className="col-md-4">
+                <div className="col-md-5">
+                  <h5>Enter Host Protein IDs</h5>
+                  <Form.Control className="kbl-form mb-4" as="textarea" rows={4} placeholder={genePlaceholder} onChange={this.handleHostGeneChange}
+                    value={this.state.hgenes} onMouseEnter={() => this.setGeneHint(true)} onMouseLeave={() => this.setGeneHint(false)} spellCheck={false} />
 
-         <Button className="kbl-btn-1 mx-3" onClick={e => {
-                    this.setState({pgenes: pathogenGeneSample});
-                    this.setState({hgenes: geneSample});
-                      }}>Sample Data</Button>
-                    <Button className="kbl-btn-2" onClick={e => {
-                        this.setState({pgenes: ""})
-                        this.setState({hgenes: ""})
-                      }}>Clear Data</Button>
-          </div>
-         
-         </div>
-         <Divider />
+                </div>
+                <div className="col-md-5">
+                  <h5>Enter Pathogen Protein IDs</h5>
+                  <Form.Control className="kbl-form mb-4" as="textarea" rows={4} placeholder={genePlaceholder} onChange={this.handlePathogenGeneChange}
+                    value={this.state.pgenes} onMouseEnter={() => this.setGeneHint(true)} onMouseLeave={() => this.setGeneHint(false)} spellCheck={false} />
+
+                </div>
+              </div>
+              <div className="row flex-lg-row justify-content-center my-3">
+                <div className="col-md-4">
+
+                  <Button className="kbl-btn-1 mx-3" onClick={e => {
+                    this.setState({ pgenes: pathogenGeneSample });
+                    this.setState({ hgenes: geneSample });
+                  }}>Sample Data</Button>
+                  <Button className="kbl-btn-2" onClick={e => {
+                    this.setState({ pgenes: "" })
+                    this.setState({ hgenes: "" })
+                  }}>Clear Data</Button>
+                </div>
+
+              </div>
+              <Divider />
             </div>
-              
-            
+
+
           )}
 
         <div className="row flex-lg-row justify-content-center g-2 my-3">
           {this.state.isOpen && (
-           
+
             <div className="col-md-8">
               <h5 className="mb-3">Please wait your query is processing</h5>
               <img
@@ -1132,7 +1154,7 @@ export default class Interactome extends React.Component {
             </div>
           )}
         </div>
-        <Divider />  
+        <Divider />
       </div>
     );
   }

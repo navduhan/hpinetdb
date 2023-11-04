@@ -13,7 +13,7 @@
         "xvasicola":["Bacteria","Proteobacteria", "Gammaproteobacteria", "Xanthomonadales","Xanthomonadaceae", "Xanthomonas","X. vasicola pv vasculorum"],
         "bgraminisbarley":["Fungi","Ascomycota", "Leotiomycetes", "Erysiphales","Erysiphaceae", "Blumeria","B. graminis f sp hordei"], 
        "fgramineadrum":["Fungi","Ascomycota","Sordariomycetes", "Hypocreales","Nectriaceae","Fusarium","F. graminearum RR1"], 
-       " psyringaeatrofaciens":["Bacteria","Pseudomonadota", "Gammaproteobacteria","Pseudomonadales", "Pseudomonadaceae", "Pseudomonas","P. syringae pv atrofaciens"], 
+       "psyringaeatrofaciens":["Bacteria","Pseudomonadota", "Gammaproteobacteria","Pseudomonadales", "Pseudomonadaceae", "Pseudomonas","P. syringae pv atrofaciens"], 
         "pteres":["Fungi","Ascomycota","Dothideomycetes","Pleosporales", "Pleosporaceae","Pyrenophora", "P. teres"],
         "boryzae":["Fungi","Ascomycota","Dothideomycetes","Pleosporales", "Pleosporaceae","Bipolaris", "B. oryzae"], 
         "bglumae":["Bacteria","Pseudomonadota","Betaproteobacteria","Burkholderiales","Burkholderiaceae", "Burkholderia", "B. glumae"], 

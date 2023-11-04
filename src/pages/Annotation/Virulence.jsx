@@ -8,16 +8,10 @@ import { Divider } from "antd";
 import { env } from '../../env';
 import {data} from "./data";
 const urlParams = new URLSearchParams(window.location.search);
-
 const idt = urlParams.get("id");
+const idpt = urlParams.get("species");
 let term = ''
 let tm = ''
-    if (idt ==='effector'){
-        term = 'Effector'
-    }
-    if (idt === 'secretory'){
-        term = 'Secretory'
-    }
     if (idt ==='effector_and_secretory'){
         tm = idt.split("_")
         term = `${tm[0].charAt(0).toUpperCase() + tm[0].slice(1)} ${tm[1]} ${tm[2].charAt(0).toUpperCase() + tm[2].slice(1)}`
@@ -56,20 +50,10 @@ export default class GO extends React.Component {
 
   fetchResults() {
 
-    let term = ''
-    if (idt ==='effector'){
-        term = 'effector protein'
-    }
-    if (idt === 'secretory'){
-        term = 'secretory protein'
-    }
-    if (idt ==='effector_and_secretory'){
-        term = 'effector and secretory protein'
-    }
-    console.log(term)
+    // console.log(term)
     axios
       .get(
-        `${env.BACKEND}/api/effector/?species=${term}&page=${this.state.currentPage}&size=${this.state.perPage}`
+        `${env.BACKEND}/api/effector/?species=${idpt}&page=${this.state.currentPage}&size=${this.state.perPage}`
       )
       .then((res) => {
         const List = res.data.data;
@@ -92,7 +76,7 @@ export default class GO extends React.Component {
       <div className="container">
         <Divider />
         <div className="row flex-lg-row justify-content-center g-2 my-2">
-          <h5>{term} Proteins of <i>{data[idt]}</i></h5>
+          <h5>{term} Proteins of <i>{data[idpt]}</i></h5>
           <Divider />
         </div>
         <div className="row flex-lg-row align-items-center g-2 my-2">
@@ -106,7 +90,7 @@ export default class GO extends React.Component {
           <thead className="kbl-thead">
             <tr>
               <th>Protein</th>
-              <th>Protein Length</th>
+             
               <th>Description</th>
               <th>Virulence</th>
             </tr>
@@ -123,7 +107,6 @@ export default class GO extends React.Component {
                           {result["gene"]}
                         </a>
                 </td>
-                <td>{result["length"]}</td>
                 <td>{result["description"]}</td>
                 <td>{result["type"]}</td>
               </tr>

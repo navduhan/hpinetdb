@@ -17,6 +17,8 @@ import TF from './pages/Annotation/TF';
 import Virulence from './pages/Annotation/Virulence';
 import Datasets from './pages/Datasets/Datasets';
 import Help from './pages/Help/Help';
+import ANNOT from 'pages/Annotation/Annot';
+import Search from 'pages/Plant/Search';
 import {
     BrowserRouter as Router,
     Routes,
@@ -69,6 +71,8 @@ export class HPINET extends Component {
                     
                     </Route>
                     <Route path={`${env.BASE_URL}/help`}  element={<Help />} />
+                    <Route path={`${env.BASE_URL}/annotation`}  element={<ANNOT />} />
+                    <Route path={`${env.BASE_URL}/search`}  element={<Search />} />
             </Routes>
             <Footer />
             </Container>

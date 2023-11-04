@@ -300,6 +300,7 @@ export default class Results extends React.Component {
                   <th>Host</th>
                   <th>Expression</th>
                   <th>Pathogen</th>
+                  <th>Annotation</th>
                   <th>InteractorA</th>
                   <th>InteractorB</th>
                   <th>Source</th>
@@ -314,6 +315,7 @@ export default class Results extends React.Component {
                   <th>Host</th>
                   <th>Expression</th>
                   <th>Pathogen</th>
+                  <th>Annotation</th>
                   <th>InteractorA</th>
                   <th>InteractorB</th>
                   <th>Source</th>
@@ -329,6 +331,7 @@ export default class Results extends React.Component {
                   <th>Host</th>
                   <th>Expression</th>
                   <th>Pathogen</th>
+                  <th>Annotation</th>
                   <th>Host GO Terms</th>
                   <th>Pathogen Go Terms</th>
                   <th>Score</th>
@@ -340,6 +343,7 @@ export default class Results extends React.Component {
                   <th>Host</th>
                   <th>Expression</th>
                   <th>Pathogen</th>
+                  <th>Annotation</th>
                   <th>Score</th>
                   <th>Host Pattern</th>
                   <th>Pathogen Pattern</th>
@@ -395,7 +399,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
                       className="button"
                     >
-                      <Button type="primary" shape="round" size={'small'}>exp</Button>
+                      <Button type="primary" shape="round" size={'small'}>Exp Atlas</Button>
                     </a>
                     <a
                       href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
@@ -403,7 +407,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
 
                     >
-                      <Button type="primary" shape="round" size={'small'}>pubmed</Button>
+                      <Button type="primary" shape="round" size={'small'}>PubMed</Button>
                     </a>
                   </td>
                 </>)}
@@ -416,7 +420,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
                       className="host"
                     >
-                      <Button type="primary" shape="round" size={'small'}>exp</Button>
+                      <Button type="primary" shape="round" size={'small'}>Exp Atlas</Button>
                     </a>
                     <a
                       href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
@@ -424,7 +428,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
 
                     >
-                      <Button type="primary" shape="round" size={'small'}>pubmed</Button>
+                      <Button type="primary" shape="round" size={'small'}>PubMed</Button>
                     </a>
                   </td>
                 </>)}
@@ -437,7 +441,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
                       className="host"
                     >
-                      <Button type="primary" shape="round" size={'small'}>exp</Button>
+                      <Button type="primary" shape="round" size={'small'}>Exp Atlas</Button>
                     </a>
                     <a
                       href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
@@ -445,7 +449,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
 
                     >
-                      <Button type="primary" shape="round" size={'small'}>pubmed</Button>
+                      <Button type="primary" shape="round" size={'small'}>PubMed</Button>
                     </a>
                   </td>
                 </>)}
@@ -458,7 +462,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
                       className="host"
                     >
-                      <Button type="primary" shape="round" size={'small'}>exp</Button>
+                      <Button type="primary" shape="round" size={'small'}>Exp Atlas</Button>
                     </a>
                     <a
                       href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
@@ -466,7 +470,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
 
                     >
-                      <Button type="primary" shape="round" size={'small'}>pubmed</Button>
+                      <Button type="primary" shape="round" size={'small'}>PubMed</Button>
                     </a>
                   </td>
                 </>)}
@@ -480,7 +484,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
                       className="host"
                     >
-                      <Button type="primary" shape="round" size={'small'}>exp</Button>
+                      <Button type="primary" shape="round" size={'small'}>Exp Atlas</Button>
                     </a>
                     <a
                       href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
@@ -488,7 +492,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
 
                     >
-                      <Button type="primary" shape="round" size={'small'}>pubmed</Button>
+                      <Button type="primary" shape="round" size={'small'}>PubMed</Button>
                     </a>
                   </td>
                 </>)}
@@ -501,7 +505,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
 
                     >
-                      <Button type="primary" shape="round" size={'small'}>exp</Button>
+                      <Button type="primary" shape="round" size={'small'}>Exp Atlas</Button>
                     </a>
                     <a
                       href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
@@ -509,7 +513,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
 
                     >
-                      <Button type="primary" shape="round" size={'small'}>pubmed</Button>
+                      <Button type="primary" shape="round" size={'small'}>PubMed</Button>
                     </a>
                   </td>
                 </>)}
@@ -537,6 +541,16 @@ export default class Results extends React.Component {
                   >
                     {result["Pathogen_Protein"]}
                   </a>
+                </td>
+                <td>
+                <a
+                      href={`${env.BASE_URL}/annotation/?host=${pdata.species}&pathogen=${pdata.pathogen}&hid=${result["Host_Protein"]}&pid=${result["Pathogen_Protein"]}`}
+                      target="_blank"
+                      rel="noreferrer"
+
+                    >
+                      <Button type="primary" shape="round" size={'small'}>View</Button>
+                    </a>
                 </td>
                 {this.state.category !== 'gosim' && this.state.category !=='phylo' && (
                   <>
@@ -615,7 +629,30 @@ export default class Results extends React.Component {
                     <td>{result["Method"]}</td>
                     <td>{result["Type"]}</td>
                     <td>{result["Confidence"]}</td>
-                    <td>{result["PMID"]}</td>
+                    <td>
+                    {(() => {
+                        if (onlyNumbers(result['PMID'])) {
+                          return (
+                            <a
+                              href={` https://pubmed.ncbi.nlm.nih.gov/${result["PMID"]}/`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="interactor"
+                            >
+                      {result["PMID"]}
+                      </a>
+                    )}
+                        else{
+                       return(
+                        <>
+                         {result["PMID"]}
+                        </>
+                       )
+                           
+                          
+                        }
+                      })()}
+                      </td>
                   </>
                 )}
                 {this.state.category === 'domain' && (

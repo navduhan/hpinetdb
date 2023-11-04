@@ -36,7 +36,18 @@ export const data = {
     pcoronta:"Puccinia coronata var_avenae_f_sp_avenae",
     pcoronafaciens:"Pseudomonas coronafaciens pv_coronafaciens",
     mphaseolina:"Macrophomina phaseolina ms6",
-    psyringae:"Pseudomonas_syringae"
+    psyringae:"Pseudomonas_syringae",
+    pfarinosa:	"Peronospora farinosa",
+    pgriesea:	"Pyricularia grisea",
+    meleuinis:	"Melanopsichium eleusinis",
+    eturcica:	"Exserohilum turcica",
+    utritici:	"Ustilago tritici",
+    cpurpurea:	"Claviceps purpurea",
+    ztritici:	"Zymoseptoria tritici",
+    ptriticirep:	"Pyrenophora tritici-repentis",
+    tcaries:	"Tilletia caries",
+    tlaevis:	"Tilletia laevis",
+    tcontroversa:	"Tilletia controversa",
 }
 
 
