@@ -2,14 +2,14 @@ import React from "react";
 import "./GO.scss";
 import '../../scss/style.scss';
 import axios from "axios";
-import ReactPaginate from "react-paginate";
+// import ReactPaginate from "react-paginate";
 import Table from "react-bootstrap/Table";
 import { Divider } from "antd";
 import { env } from '../../env';
-import { data } from "./data";
-import { Card } from 'antd';
+// import { data } from "./data";
+// import { Card } from 'antd';
 import test from '../Interactome/test.gif'
-import { pathogen } from "pages/Plant/pathogen";
+// import { pathogen } from "pages/Plant/pathogen";
 const urlParams = new URLSearchParams(window.location.search);
 const hspecies = urlParams.get("host");
 const pspecies = urlParams.get("pathogen");

@@ -11,7 +11,7 @@ import { disease } from "./disease";
 import { fungi } from "./pathdata";
 import { bacteria } from "./pathdata";
 import { virus } from "./pathdata";
-import { Modal, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import FileInput from '../../components/FileInput/FileInput';
 import { host_genes } from "./genes";
 
@@ -158,7 +158,6 @@ export default class Plant extends React.Component {
     })
   }
 
-
   render() {
     // console.log(this.state.currentPathogens[0])
     localStorage.setItem(
@@ -170,6 +169,7 @@ export default class Plant extends React.Component {
         idtype:this.state.idtype,
         keyword:this.state.keyword,
         genes:this.state.genes,
+        anotType:this.state.anotType
         
       })
     );
