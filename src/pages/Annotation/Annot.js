@@ -4,7 +4,7 @@ import '../../scss/style.scss';
 import axios from "axios";
 // import ReactPaginate from "react-paginate";
 import Table from "react-bootstrap/Table";
-import { Divider } from "antd";
+import { Divider, Button } from "antd";
 import { env } from '../../env';
 // import { data } from "./data";
 // import { Card } from 'antd';
@@ -33,14 +33,32 @@ export default class ANNOT extends React.Component {
             hint: [],
             pint: [],
             isOpen: false,
+            ishost:true,
+            ispathogen:false
 
 
         };
         this.openModel = this.openModel.bind(this)
         this.closeModel = this.closeModel.bind(this)
+        this.handleHostAnnotation =this.handleHostAnnotation.bind(this)
+        this.handlePathogenAnnotation =this.handlePathogenAnnotation.bind(this)
     }
     openModel = () => this.setState({ isOpen: true });
     closeModel = () => this.setState({ isOpen: false });
+   
+
+    handleHostAnnotation (){
+        this.setState({
+            ishost:true,
+            ispathogen:false
+        })
+    }
+    handlePathogenAnnotation (){
+        this.setState({
+            ishost:false,
+            ispathogen:true
+        })
+    }
 
     fetchAnnotations() {
         this.openModel()
@@ -359,7 +377,7 @@ export default class ANNOT extends React.Component {
                     <thead className="kbl-thead">
                         <tr>
                             <th>Protein</th>
-                            <th>Transcription Factor Family</th>
+                            <th>Virulence</th>
 
                         </tr>
                     </thead>
@@ -368,7 +386,7 @@ export default class ANNOT extends React.Component {
                             <>
                                 <tr key={index + 1}>
                                     <td>{go.gene}</td>
-                                    <td>{go.tf_family}</td>
+                                    <td>{go.type}</td>
                                 </tr>
                             </>
 
@@ -451,10 +469,27 @@ export default class ANNOT extends React.Component {
                     <>
                         <Divider />
                         <div className="row align-content-center">
-                            <h3>Functional Annotation of Interaction pair:  &nbsp;&nbsp;&nbsp; {hid}--{pid}</h3>
+                            <h3>Functional Annotation of Interaction pair:  &nbsp;&nbsp;&nbsp; {hid} &nbsp;&nbsp; --  &nbsp;&nbsp;{pid}</h3>
                         </div>
                         <Divider />
                         <div className="row justify-content-center">
+                            <div className="col-md-4">
+                            <Button className="kbl-btn-1" onClick={
+                      this.handleHostAnnotation
+                    }>View Host Protein</Button>
+                            </div>
+                            <div className="col-md-4">
+                            <Button className="kbl-btn-1" onClick={
+                      this.handlePathogenAnnotation
+                    }>View Pathogen Protein</Button>
+                            </div>
+                     
+                     
+                        </div>
+
+                        <Divider />
+                {this.state.ishost && (
+                    <div className="row justify-content-center">
                             <h5>Host protein: &nbsp;&nbsp;&nbsp; {hid} </h5>
                             <Divider />
                             <h5>Gene Ontology</h5>
@@ -471,29 +506,34 @@ export default class ANNOT extends React.Component {
                             <Divider />
                             <h5>Functional Domains</h5>
                             {hostinterpro}
-
+                            <Divider />
                         </div>
-                        <Divider />
-                        <div className="row justify-content-center mt-5">
-                            <h5>Pathogen protein: &nbsp;&nbsp;&nbsp; {pid} </h5>
-                            <Divider />
-                            <h5>Gene Ontology</h5>
-                            {pgeneontology}
-                            <Divider />
-                            <h5>KEGG Pathway</h5>
-                            {pathogenkegg}
-                            <Divider />
-                            <h5>Subcellular Localization</h5>
-                            {pathogenlocal}
-                            <Divider />
-                            <h5>Virulence Factors</h5>
-                            {pathogeneff}
-                            <Divider />
-                            <h5>Functional Domains</h5>
-                            {pathogeninterpro}
-
-                        </div>
-                        <Divider />
+                )}
+                        
+                        
+                {this.state.ispathogen &&(
+                    <div className="row justify-content-center">
+                    <h5>Pathogen protein: &nbsp;&nbsp;&nbsp; {pid} </h5>
+                    <Divider />
+                    <h5>Gene Ontology</h5>
+                    {pgeneontology}
+                    <Divider />
+                    <h5>KEGG Pathway</h5>
+                    {pathogenkegg}
+                    <Divider />
+                    <h5>Subcellular Localization</h5>
+                    {pathogenlocal}
+                    <Divider />
+                    <h5>Virulence Factors</h5>
+                    {pathogeneff}
+                    <Divider />
+                    <h5>Functional Domains</h5>
+                    {pathogeninterpro}
+                    <Divider />
+                </div>
+                )}
+                        
+                     
                     </>
                 )}
 

@@ -61,7 +61,7 @@ export default class Interactome extends React.Component {
       ppiOpen: false,
       genomePool: 'UP82',
       phylothreshold: 0.98,
-      genes: '',
+      genes: pdata.genes,
       hgenes: '',
       pgenes: '',
       gomethod: 'wang',
@@ -274,7 +274,7 @@ export default class Interactome extends React.Component {
       category: this.state.status,
       hspecies: hspecies,
       pspecies: pspecies,
-      ids: this.state.idType,
+      ids: pdata.idtype,
       genes: pdata.genes,
       stype: this.state.searchType,
       hi: this.state.identity,
@@ -286,9 +286,12 @@ export default class Interactome extends React.Component {
       intdb: intdbd,
       domdb: domdb,
       keyword:pdata.keyword,
+      searchType:pdata.searchType,
+      anotType:pdata.anotType,
+      host:this.state.species,
+      pathogen:this.state.pathogen
     };
-
-    
+   
 
     if (this.state.status === 'domain') {
       window.location.replace(`${env.BASE_URL}/results`);
@@ -358,7 +361,9 @@ export default class Interactome extends React.Component {
 
     }
     if (this.state.status === 'interolog') {
-      console.log(postBody)
+     
+      
+
       this.openModel();
       axios
         .post(
@@ -378,12 +383,31 @@ export default class Interactome extends React.Component {
     }
 
     if (this.state.status === 'consensus') {
+      let ipostBody = {
+        category: this.state.status,
+        hspecies: hspecies,
+        pspecies: pspecies,
+        ids: this.state.idType,
+        genes: pdata.genes,
+        stype: this.state.searchType,
+        hi: this.state.identity,
+        hc: this.state.coverage,
+        he: this.state.evalue,
+        pi: this.state.pidentity,
+        pc: this.state.pcoverage,
+        pe: this.state.pevalue,
+        intdb: intdbd,
+        domdb: domdb,
+        keyword:pdata.keyword,
+        searchType:pdata.searchType
+      };
+       console.log(ipostBody)
       this.openModel();
       axios
         .post(
           // `${env.BACKEND}/api/ppi/?species=${this.state.species}&identity=${this.state.identity}&coverage=${this.state.coverage}&evalue=${this.state.evalue}&intdb=${intdb}`
           `${env.BACKEND}/api/ppi/`,
-          postBody
+          ipostBody
         )
         .then((res) => {
           const rid = res.data;

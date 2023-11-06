@@ -286,7 +286,7 @@ export default class Results extends React.Component {
         <Table responsive className="kbl-table table-borderless">
           <thead className="kbl-thead">
             <tr>
-              <th scope="col">
+              {/* <th scope="col">
                 <input
                   type="checkbox"
                   className="form-check-input"
@@ -294,7 +294,7 @@ export default class Results extends React.Component {
                   id="mastercheck"
                   onChange={(e) => this.onMasterCheck(e)}
                 />
-              </th>
+              </th> */}
               {this.state.category === 'interolog' && (
                 <>
                   <th>Host</th>
@@ -370,7 +370,7 @@ export default class Results extends React.Component {
 
             {this.state.List.map((result, index) => (
               <tr key={index + 1} className={result.selected ? "selected" : ""}>
-                <td>
+                {/* <td>
                   <input
                     type="checkbox"
                     checked={result.selected}
@@ -379,7 +379,7 @@ export default class Results extends React.Component {
                     onChange={(e) => this.onItemCheck(e, result)}
                   />
 
-                </td>
+                </td> */}
                 <td>
                   <a
                     href={`https://plants.ensembl.org/Multi/Search/Results?species=all;idx=;q=${result["Host_Protein"]};site=ensemblunit`}
@@ -713,7 +713,7 @@ export default class Results extends React.Component {
     }
 
     return (
-      <div className="container">
+      <div className="container-fluid">
         {this.state.category === 'interolog' && (
           <>
             <Divider />
