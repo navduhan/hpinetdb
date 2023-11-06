@@ -5,13 +5,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { env } from '../../env';
 import { useState, useEffect } from 'react';
-
-
 import axios from 'axios';
-
 import './VisTable.scss';
-const tdata = JSON.parse(localStorage.getItem("resultid"));
-console.log(tdata)
+
+const urlParams = new URLSearchParams(window.location.search);
+// const results = JSON.parse(localStorage.getItem("resultid"));
+// const tdata = results.ttdata
+
+
+
+const tdata = urlParams.get("resultid");
+const rtype =  urlParams.get("rtype");
 
 export const VisTable = ({tableRowClicked, handleSearchChange}) => {
   
@@ -44,7 +48,7 @@ export const VisTable = ({tableRowClicked, handleSearchChange}) => {
   
 
   let results;
-
+  localStorage.setItem("search", JSON.stringify(searchTerm))
   if (data.data) {
     results = (
       <Table responsive className="kbl-table table-borderless">
@@ -61,16 +65,29 @@ export const VisTable = ({tableRowClicked, handleSearchChange}) => {
         <tbody>
           {Array.from(tableData).map((result, index) => (
             <tr className="select" key={index} onClick={() => {
+              let db;
+              if (rtype ==='interolog'){
+                db = `${result.intdb_x}: ${result.Host_Protein}-${result.Pathogen_Protein}`
+              }
+              if (rtype ==='phylo'){
+                db = `Phylo: ${result.Host_Protein}-${result.Pathogen_Protein}`
+              }
+              if (rtype ==='go'){
+                db = `go: ${result.Host_Protein}-${result.Pathogen_Protein}`
+              }
+              if (rtype ==='domain'){
+                db = `${result.intdb}: ${result.Host_Protein}-${result.Pathogen_Protein}`
+              }
               const data = {
                 source: result.Host_Protein,
                 target: result.Pathogen_Protein,
                 gene: result.Host_Protein,
                 pathogenProtein: result.Pathogen_Protein,
-                id : `${result.intdb_x}: ${result.Host_Protein}-${result.Pathogen_Protein}`
+                id : db
               };
 
               tableRowClicked(data);
-
+              handleSearchChange(searchTerm);
               }}>
               <td>{index + 1}</td>
               <td>{result.Host_Protein}</td>
@@ -92,22 +109,26 @@ export const VisTable = ({tableRowClicked, handleSearchChange}) => {
 
               setSearchTerm(searchTerm);
               handleSearchChange(searchTerm);
-              console.log(searchTerm);
+              
               if (event.target.value === '') {
-                const newData = data.data;
+                const newData = data.data.results;
                 setTableData(newData);
+                
               } else {
                 const newData = totalData.filter((item) => {
                   return item.Host_Protein.toLowerCase().includes(searchTerm) || item.Pathogen_Protein.toLowerCase().includes(searchTerm)
                 });
 
                 setTableData(newData);
+                
               }
             }
           }/>
+
         </Col>
       </Row>
       {results}
+
     </div>
   );
 }

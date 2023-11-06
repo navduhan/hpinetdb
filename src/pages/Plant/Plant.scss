@@ -31,7 +31,7 @@ font-weight: bold;
     padding: 0.7rem 0.5rem;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
-    background-color: $palette-2;
+    background-color: $palette-1!important;
     color:white;
     font-weight: 500;
     font-size: 16px;
@@ -47,27 +47,42 @@ select option {
   }
 
 .ant-btn-primary {
-background-color: $palette-2;
+background-color: $palette-1!important;
 border-radius: 12px;
 }
 
 .ant-btn-primary:hover {
-background-color: $palette-1;
+background-color: $palette-1-dark;
 }
 
 .ant-radio-checked .ant-radio-inner{
-    border-color:  #4fa2a2!important ;
+    border-color:  #288DC2!important ;
 }
 
 .ant-radio-checked .ant-radio-inner:after{
-    background-color:  #4fa2a2;;;
+    background-color:  #288DC2;;;
 }
 
 .ant-radio:hover .ant-radio-inner {
-    border-color:  #4fa2a2;; ;
+    border-color:  #288DC2;; ;
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {
-    background-color: #4fa2a2;
-    border-color: #4fa2a2;
+    background-color: #288DC2;
+    border-color: #288DC2;
+}
+
+.ant-divider {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+      padding-right: 0px;
+      padding-left: 0px;
+    color: rgba(0,0,0,.85);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: "tnum";
+    border-top: 1px solid rgba(242, 34, 34, 0.21);
 }

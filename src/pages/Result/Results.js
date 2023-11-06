@@ -6,6 +6,7 @@ import "./Results.scss";
 import '../../scss/components/buttons.scss';
 import '../../scss/style.scss'
 import { Divider, Button } from "antd";
+import { DownloadOutlined } from '@ant-design/icons';
 import { env } from 'env';
 import { downloadCsv } from "components/CSVDownload/CSVDownload";
 // import ReactLoading from 'react-loading';
@@ -257,12 +258,14 @@ export default class Results extends React.Component {
     let results;
     let ddata;
     if (tdata) {
-      localStorage.setItem("resultid", JSON.stringify(tdata))
+      localStorage.setItem("resultid", JSON.stringify({
+        ttdata: tdata,
+      stype:pdata.category}))
 
       ddata = disease[`${pdata.species}_${pdata.pathogen}`]
-      console.log(ddata)
+      // console.log(ddata)
     }
-    const csvButton = <Button type="primary" shape="round" size="large" onClick={() => downloadCsv(this.state.dResult, this.state.category)}> <b>Download CSV</b></Button>;
+    const csvButton = <Button type="primary" shape="round" icon={<DownloadOutlined />} size="large" onClick={() => downloadCsv(this.state.dResult, this.state.category)}> <b>Download CSV</b></Button>;
     if (this.state.List.length > 1) {
 
       results = (<><div className="row flex-lg-row align-items-center g-2 my-2 mx-2">
@@ -276,7 +279,7 @@ export default class Results extends React.Component {
           </h5>
         </div>
         <div className="col-md-2">
-          <a href={`${env.BASE_URL}/network`} target="_blank"
+          <a href={`${env.BASE_URL}/network/?resultid=${tdata}&rtype=${pdata.category}`} target="_blank"
             rel="noopener noreferrer"><Button type="primary" shape="round" size="large">
               <b>Visualize Network</b>
             </Button></a>
@@ -399,7 +402,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
                       className="button"
                     >
-                      <Button type="primary" shape="round" size={'small'}>Exp Atlas</Button>
+                      <Button type="link" shape="round" size={'small'}>Exp Atlas</Button>
                     </a>
                     <a
                       href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
@@ -407,7 +410,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
 
                     >
-                      <Button type="primary" shape="round" size={'small'}>PubMed</Button>
+                      <Button type="link" shape="round" size={'small'}>PubMed</Button>
                     </a>
                   </td>
                 </>)}
@@ -420,7 +423,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
                       className="host"
                     >
-                      <Button type="primary" shape="round" size={'small'}>Exp Atlas</Button>
+                      <Button type="link" shape="round" size={'small'}>Exp Atlas</Button>
                     </a>
                     <a
                       href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
@@ -428,7 +431,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
 
                     >
-                      <Button type="primary" shape="round" size={'small'}>PubMed</Button>
+                      <Button type="link" shape="round" size={'small'}>PubMed</Button>
                     </a>
                   </td>
                 </>)}
@@ -441,7 +444,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
                       className="host"
                     >
-                      <Button type="primary" shape="round" size={'small'}>Exp Atlas</Button>
+                      <Button type="link" shape="round" size={'small'}>Exp Atlas</Button>
                     </a>
                     <a
                       href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
@@ -449,7 +452,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
 
                     >
-                      <Button type="primary" shape="round" size={'small'}>PubMed</Button>
+                      <Button type="link" shape="round" size={'small'}>PubMed</Button>
                     </a>
                   </td>
                 </>)}
@@ -462,7 +465,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
                       className="host"
                     >
-                      <Button type="primary" shape="round" size={'small'}>Exp Atlas</Button>
+                      <Button type="link" shape="round" size={'small'}>Exp Atlas</Button>
                     </a>
                     <a
                       href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
@@ -470,7 +473,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
 
                     >
-                      <Button type="primary" shape="round" size={'small'}>PubMed</Button>
+                      <Button type="link" shape="round" size={'small'}>PubMed</Button>
                     </a>
                   </td>
                 </>)}
@@ -484,7 +487,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
                       className="host"
                     >
-                      <Button type="primary" shape="round" size={'small'}>Exp Atlas</Button>
+                      <Button type="link" shape="round" size={'small'}>Exp Atlas</Button>
                     </a>
                     <a
                       href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
@@ -492,7 +495,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
 
                     >
-                      <Button type="primary" shape="round" size={'small'}>PubMed</Button>
+                      <Button type="link" shape="round" size={'small'}>PubMed</Button>
                     </a>
                   </td>
                 </>)}
@@ -505,7 +508,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
 
                     >
-                      <Button type="primary" shape="round" size={'small'}>Exp Atlas</Button>
+                      <Button type="link" shape="round" size={'small'}>Exp Atlas</Button>
                     </a>
                     <a
                       href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
@@ -513,7 +516,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
 
                     >
-                      <Button type="primary" shape="round" size={'small'}>PubMed</Button>
+                      <Button type="link" shape="round" size={'small'}>PubMed</Button>
                     </a>
                   </td>
                 </>)}
@@ -549,7 +552,7 @@ export default class Results extends React.Component {
                       rel="noreferrer"
 
                     >
-                      <Button type="primary" shape="round" size={'small'}>View</Button>
+                      <Button type="link" shape="round" size={'small'}>View</Button>
                     </a>
                 </td>
                 {this.state.category !== 'gosim' && this.state.category !=='phylo' && (
@@ -713,7 +716,7 @@ export default class Results extends React.Component {
     }
 
     return (
-      <div className="container-fluid">
+      <div className="container">
         {this.state.category === 'interolog' && (
           <>
             <Divider />
@@ -848,7 +851,7 @@ export default class Results extends React.Component {
               </div>
               <div className="col-md-2">
                 <a href={`${env.BASE_URL}/network`} target="_blank"
-                  rel="noopener noreferrer"><Button type="primary" shape="round" size="large">
+                  rel="noopener noreferrer"><Button type="link" shape="round" size="large">
                     <b>Visualize Network</b>
                   </Button></a>
               </div>

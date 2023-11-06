@@ -7,7 +7,7 @@ import './HNavbar.scss';
 import '../../scss/style.scss';
 import lablogo from './lab_logo_red.png';
 import usulogo from './usulogo2.png';
-import dblogo from './db_logo2.png';
+import dblogo from './hpinet.png';
 
 class HNavbar extends React.Component {
   constructor(props) {
@@ -36,11 +36,11 @@ return(
   <div className="container contain">
   <div className="row flex-lg-row align-items-center g-2 mt-2">
 
-    <div className="col-md-2">
-      <img src={lablogo} height={50} alt=''></img>
+    <div className="col-md-2 imglab">
+      <img className="imglab" src={lablogo} height={50} alt=''></img>
     </div>
     <div className="col-md-2">
-    <img src={dblogo} height={40} alt=''></img>
+    <img src={dblogo} height={60} alt=''></img>
 
     </div>
     <div className=" col-md-6 mt-2 nav-wrapper mx-auto">

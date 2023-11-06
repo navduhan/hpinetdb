@@ -29,7 +29,7 @@ export default class VisPage extends Component {
     };
 
     this.handleNodeClicked = this.handleNodeClicked.bind(this);
-    this.setSearchTerm = this.setSearchTerm.bind(this);
+    this.handleSearchTerm = this.handleSearchTerm.bind(this);
     this.handleEdgeClicked = this.handleEdgeClicked.bind(this);
   }
 
@@ -37,8 +37,9 @@ export default class VisPage extends Component {
     this.setState({selectedBar: newMenu});
   }
 
-  setSearchTerm(term) {
+  handleSearchTerm(term) {
     this.setState({searchTerm: term});
+    console.log(`i did somerthing with ${term}`)
   }
 
 
@@ -46,8 +47,6 @@ export default class VisPage extends Component {
    
     this.setState({infoType: 'Node '});
     const data = e.target.data()
-    
-    console.log(data);
     let nodeType = NodeTypeDict[data.className];
     let itemName = data.id;
     let itemDegree = e.target.degree()
@@ -63,6 +62,8 @@ export default class VisPage extends Component {
     });
   }
 
+  
+  
   // The same as above
   handleTableRowClicked(data) {
 
@@ -77,6 +78,7 @@ export default class VisPage extends Component {
   }
 
   render() {
+    console.log(this.state.searchTerm)
     let tableClass = '';
     let nodeClass = '';
 
@@ -89,7 +91,7 @@ export default class VisPage extends Component {
     let menuComponent;
 
     if (this.state.selectedBar === 'table') {
-      menuComponent = <VisTable handleSearchChange={this.setSearchTerm} tableRowClicked={this.handleEdgeClicked} />
+      menuComponent = <VisTable handleSearchChange={this.handleSearchTerm} tableRowClicked={this.handleEdgeClicked} />
     } else {
       if (this.state.infoType.trim().toLowerCase() === 'node') {
         menuComponent = <NodeMenu nodeData={this.state.currentNodeData} />

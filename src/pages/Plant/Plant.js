@@ -196,7 +196,7 @@ export default class Plant extends React.Component {
         <div className="row mt-2">
           <Divider />
           <div className="col-md-6">
-            <h4>Host: {this.state.species}</h4>
+            <h4>Host:&nbsp;&nbsp; {this.state.species}</h4>
           </div>
           <div className="col-md-3 ">
             <h5>OR select other species:</h5>
@@ -220,7 +220,7 @@ export default class Plant extends React.Component {
 
         <div className="row  mb-4">
           <div className="col-md-6 ">
-            <h4>Pathogen: <i>{pathogen[this.state.pathogen]}</i></h4>
+            <h4>Pathogen: &nbsp;&nbsp; <i>{pathogen[this.state.pathogen]}</i></h4>
           </div>
           <div className="col-md-3 ">
             <h5>OR select other species:</h5>
@@ -399,7 +399,7 @@ export default class Plant extends React.Component {
         </div>
         <div className="row justify-content-center">
           <div className="col-md-3">
-            <a className="btn kbl-btn-2" href={`${env.BASE_URL}/interactome/?host=${this.state.species}&pathogen=${this.state.pathogen}`} >
+            <a className="btn kbl-btn-1" href={`${env.BASE_URL}/interactome/?host=${this.state.species}&pathogen=${this.state.pathogen}`} >
               Search All Interactome
             </a>
           </div>
@@ -537,7 +537,7 @@ export default class Plant extends React.Component {
             )}
             <div className="row flex-lg-row justify-content-center g-2">
               <div className="col-md-3">
-                <a className="btn kbl-btn-2" href={`${env.BASE_URL}/interactome/?host=${this.state.species}&pathogen=${this.state.pathogen}`} >
+                <a className="btn kbl-btn-1" href={`${env.BASE_URL}/interactome/?host=${this.state.species}&pathogen=${this.state.pathogen}`} >
 
                   Search Keyword-based Interactome
 

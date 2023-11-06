@@ -18,17 +18,21 @@ import { useState, useEffect } from 'react';
 
 import './Visualization.scss';
 
-
+const urlParams = new URLSearchParams(window.location.search);
 
 
 cytoscape.use(fcose);
 
 let cyRef;
-const tdata = JSON.parse(localStorage.getItem("resultid"));
-// const tdata = 'kbunt1652398829201results'
+
+
+const tdata = urlParams.get("resultid");
+const rtype =  urlParams.get("rtype");
+
+
 export const Visualization = React.memo(props => {
 
-  
+
   let [data, setData] = useState([]);
   let [graphData, setGraphData] = useState([]);
   let [searchTerm, setSearchTerm] = useState(props.searchTerm);
@@ -38,19 +42,21 @@ export const Visualization = React.memo(props => {
   }
 
   useEffect(() => {
-    setSearchTerm(searchTerm);
+    
+    setSearchTerm(props.searchTerm);
+    
     const fetchData = async () => {
       const results = await axios
-      .get(
-        `${env.BACKEND}/api/network/?results=${tdata}`
-      );
+        .get(
+          `${env.BACKEND}/api/network/?results=${tdata}`
+        );
       setData(results);
-      
+  
       setGraphData(results.data.results);
     }
-
+  
     fetchData();
-  }, [searchTerm]);
+  }, [props.searchTerm]);
 
   let elements = [];
 
@@ -64,6 +70,8 @@ export const Visualization = React.memo(props => {
   let biogrids =[];
   let strings = [];
   let arabihpis = [];
+  let gos =[];
+  let phylos =[];
 
   const idDict = {
     hpidb : hpidbs,
@@ -72,23 +80,42 @@ export const Visualization = React.memo(props => {
     string:strings,
     dip:dips,
     arabihpi:arabihpis,
-    biogrid:biogrids
+    biogrid:biogrids,
+    go:gos,
+    phylo:phylos
   }
 
   if (graphData.length && data.data) {
 
-    let useData = graphData;
-
+    let useData;
+    if (searchTerm !== '') {
+        console.log('something changed')
+        useData = data.data.results.filter((item) => {
+          return item.Host_Protein.toLowerCase().includes(props.searchTerm) || item.Pathogen_Protein.toLowerCase().includes(props.searchTerm);       
+        })}
+    else{
+     useData= graphData
+    }
+    
 
     elements = useData.map(item => {
       // console.log(item);
 
       let id = ''
-      
-        id = `${item.intdb_x}-${item.Host_Protein}-${item.Pathogen_Protein}`;
-        // console.log(id)
-        idDict[item.intdb_x].push(`#${id}`);
-
+        
+        if (rtype ==='interolog'){
+          id = `${item.intdb_x}-${item.Host_Protein}-${item.Pathogen_Protein}`;
+          idDict[item.intdb_x].push(`#${id}`);
+        }
+        if (rtype ==='phylo'){
+          id = `Phylo-${item.Host_Protein}-${item.Pathogen_Protein}`;
+          idDict['phylo'].push(`#${id}`);
+        }
+        if (rtype ==='go'){
+          id = `GOsim-${item.Host_Protein}-${item.Pathogen_Protein}`;
+          idDict['go'].push(`#${id}`);
+        }
+       
         return {data: { source: item.Host_Protein, target: item.Pathogen_Protein, id: id, Pathogen_Protein: item.Pathogen_Protein, Host_Protein: item.Host_Protein} };
       
     });
@@ -128,19 +155,19 @@ const opts = {
   return (
     <div>
       <div className="cy">
-        <CyComp elements={elements}             stylesheet={[
+        <CyComp elements={elements}   stylesheet={[
     {
       selector: 'node',
       style: {
         width: function(elements){ return Math.max(1, Math.ceil(elements.degree()/10))*5 ; },
         height: function(elements){ return Math.max(1, Math.ceil(elements.degree()/10)) *5; },
-   
+        content: "data(label)",
+        "font-size": "2px"
       }
     },
     {
       selector: 'edge',
       style: {
-
         width: 1
       }
     }
@@ -156,7 +183,7 @@ const opts = {
               });
 
               cyRef.on('click', 'edge', function(e) {
-                console.log(e.target.data());
+                // console.log(e.target.data());
                 props.edgeHandler(e.target.data());
               });
 
@@ -164,7 +191,6 @@ const opts = {
                 const Host_ProteinIds = uniqueHost_Proteins.map(item => {return `#${item}`});
                 for (let id of Host_ProteinIds) {
                   cyRef.$(id).style({'background-color': '#266bbf'});
-                  
                   
                 }
               }
@@ -175,7 +201,10 @@ const opts = {
                   cyRef.$(id).style({'background-color': '#e08351'});
                 }
               }
-
+              for (let id of phylos) {
+                cyRef.$(id).style({'line-color': '#fa9b87'});
+              }
+              
               for (let id of hpidbs) {
                 cyRef.$(id).style({'line-color': '#ff5733'});
               }
@@ -260,7 +289,9 @@ const opts = {
             </Col>
           </Row>
         </Col>
-        <Col sm={4}>
+        {rtype==='interolog' &&(
+         
+          <Col sm={4}>
           <Row>
             <Col>
               <IconContext.Provider value={{ className: "legend-icon int", color: '#ff5733' }}>
@@ -326,8 +357,27 @@ const opts = {
 
               <span className="legend-text">ArabiHPI</span>
             </Col>
-          </Row>
+            </Row>
         </Col>
+          
+        )}
+         {rtype==='phylo' &&(
+       
+          <Col sm={4}>
+          <Row>
+            <Col>
+              <IconContext.Provider value={{ className: "legend-icon int", color: '#fa9b87' }}>
+                <FaCircle />
+              </IconContext.Provider>
+
+              <span className="legend-text">Phylo-profiling</span>
+            </Col>
+          </Row>
+          </Col>
+         
+         )}
+        
+        
       </Row>
     </div>
   );
