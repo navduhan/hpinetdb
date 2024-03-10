@@ -13,7 +13,7 @@ import FileInput from '../../components/FileInput/FileInput';
 import test from './test.gif';
 
 const pdata = JSON.parse(localStorage.getItem("param"));
-console.log(pdata)
+// console.log(pdata)
 
 const urlParams = new URLSearchParams(window.location.search);
 
@@ -292,6 +292,7 @@ export default class Interactome extends React.Component {
       pathogen:this.state.pathogen
     };
    
+    // console.log(postBody)
 
     if (this.state.status === 'domain') {
       window.location.replace(`${env.BASE_URL}/results`);
@@ -308,7 +309,7 @@ export default class Interactome extends React.Component {
         score: this.state.goscore,
         threshold: this.state.gothreshold
       }
-      console.log(postBody)
+      // console.log(postBody)
       axios
         .post(
           `${env.BACKEND}/api/goppi/`,
@@ -316,7 +317,7 @@ export default class Interactome extends React.Component {
         )
         .then((res) => {
           const rid = res.data;
-          console.log(rid);
+          // console.log(rid);
           this.setState({ resultid: rid });
 
           this.closeModel();
@@ -342,7 +343,7 @@ export default class Interactome extends React.Component {
         pc: this.state.pcoverage,
         pe: this.state.pevalue,
       }
-      console.log(postBody)
+      // console.log(postBody)
       axios
         .post(
           // `${env.BACKEND}/api/ppi/?species=${this.state.species}&identity=${this.state.identity}&coverage=${this.state.coverage}&evalue=${this.state.evalue}&intdb=${intdb}`
@@ -351,7 +352,7 @@ export default class Interactome extends React.Component {
         )
         .then((res) => {
           const rid = res.data;
-          console.log(rid);
+          // console.log(rid);
           this.setState({ resultid: rid });
 
           this.closeModel();
@@ -373,7 +374,7 @@ export default class Interactome extends React.Component {
         )
         .then((res) => {
           const rid = res.data;
-          console.log(rid);
+          // console.log(rid);
           this.setState({ resultid: rid });
 
           this.closeModel();
@@ -401,7 +402,7 @@ export default class Interactome extends React.Component {
         keyword:pdata.keyword,
         searchType:pdata.searchType
       };
-       console.log(ipostBody)
+       // console.log(ipostBody)
       this.openModel();
       axios
         .post(
@@ -411,7 +412,7 @@ export default class Interactome extends React.Component {
         )
         .then((res) => {
           const rid = res.data;
-          console.log(rid);
+          // console.log(rid);
           this.setState({ resultid: rid });
 
           this.closeModel();
@@ -443,7 +444,9 @@ export default class Interactome extends React.Component {
         pgenes: this.state.pgenes,
         gomethod: this.state.gomethod,
         goscore: this.state.goscore,
-        gothreshold: this.state.gothreshold
+        gothreshold: this.state.gothreshold,
+        keyword:pdata.keyword,
+        searchType:pdata.searchType
       })
     );
     let genePlaceholder = 'Example ENSEMBL-IDs: TraesCS6A02G059000, TraesCS5A02G216600, TraesCS2A02G417800';
@@ -454,7 +457,7 @@ export default class Interactome extends React.Component {
     //   genePlaceholder = 'Example NCBI-IDs: OAJ02622, OAI99867, OAJ05030';
     //   geneSample = 'OAJ02622, OAI99867, OAJ05030, OAI99147';
     // }
-    // console.log(this.state.resultid)
+    // // console.log(this.state.resultid)
     return (
       <div className="container">
         {localStorage.setItem("resultid", JSON.stringify(this.state.resultid))}

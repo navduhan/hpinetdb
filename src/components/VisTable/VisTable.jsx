@@ -9,10 +9,6 @@ import axios from 'axios';
 import './VisTable.scss';
 
 const urlParams = new URLSearchParams(window.location.search);
-// const results = JSON.parse(localStorage.getItem("resultid"));
-// const tdata = results.ttdata
-
-
 
 const tdata = urlParams.get("resultid");
 const rtype =  urlParams.get("rtype");
@@ -23,23 +19,19 @@ export const VisTable = ({tableRowClicked, handleSearchChange}) => {
   let [totalData, setTotalData] = useState([]);
   let [tableData, setTableData] = useState([]);
   let [searchTerm, setSearchTerm] = useState('');
-  // let [isOpen,setisOpen] = useState(false);
-  // const proteins = [];
-
+  
   useEffect(() => {
     const fetchData = async () => {
+     
+     
       const results = await axios
       .get(
         `${env.BACKEND}/api/network/?results=${tdata}`
       );
       
       setData(results);
-
-      
         setTableData(results.data.results);
         setTotalData(results.data.results);
-        console.log(results);
-      
     }
 
     fetchData();
@@ -53,8 +45,7 @@ export const VisTable = ({tableRowClicked, handleSearchChange}) => {
     results = (
       <Table responsive className="kbl-table table-borderless">
         <thead className="kbl-thead">
-         
-
+        
           <tr>
             <th className="light">#</th>
             <th className="light">Host</th>
@@ -113,7 +104,7 @@ export const VisTable = ({tableRowClicked, handleSearchChange}) => {
               if (event.target.value === '') {
                 const newData = data.data.results;
                 setTableData(newData);
-                
+
               } else {
                 const newData = totalData.filter((item) => {
                   return item.Host_Protein.toLowerCase().includes(searchTerm) || item.Pathogen_Protein.toLowerCase().includes(searchTerm)

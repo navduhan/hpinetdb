@@ -15,8 +15,11 @@ const NodeTypeDict = {
   'pat': 'Pathogen Protein'
 }
 
-export default class VisPage extends Component {
 
+
+
+
+class VisPage extends Component {
   constructor(props) {
     super(props);
 
@@ -34,91 +37,78 @@ export default class VisPage extends Component {
   }
 
   handleBarSwitch(newMenu) {
-    this.setState({selectedBar: newMenu});
+    this.setState({ selectedBar: newMenu });
   }
 
   handleSearchTerm(term) {
-    this.setState({searchTerm: term});
-    console.log(`i did somerthing with ${term}`)
+    this.setState({ searchTerm: term });
   }
 
-
   handleNodeClicked(e) {
-   
-    this.setState({infoType: 'Node '});
-    const data = e.target.data()
-    let nodeType = NodeTypeDict[data.className];
-    let itemName = data.id;
-    let itemDegree = e.target.degree()
+    this.setState({ infoType: 'Node' });
+    const data = e.target.data();
+    const nodeType = NodeTypeDict[data.className];
+    const itemName = data.id;
+    const itemDegree = e.target.degree();
 
-    let parsedData = {
+    const parsedData = {
       nodeType,
       name: itemName,
       degree: itemDegree
-      
-    }
-    this.setState({currentNodeData: parsedData}, () => {
+    };
+
+    this.setState({ currentNodeData: parsedData }, () => {
       this.handleBarSwitch('info');
     });
   }
 
-  
-  
-  // The same as above
-  handleTableRowClicked(data) {
-
-  }
-
   handleEdgeClicked(data) {
-    this.setState({infoType: 'Edge '});
+    this.setState({ infoType: 'Edge' });
 
-    this.setState({currentEdgeData: data}, () => {
+    this.setState({ currentEdgeData: data }, () => {
       this.handleBarSwitch('info');
     });
   }
 
   render() {
-    console.log(this.state.searchTerm)
-    let tableClass = '';
-    let nodeClass = '';
+    const { searchTerm, selectedBar, infoType, currentNodeData, currentEdgeData } = this.state;
 
-    if (this.state.selectedBar === 'table') {
-      tableClass = 'selected';
-    } else {
-      nodeClass = 'selected';
-    }
+    let tableClass = selectedBar === 'table' ? 'selected' : '';
+    let nodeClass = selectedBar === 'info' ? 'selected' : '';
 
     let menuComponent;
-
-    if (this.state.selectedBar === 'table') {
-      menuComponent = <VisTable handleSearchChange={this.handleSearchTerm} tableRowClicked={this.handleEdgeClicked} />
+    if (selectedBar === 'table') {
+      menuComponent = <VisTable handleSearchChange={this.handleSearchTerm} tableRowClicked={this.handleEdgeClicked} />;
     } else {
-      if (this.state.infoType.trim().toLowerCase() === 'node') {
-        menuComponent = <NodeMenu nodeData={this.state.currentNodeData} />
-      } else if (this.state.infoType.trim().toLowerCase() === 'edge') {
-        menuComponent = <EdgeMenu edgeData={this.state.currentEdgeData} />
-      } else {
-        menuComponent = (<div>No node or edge selected.</div>)
-      }
-
+      menuComponent = infoType.toLowerCase() === 'node' ? 
+        <NodeMenu nodeData={currentNodeData} /> :
+        infoType.toLowerCase() === 'edge' ? 
+          <EdgeMenu edgeData={currentEdgeData} /> :
+          <div>No node or edge selected.</div>;
     }
 
     return (
-        <div className="container">
-      <Row className='mt-4'>
-        <Col sm={7}>
-          <Visualization edgeHandler={this.handleEdgeClicked} nodeHandler={this.handleNodeClicked} searchTerm={this.state.searchTerm} />
-        </Col>
-        <Col sm={5}>
-          <div className="bar-selector mb-3">
-            <span className={`${tableClass} mr-3`} onClick={() => this.handleBarSwitch('table')}>Table</span>
-            <span className={nodeClass}  onClick={() => this.handleBarSwitch('info')}>{this.state.infoType}Info</span>
-          </div>
-          {menuComponent}
-        </Col>
-      </Row>
-      <Divider />
+      <div className="container">
+        <Row className='mt-4'>
+          <Col sm={7}>
+            <Visualization edgeHandler={this.handleEdgeClicked} nodeHandler={this.handleNodeClicked} searchTerm={searchTerm} />
+          </Col>
+          <Col sm={5}>
+            <div className="bar-selector mb-3">
+              <span className={`${tableClass} mr-3`} onClick={() => this.handleBarSwitch('table')}>Table</span>
+              <span className={nodeClass}  onClick={() => this.handleBarSwitch('info')}>{infoType}Info</span>
+            </div>
+            {menuComponent}
+          </Col>
+        </Row>
+        <Divider />
       </div>
     );
   }
 }
+
+VisPage.propTypes = {
+  // Define PropTypes here if needed
+};
+
+export default VisPage;

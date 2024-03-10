@@ -20,7 +20,6 @@ import './Visualization.scss';
 
 const urlParams = new URLSearchParams(window.location.search);
 
-
 cytoscape.use(fcose);
 
 let cyRef;
@@ -46,13 +45,16 @@ export const Visualization = React.memo(props => {
     setSearchTerm(props.searchTerm);
     
     const fetchData = async () => {
-      const results = await axios
+      let results;
+    
+      results = await axios
         .get(
           `${env.BACKEND}/api/network/?results=${tdata}`
         );
       setData(results);
   
       setGraphData(results.data.results);
+
     }
   
     fetchData();
@@ -72,6 +74,10 @@ export const Visualization = React.memo(props => {
   let arabihpis = [];
   let gos =[];
   let phylos =[];
+  let did3s = [];
+  let iddis = [];
+  let domines =[]
+
 
   const idDict = {
     hpidb : hpidbs,
@@ -82,14 +88,17 @@ export const Visualization = React.memo(props => {
     arabihpi:arabihpis,
     biogrid:biogrids,
     go:gos,
-    phylo:phylos
+    phylo:phylos,
+    did3:did3s,
+    iddi:iddis,
+    domine:domines
   }
-
-  if (graphData.length && data.data) {
+  
+  if (graphData.length && data.data ) {
 
     let useData;
     if (searchTerm !== '') {
-        console.log('something changed')
+   
         useData = data.data.results.filter((item) => {
           return item.Host_Protein.toLowerCase().includes(props.searchTerm) || item.Pathogen_Protein.toLowerCase().includes(props.searchTerm);       
         })}
@@ -98,8 +107,10 @@ export const Visualization = React.memo(props => {
     }
     
 
+
+
     elements = useData.map(item => {
-      // console.log(item);
+     
 
       let id = ''
         
@@ -115,10 +126,23 @@ export const Visualization = React.memo(props => {
           id = `GOsim-${item.Host_Protein}-${item.Pathogen_Protein}`;
           idDict['go'].push(`#${id}`);
         }
-       
+        if (rtype ==='domain'){
+          id = `Domain-${item.Host_Protein}-${item.Pathogen_Protein}`;
+        if (item.intdb ==='3DID'){
+          idDict['did3'].push(`#${id}`);
+        }
+        if (item.intdb ==='IDDI'){
+          idDict['iddi'].push(`#${id}`);
+        }      
+        if (item.intdb ==='DOMINE'){
+          idDict['domine'].push(`#${id}`);
+        }   
+          
+      }
         return {data: { source: item.Host_Protein, target: item.Pathogen_Protein, id: id, Pathogen_Protein: item.Pathogen_Protein, Host_Protein: item.Host_Protein} };
       
     });
+   
 
     uniqueHost_Proteins = Array.from(new Set(useData.map(item => {return item.Host_Protein})));
 
@@ -201,8 +225,25 @@ const opts = {
                   cyRef.$(id).style({'background-color': '#e08351'});
                 }
               }
+
               for (let id of phylos) {
                 cyRef.$(id).style({'line-color': '#fa9b87'});
+              }
+
+              for (let id of gos) {
+                cyRef.$(id).style({'line-color': '#fa9b87'});
+              }
+
+              for (let id of did3s) {
+                cyRef.$(id).style({'line-color': '#ff5733'});
+              }
+
+              for (let id of iddis) {
+                cyRef.$(id).style({'line-color': '#2b86ab'});
+              }
+
+              for (let id of domines) {
+                cyRef.$(id).style({'line-color': '#7856c7'});
               }
               
               for (let id of hpidbs) {
@@ -376,8 +417,41 @@ const opts = {
           </Col>
          
          )}
-        
-        
+        {rtype==='domain' &&(
+         
+         <Col sm={4}>
+         <Row>
+           <Col>
+             <IconContext.Provider value={{ className: "legend-icon int", color: '#ff5733' }}>
+               <FaCircle />
+             </IconContext.Provider>
+
+             <span className="legend-text">3DID</span>
+           </Col>
+         </Row>
+
+         <Row className="mt-2">
+           <Col>
+             <IconContext.Provider value={{ className: "legend-icon dom", color: '#2b86ab' }}>
+               <FaCircle />
+             </IconContext.Provider>
+
+             <span className="legend-text">IDDI</span>
+           </Col>
+         </Row>
+
+         <Row className="mt-2">
+           <Col>
+             <IconContext.Provider value={{ className: "legend-icon con", color: '#7856c7' }}>
+               <FaCircle />
+             </IconContext.Provider>
+
+             <span className="legend-text">DOMINE</span>
+           </Col>
+         </Row>
+
+         </Col>
+        )};        
       </Row>
     </div>
   );

@@ -42,7 +42,7 @@ if (pdata) {
 
 
     if (pdata.genes === '') {
-      console.log("yes")
+      // console.log("yes")
       genes = []
     }
     if (pdata.genes !== '') {
@@ -75,7 +75,7 @@ export default class Results extends React.Component {
       MasterChecked: false,
       SelectedList: [],
       offset: 0,
-      perPage: 25,
+      perPage: 500,
       currentPage: 0,
       pageCount: 20,
       hostp: 0,
@@ -88,9 +88,11 @@ export default class Results extends React.Component {
       idt: idt,
       genes: genes,
       dgenes:dgenes,
+      resultid: tdata
     };
     this.handlePageClick = this.handlePageClick.bind(this);
-    this.downloadResults = this.downloadResults.bind(this)
+    // this.handleChangeMotif = this.handleChangeMotif.bind(this);
+    // this.downloadResults = this.downloadResults.bind(this)
 
   }
 
@@ -99,7 +101,7 @@ export default class Results extends React.Component {
  
   fetchResults() {
   
-    console.log(this.state.dgenes)
+    // console.log(this.state.dgenes)
     if (category === 'domain') {
       const postBody = {
         species: `${pdata.species}_${pdata.pathogen}`,
@@ -108,9 +110,11 @@ export default class Results extends React.Component {
         genes: this.state.dgenes,
         idt: this.state.idt,
         intdb: pdata.domdb,
+        keyword:pdata.keyword,
+        searchType:pdata.searchType
   
       }
-      console.log(postBody)
+      // console.log(postBody)
       this.openModel();
       axios
         .post(
@@ -119,14 +123,17 @@ export default class Results extends React.Component {
         .then((res) => {
           this.closeModel();
           const dList = res.data.results;
+          
           const dl = Math.ceil(res.data.total / this.state.perPage);
-          console.log(res.data.results)
+          console.log(res.data)
           this.setState({
             dList,
             pageCount: dl,
             total: parseInt(res.data.total),
             hostp: res.data.hostcount,
             pathogenp: res.data.pathogencount,
+            dResult: res.data.results,
+            resultid: res.data.resultid
           });
         }).catch(e => {
           console.log(e);
@@ -140,58 +147,78 @@ export default class Results extends React.Component {
         .then((res) => {
           const List = res.data.results;
           const dl = Math.ceil(res.data.total / this.state.perPage);
-          console.log(res.data)
+          // console.log(res.data)
           this.setState({
             List,
             pageCount: dl,
             total: parseInt(res.data.total),
             hostp: res.data.hostcount,
             pathogenp: res.data.pathogencount,
+            dResult: res.data.results
           });
         });
     }
   }
 
-  downloadResults() {
-   
-    if (category === 'domain') {
-    
-      const postBody = {
-        species: `${pdata.species}_${pdata.pathogen}`,
-        page: this.state.currentPage,
-        size: this.state.perPage,
-        genes:this.state.dgenes,
-        idt: this.state.idt,
-        intdb: pdata.domdb,
-  
-      }
-      axios
-        .post(
-          `${env.BACKEND}/api/domain_download/`, postBody, { crossDomain: true }
-        )
-        .then((res) => {
-          const dResult = res.data.results
-          this.setState({ dResult })
-          console.log(dResult)
-        })
-    }
-    else {
-      axios
-        .get(
-          `${env.BACKEND}/api/download/?results=${tdata}`
-        )
-        .then((res) => {
-          const dResult = res.data.results
-          this.setState({ dResult })
+  // handleChangeMotif(event) {
+  //   event.preventDefault();
+  //   const select = event.target;
+  //   const selectedOption = select.options[select.selectedIndex];
+  //   const choice = selectedOption.value
+  //   this.setState({
+  //     perPage: choice,
+  //     currentPage: 0,
 
-        })
-    }
-  }
+  //   }, () => {
+  //     this.fetchResults()
+     
+  // });
+
+
+// }
+
+  // downloadResults() {
+   
+  //   if (category === 'domain') {
+    
+  //     const postBody = {
+  //       species: `${pdata.species}_${pdata.pathogen}`,
+  //       page: this.state.currentPage,
+  //       size: this.state.perPage,
+  //       genes:this.state.dgenes,
+  //       idt: this.state.idt,
+  //       intdb: pdata.domdb,
+  //       keyword:pdata.keyword,
+  //       searchType:pdata.searchType
+  
+  //     }
+  //     axios
+  //       .post(
+  //         `${env.BACKEND}/api/domain_download/`, postBody, { crossDomain: true }
+  //       )
+  //       .then((res) => {
+  //         const dResult = res.data.results
+  //         this.setState({ dResult })
+  //         // console.log(dResult)
+  //       })
+  //   }
+  //   else {
+  //     axios
+  //       .get(
+  //         `${env.BACKEND}/api/download/?results=${tdata}`
+  //       )
+  //       .then((res) => {
+  //         const dResult = res.data.results
+  //         this.setState({ dResult })
+
+  //       })
+  //   }
+  // }
 
   componentDidMount() {
 
     this.fetchResults();
-    this.downloadResults();
+    // this.downloadResults();
 
 
   }
@@ -257,6 +284,7 @@ export default class Results extends React.Component {
   render() {
     let results;
     let ddata;
+    let middle = '';
     if (tdata) {
       localStorage.setItem("resultid", JSON.stringify({
         ttdata: tdata,
@@ -265,27 +293,49 @@ export default class Results extends React.Component {
       ddata = disease[`${pdata.species}_${pdata.pathogen}`]
       // console.log(ddata)
     }
+
     const csvButton = <Button type="primary" shape="round" icon={<DownloadOutlined />} size="large" onClick={() => downloadCsv(this.state.dResult, this.state.category)}> <b>Download CSV</b></Button>;
+
+    if (this.state.List.length > 1 || this.state.dList.length > 1) {
+      let st = this.state.offset + 1;
+      let en;
+      if (en > this.state.total) {
+        en =  this.state.total;
+      }
+      else{
+        en = this.state.offset + this.state.perPage;
+      }
+      console.log(this.state.resultid)
+    
+      middle = (
+        <span>
+          <div className="row flex-lg-row align-items-center g-2 my-2 mx-2">
+            <div className="col-md-2">{csvButton}</div>
+            <div className="col-md-8">
+              <h5 style={{ fontSize: '16px' }}>
+                Showing {st} to {en} of <b>{this.state.total}</b> interactions (Host Protein: {this.state.hostp} and Pathogen Protein: {this.state.pathogenp})
+              </h5>
+            </div>
+            <div className="col-md-2">
+              <a href={`${env.BASE_URL}/network/?resultid=${this.state.resultid}&rtype=${pdata.category}`} target="_blank" rel="noopener noreferrer">
+                <Button type="primary" shape="round" size="large">
+                  <b>Visualize Network</b>
+                </Button>
+              </a>
+            </div>
+          </div>
+          <Divider />
+        </span>
+      );
+    }
+
+   
+    
+   
     if (this.state.List.length > 1) {
 
-      results = (<><div className="row flex-lg-row align-items-center g-2 my-2 mx-2">
-        <div className="col-md-2">
-
-          {csvButton}
-        </div>
-        <div className="col-md-8">
-          <h5>
-            Showing {this.state.offset + 1} to {this.state.offset + 25} of <b>{this.state.total}</b> interactions (Host Protein: {this.state.hostp} and Pathogen Protein: {this.state.pathogenp})
-          </h5>
-        </div>
-        <div className="col-md-2">
-          <a href={`${env.BASE_URL}/network/?resultid=${tdata}&rtype=${pdata.category}`} target="_blank"
-            rel="noopener noreferrer"><Button type="primary" shape="round" size="large">
-              <b>Visualize Network</b>
-            </Button></a>
-        </div>
-      </div>
-
+      results = (<>
+          {middle}
         <Table responsive className="kbl-table table-borderless">
           <thead className="kbl-thead">
             <tr>
@@ -373,16 +423,7 @@ export default class Results extends React.Component {
 
             {this.state.List.map((result, index) => (
               <tr key={index + 1} className={result.selected ? "selected" : ""}>
-                {/* <td>
-                  <input
-                    type="checkbox"
-                    checked={result.selected}
-                    className="form-check-input"
-                    id={result._id}
-                    onChange={(e) => this.onItemCheck(e, result)}
-                  />
-
-                </td> */}
+             
                 <td>
                   <a
                     href={`https://plants.ensembl.org/Multi/Search/Results?species=all;idx=;q=${result["Host_Protein"]};site=ensemblunit`}
@@ -558,7 +599,7 @@ export default class Results extends React.Component {
                 {this.state.category !== 'gosim' && this.state.category !=='phylo' && (
                   <>
                     <td>
-                      {console.log(result["ProteinA"])}
+                      {/* {console.log(result["ProteinA"])} */}
 
                       {(() => {
                         if (onlyNumbers(result['ProteinA'])) {
@@ -570,7 +611,7 @@ export default class Results extends React.Component {
                               className="interactor"
                             >
                               {result["ProteinA"]}
-                              {console.log(result["ProteinA"])}
+                              {/* {console.log(result["ProteinA"])} */}
                             </a>
                           )
                         }
@@ -831,6 +872,7 @@ export default class Results extends React.Component {
         )}
 
         {this.state.category === 'domain' && (
+
           <>
             <Divider />
             <div className="row flex-lg-row align-items-center ">
@@ -839,39 +881,17 @@ export default class Results extends React.Component {
               <Divider />
               <p className="heading2"> Your selected domain databases: &nbsp;{pdata.domdb.toString()}</p>
             </div>
-            <div className="row flex-lg-row align-items-center g-2 my-2 mx-2">
-              <div className="col-md-2">
 
-                {csvButton}
-              </div>
-              <div className="col-md-8">
-                <h5>
-                  Showing {this.state.offset + 1} to {this.state.offset + 25} of <b>{this.state.total}</b> interactions (Host Protein: {this.state.hostp} and Pathogen Protein: {this.state.pathogenp})
-                </h5>
-              </div>
-              <div className="col-md-2">
-                <a href={`${env.BASE_URL}/network`} target="_blank"
-                  rel="noopener noreferrer"><Button type="link" shape="round" size="large">
-                    <b>Visualize Network</b>
-                  </Button></a>
-              </div>
-            </div>
-
+            {middle}
+          
             <Table responsive className="kbl-table table-borderless">
               <thead className="kbl-thead">
                 <tr>
-                  <th scope="col">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      checked={this.state.MasterChecked}
-                      id="mastercheck"
-                      onChange={(e) => this.onMasterCheck(e)}
-                    />
-                  </th>
-
+                 
                   <th>Host</th>
+                  <th>Expression</th>
                   <th>Pathogen</th>
+                  <th>Annotation</th>
                   <th>InteractorA</th>
                   <th>InteractorB</th>
                   <th>Interaction Source</th>
@@ -903,109 +923,161 @@ export default class Results extends React.Component {
 
                 {this.state.dList.map((result, index) => (
                   <tr key={index + 1} className={result.selected ? "selected" : ""}>
+              
+
+                <td>
+                  <a
+                    href={`https://plants.ensembl.org/Multi/Search/Results?species=all;idx=;q=${result["Host_Protein"]};site=ensemblunit`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="host"
+                  >
+                    {result["Host_Protein"]}
+                  </a>
+                </td>
+                {pdata.species === 'Maize' && (<>
+
+                  <td>
+                    <a
+                      href={`https://www.ebi.ac.uk/gxa/genes/${result["Host_Protein"].split("_")[0]}?bs={"zea mays"%3A["ORGANISM_PART"%2C"CULTIVAR"%2C"DEVELOPMENTAL_STAGE"%2C"SAMPLING_SITE"%2C"SAMPLING_TIME_POINT"]%2C"sorghum bicolor"%3A["ORGANISM_PART"%2C"CELL_TYPE"]}&ds={"kingdom"%3A["plants"]}#differential`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="button"
+                    >
+                      <Button type="link" shape="round" size={'small'}>Exp Atlas</Button>
+                    </a>
+                    <a
+                      href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
+                      target="_blank"
+                      rel="noreferrer"
+
+                    >
+                      <Button type="link" shape="round" size={'small'}>PubMed</Button>
+                    </a>
+                  </td>
+                </>)}
+                {pdata.species === 'Rice' && (<>
+
+                  <td>
+                    <a
+                      href={`https://www.ebi.ac.uk/gxa/genes/${result["Host_Protein"].split("-")[0].replace('t', 'g')}?bs={"oryza sativa"%3A["ORGANISM_PART"%2C"CULTIVAR"%2C"DEVELOPMENTAL_STAGE"%2C"SAMPLING_SITE"%2C"SAMPLING_TIME_POINT"]%2C"sorghum bicolor"%3A["ORGANISM_PART"%2C"CELL_TYPE"]}&ds={"kingdom"%3A["plants"]}#differential`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="host"
+                    >
+                      <Button type="link" shape="round" size={'small'}>Exp Atlas</Button>
+                    </a>
+                    <a
+                      href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
+                      target="_blank"
+                      rel="noreferrer"
+
+                    >
+                      <Button type="link" shape="round" size={'small'}>PubMed</Button>
+                    </a>
+                  </td>
+                </>)}
+                {pdata.species === 'Sorghum' && (<>
+
+                  <td>
+                    <a
+                      href={`https://www.ebi.ac.uk/gxa/genes/${sorghum_genes[result["Host_Protein"].split("-")[0]]}?bs={"Sorghum bicolor"%3A["ORGANISM_PART"%2C"CULTIVAR"%2C"DEVELOPMENTAL_STAGE"%2C"SAMPLING_SITE"%2C"SAMPLING_TIME_POINT"]%2C"sorghum bicolor"%3A["ORGANISM_PART"%2C"CELL_TYPE"]}&ds={"kingdom"%3A["plants"]}#differential`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="host"
+                    >
+                      <Button type="link" shape="round" size={'small'}>Exp Atlas</Button>
+                    </a>
+                    <a
+                      href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
+                      target="_blank"
+                      rel="noreferrer"
+
+                    >
+                      <Button type="link" shape="round" size={'small'}>PubMed</Button>
+                    </a>
+                  </td>
+                </>)}
+                {pdata.species === 'Foxtail' && (<>
+
+                  <td>
+                    <a
+                      href={`https://www.ebi.ac.uk/gxa/genes/${foxtail_genes[result["Host_Protein"].split("-")[0]]}?bs={"Setaria italica"%3A["ORGANISM_PART"%2C"CULTIVAR"%2C"DEVELOPMENTAL_STAGE"%2C"SAMPLING_SITE"%2C"SAMPLING_TIME_POINT"]%2C"sorghum bicolor"%3A["ORGANISM_PART"%2C"CELL_TYPE"]}&ds={"kingdom"%3A["plants"]}#differential`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="host"
+                    >
+                      <Button type="link" shape="round" size={'small'}>Exp Atlas</Button>
+                    </a>
+                    <a
+                      href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
+                      target="_blank"
+                      rel="noreferrer"
+
+                    >
+                      <Button type="link" shape="round" size={'small'}>PubMed</Button>
+                    </a>
+                  </td>
+                </>)}
+
+                {pdata.species === 'Barley' && (<>
+
+                  <td>
+                    <a
+                      href={`https://www.ebi.ac.uk/gxa/genes/${result["Host_Protein"].split(".")[0]}${result["Host_Protein"].split(".")[3].split("G")[0]}r1G${result["Host_Protein"].split(".")[3].split('G')[1]}?bs={"Hordeum vulgare"%3A["ORGANISM_PART"%2C"CULTIVAR"%2C"DEVELOPMENTAL_STAGE"%2C"SAMPLING_SITE"%2C"SAMPLING_TIME_POINT"]%2C"sorghum bicolor"%3A["ORGANISM_PART"%2C"CELL_TYPE"]}&ds={"kingdom"%3A["plants"]}#differential`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="host"
+                    >
+                      <Button type="link" shape="round" size={'small'}>Exp Atlas</Button>
+                    </a>
+                    <a
+                      href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
+                      target="_blank"
+                      rel="noreferrer"
+
+                    >
+                      <Button type="link" shape="round" size={'small'}>PubMed</Button>
+                    </a>
+                  </td>
+                </>)}
+                {pdata.species === 'Wheat' && (<>
+
+                  <td>
+                    <a
+                      href={`http://wheat-expression.com/genes/show?gene_set=RefSeq1.1&name=${result["Host_Protein"].split(".")[0]}&search_by=gene`}
+                      target="_blank"
+                      rel="noreferrer"
+
+                    >
+                      <Button type="link" shape="round" size={'small'}>Exp Atlas</Button>
+                    </a>
+                    <a
+                      href={`https://pubmed.ncbi.nlm.nih.gov/?term=${pdata.species}+AND+${ddata}+AND+expression`}
+                      target="_blank"
+                      rel="noreferrer"
+
+                    >
+                      <Button type="link" shape="round" size={'small'}>PubMed</Button>
+                    </a>
+                  </td>
+                </>)}
+                {pdata.species !== 'Wheat' && pdata.species !== 'Maize' && pdata.species !== 'Rice' && pdata.species !== 'Sorghum' && pdata.species !== 'Foxtail' && pdata.species !== 'Barley' && (
+
+                  <>
+
                     <td>
-                      <input
-                        type="checkbox"
-                        checked={result.selected}
-                        className="form-check-input"
-                        id={result._id}
-                        onChange={(e) => this.onItemCheck(e, result)}
-                      />
+                      <a
+                        href={`https://plants.ensembl.org/Multi/Search/Results?species=all;idx=;q=${result["Host_Protein"]};site=ensemblunit`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="host"
+                      >
+                        {result["Host_Protein"]}
+                      </a>
                     </td>
-
-                    {pdata.species === 'Maize' && (<>
-
-                      <td>
-                        <a
-                          href={`https://www.ebi.ac.uk/gxa/genes/${result["Host_Protein"].split("_")[0]}?bs={"zea mays"%3A["ORGANISM_PART"%2C"CULTIVAR"%2C"DEVELOPMENTAL_STAGE"%2C"SAMPLING_SITE"%2C"SAMPLING_TIME_POINT"]%2C"sorghum bicolor"%3A["ORGANISM_PART"%2C"CELL_TYPE"]}&ds={"kingdom"%3A["plants"]}#differential`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="host"
-                        >
-                          {result["Host_Protein"]}
-                        </a>
-                      </td>
-                    </>)}
-                    {pdata.species === 'Rice' && (<>
-
-                      <td>
-                        <a
-                          href={`https://www.ebi.ac.uk/gxa/genes/${result["Host_Protein"].split("-")[0].replace('t', 'g')}?bs={"oryza sativa"%3A["ORGANISM_PART"%2C"CULTIVAR"%2C"DEVELOPMENTAL_STAGE"%2C"SAMPLING_SITE"%2C"SAMPLING_TIME_POINT"]%2C"sorghum bicolor"%3A["ORGANISM_PART"%2C"CELL_TYPE"]}&ds={"kingdom"%3A["plants"]}#differential`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="host"
-                        >
-                          {result["Host_Protein"]}
-                        </a>
-                      </td>
-                    </>)}
-                    {pdata.species === 'Sorghum' && (<>
-
-                      <td>
-                        <a
-                          href={`https://www.ebi.ac.uk/gxa/genes/${sorghum_genes[result["Host_Protein"].split("-")[0]]}?bs={"Sorghum bicolor"%3A["ORGANISM_PART"%2C"CULTIVAR"%2C"DEVELOPMENTAL_STAGE"%2C"SAMPLING_SITE"%2C"SAMPLING_TIME_POINT"]%2C"sorghum bicolor"%3A["ORGANISM_PART"%2C"CELL_TYPE"]}&ds={"kingdom"%3A["plants"]}#differential`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="host"
-                        >
-                          {result["Host_Protein"]}
-                        </a>
-                      </td>
-                    </>)}
-                    {pdata.species === 'Foxtail' && (<>
-
-                      <td>
-                        <a
-                          href={`https://www.ebi.ac.uk/gxa/genes/${foxtail_genes[result["Host_Protein"].split("-")[0]]}?bs={"Setaria italica"%3A["ORGANISM_PART"%2C"CULTIVAR"%2C"DEVELOPMENTAL_STAGE"%2C"SAMPLING_SITE"%2C"SAMPLING_TIME_POINT"]%2C"sorghum bicolor"%3A["ORGANISM_PART"%2C"CELL_TYPE"]}&ds={"kingdom"%3A["plants"]}#differential`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="host"
-                        >
-                          {result["Host_Protein"]}
-                        </a>
-                      </td>
-                    </>)}
-
-                    {pdata.species === 'Barley' && (<>
-
-                      <td>
-                        <a
-                          href={`https://www.ebi.ac.uk/gxa/genes/${result["Host_Protein"].split(".")[0]}${result["Host_Protein"].split(".")[3].split("G")[0]}r1G${result["Host_Protein"].split(".")[3].split('G')[1]}?bs={"Hordeum vulgare"%3A["ORGANISM_PART"%2C"CULTIVAR"%2C"DEVELOPMENTAL_STAGE"%2C"SAMPLING_SITE"%2C"SAMPLING_TIME_POINT"]%2C"sorghum bicolor"%3A["ORGANISM_PART"%2C"CELL_TYPE"]}&ds={"kingdom"%3A["plants"]}#differential`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="host"
-                        >
-                          {result["Host_Protein"]}
-                        </a>
-                      </td>
-                    </>)}
-                    {pdata.species === 'Wheat' && (<>
-
-                      <td>
-                        <a
-                          href={`http://wheat-expression.com/genes/show?gene_set=RefSeq1.1&name=${result["Host_Protein"].split(".")[0]}&search_by=gene`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="host"
-                        >
-                          {result["Host_Protein"]}
-                        </a>
-                      </td>
-                    </>)}
-                    {pdata.species !== 'Wheat' && pdata.species !== 'Maize' && pdata.species !== 'Rice' && pdata.species !== 'Sorghum' && pdata.species !== 'Foxtail' && pdata.species !== 'Barley' && (
-                      <>
-                        <td>
-                          <a
-                            href={`https://plants.ensembl.org/Multi/Search/Results?species=all;idx=;q=${result["Host_Protein"]};site=ensemblunit`}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="host"
-                          >
-                            {result["Host_Protein"]}
-                          </a>
-                        </td>
-                      </>)}
-                    <td>
+                  </>)}
+                <td>
                       <a
                         href={`https://www.ncbi.nlm.nih.gov/search/all/?term=${result["Pathogen_Protein"]}%09`}
                         target="_blank"
@@ -1015,6 +1087,17 @@ export default class Results extends React.Component {
                         {result["Pathogen_Protein"]}
                       </a>
                     </td>
+
+                    <td>
+                <a
+                      href={`${env.BASE_URL}/annotation/?host=${pdata.species}&pathogen=${pdata.pathogen}&hid=${result["Host_Protein"]}&pid=${result["Pathogen_Protein"]}`}
+                      target="_blank"
+                      rel="noreferrer"
+
+                    >
+                      <Button type="link" shape="round" size={'small'}>View</Button>
+                    </a>
+                </td>
 
                     <td>
                       <a

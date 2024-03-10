@@ -22,7 +22,7 @@ const id = urlParams.get("id");
 
 
 let fd = Data.filter(function (i) {
-  // console.log(i)
+  // // console.log(i)
   return i.id === id;
 });
 
@@ -126,7 +126,7 @@ export default class Plant extends React.Component {
   };
 
   handleSpecies(e) {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     const species = e.target.value
     if (species === '') {
       this.setState({
@@ -159,7 +159,7 @@ export default class Plant extends React.Component {
   }
 
   render() {
-    // console.log(this.state.currentPathogens[0])
+    // // console.log(this.state.currentPathogens[0])
     localStorage.setItem(
       "param",
       JSON.stringify({
@@ -188,7 +188,7 @@ export default class Plant extends React.Component {
       genePlaceholder = 'Example NCBI-IDs: OAJ02192,OAJ01344,OAJ05837';
     }
     const ddata = disease[`${this.state.species}_${this.state.pathogen}`]
-    console.log(this.state.anotType)
+    // console.log(this.state.anotType)
     return (
       <div className="container">
 
@@ -414,7 +414,7 @@ export default class Plant extends React.Component {
               size="large"
               onClick={this.handlAdvanced}
             >
-              Adavnce Search{" "}
+              Advanced Search{" "}
             </Button>
           </div>
 

@@ -68,7 +68,7 @@ export default class ANNOT extends React.Component {
             )
             .then((res) => {
 
-                console.log(res.data.hgo)
+                // console.log(res.data.hgo)
                 this.setState({
                     hgo: res.data.hgo,
                     pgo: res.data.pgo,
@@ -93,7 +93,7 @@ export default class ANNOT extends React.Component {
         this.fetchAnnotations();
     }
 
-    render() {
+    render() { // console.log(this.state.pint)
         let geneontology;
         if (this.state.hgo && this.state.hgo.length !== 0) {
             geneontology = (
