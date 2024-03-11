@@ -53,5 +53,17 @@ export const bacteria = [
 ]
 
 export const virus = [
+    "bsmv",
+    "bydv",
+    "mcmv",
+    "mdmv",
+    "msv",
+    "rdv",
+    "rtbv",
+    "rtsv",
+    "rymv",
+    "smv",
+    "wsmv",
+    "wymv"
     
 ]

@@ -38,6 +38,18 @@ export const pathogen = {
     tcaries:	"Tilletia caries",
     tlaevis:	"Tilletia laevis",
     tcontroversa:	"Tilletia controversa",
+    bsmv:"Barley stripe mosaic virus",
+    bydv: "Barley yellow dwarf virus",
+    mcmv: "Maize chlorotic mottle virus",
+    mdmv: "Maize dwarf mosaic virus",
+    msv: "Maize streak virus",
+    rdv: "Rice dwarf virus",
+    rtbv: "Rice tungro bacilliform virus",
+    rtsv: "Rice tungro spherical virus",
+    rymv: "Rice yellow mottle virus",
+    smv: "Sugarcane mosaic virus",
+    wsmv: "Wheat streak mosaic virus",
+    wymv: "Wheat yellow mosaic virus"
 }
 
 
