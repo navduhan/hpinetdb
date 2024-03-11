@@ -301,7 +301,7 @@ const opts = {
 
           <IconContext.Provider value={{ className: "dl-icon" }}>
             <FaImage title="Download PNG" onClick={() => {
-                const file = cyRef.png();
+                const file = cyRef.png({ output: "blob", full: true, dpi:300 });
                 FileSaver.saveAs(file, 'chart.png');
               }} />
           </IconContext.Provider>

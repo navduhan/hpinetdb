@@ -42,7 +42,7 @@
         "bsmv": ["Viruses", "Pisuviricota", "Stelpaviricetes", "Patatavirales", "Potyviridae", "Hordeivirus", "Barley stripe mosaic virus"],
         "bydv": ["Viruses", "Kitrinoviricota", "Tolucaviricetes", "Tolivirales", "Tombusviridae","Luteovirus", "Barley yellow dwarf virus"],
         "mcmv": ["Viruses","Kitrinoviricota", "Tolucaviricetes", "Tolivirales",  "Tombusviridae", "Machlomovirus", "Maize chlorotic mottle virus"],
-        "mdmv": ["Viruses", "Pisuviricota", "Stelpaviricetes", "Patatavirales", "Potyviridae", "Potyviridae", "Potyvirus", "Maize dwarf mosaic virus"],
+        "mdmv": ["Viruses", "Pisuviricota", "Stelpaviricetes", "Patatavirales", "Potyviridae", "Potyvirus", "Maize dwarf mosaic virus"],
         "rdv":  ["Viruses", "Duplornaviricota", "Resentoviricetes", "Reovirales", "Sedoreoviridae", "Phytoreovirus", "Rice dwarf virus"],
         "rtbv": ["Viruses", "Artverviricota", "Revtraviricetes", "Ortervirales", "Caulimoviridae", "Tungrovirus", "Rice tungro bacilliform virus"],
         "rtsv": ["Viruses", "Pisuviricota", "Pisoniviricetes", "Picornavirales", "Secoviridae", "Waikavirus", "Rice tungro spherical virus"],
