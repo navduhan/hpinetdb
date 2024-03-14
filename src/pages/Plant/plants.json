@@ -15,7 +15,7 @@
     "id": "3",
     "name": "Barley",
     "sname": "Hordeum vulgare",
-    "pathogen": ["bgraminisbarley", "fgramineadrum",  "psyringaeatrofaciens", "pgramini", "pteres", "bsmv","bydv"]
+    "pathogen": ["bgraminisbarley", "fgramineadrum",  "psyringaeatrofaciens", "pgramini", "pteres", "bsmv"]
   
 },
 {
@@ -29,7 +29,7 @@
     "id": "5",
     "name": "Rye",
     "sname": "Secale_cereale",
-    "pathogen": ["bgraminisef2","cgraminicola", "pteres","utritici", "cpurpurea", "bydv"]
+    "pathogen": ["bgraminisef2","cgraminicola", "pteres","utritici", "cpurpurea"]
    
 },
 {
@@ -43,7 +43,7 @@
     "id": "7",
     "name": "Oat",
     "sname": "Avena sativa",
-    "pathogen": ["bgraminisef2","cgraminicola","fpoae","pcoronafaciens","pcoronta", "bydv"]
+    "pathogen": ["bgraminisef2","cgraminicola","fpoae","pcoronafaciens","pcoronta"]
     
 },
 {
