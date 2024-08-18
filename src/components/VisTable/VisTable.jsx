@@ -69,6 +69,9 @@ export const VisTable = ({tableRowClicked, handleSearchChange}) => {
               if (rtype ==='domain'){
                 db = `${result.intdb}: ${result.Host_Protein}-${result.Pathogen_Protein}`
               }
+              if (rtype ==='consensus'){
+                db = `${result.intdb_x}: ${result.Host_Protein}-${result.Pathogen_Protein}`
+              }
               const data = {
                 source: result.Host_Protein,
                 target: result.Pathogen_Protein,

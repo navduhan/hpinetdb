@@ -140,6 +140,7 @@ export default class Results extends React.Component {
         });
     }
     else {
+      console.log(`${env.BACKEND}/api/results/?results=${tdata}&category=${category}&page=${this.state.currentPage}&size=${this.state.perPage}`)
       axios
         .get(
           `${env.BACKEND}/api/results/?results=${tdata}&category=${category}&page=${this.state.currentPage}&size=${this.state.perPage}`
@@ -147,7 +148,7 @@ export default class Results extends React.Component {
         .then((res) => {
           const List = res.data.results;
           const dl = Math.ceil(res.data.total / this.state.perPage);
-          // console.log(res.data)
+          console.log(res.data)
           this.setState({
             List,
             pageCount: dl,
@@ -282,6 +283,7 @@ export default class Results extends React.Component {
     });
   }
   render() {
+    console.log(this.state.category)
     let results;
     let ddata;
     let middle = '';
@@ -369,6 +371,29 @@ export default class Results extends React.Component {
                   <th>Expression</th>
                   <th>Pathogen</th>
                   <th>Annotation</th>
+                  <th>InteractorA</th>
+                  <th>InteractorB</th>
+                  <th>Source</th>
+                  <th>InteractoA Name</th>
+                  <th>InteractorA Interpro</th>
+                  <th>InteractoB Name</th>
+                  <th>InteractorB Interpro</th>
+                  <th>Confidence</th>
+                </>
+              )}
+               {this.state.category === 'consensus' && (
+                <>
+                  <th>Host</th>
+                  <th>Expression</th>
+                  <th>Pathogen</th>
+                  <th>Annotation</th>
+                  <th>InteractorA</th>
+                  <th>InteractorB</th>
+                  <th>Source</th>
+                  <th>Method</th>
+                  <th>Type</th>
+                  <th>Confidence</th>
+                  <th>PMID</th>
                   <th>InteractorA</th>
                   <th>InteractorB</th>
                   <th>Source</th>
@@ -596,7 +621,7 @@ export default class Results extends React.Component {
                       <Button type="link" shape="round" size={'small'}>View</Button>
                     </a>
                 </td>
-                {this.state.category !== 'gosim' && this.state.category !=='phylo' && (
+                {this.state.category !== 'gosim' && this.state.category !=='phylo' && this.state.category !== 'consensus' && (
                   <>
                     <td>
                       {/* {console.log(result["ProteinA"])} */}
@@ -667,6 +692,7 @@ export default class Results extends React.Component {
                       })()}
                     </td>
                   </>)}
+
                 {this.state.category === 'interolog' && (
                   <>
                     <td>{result["intdb_x"]}</td>
@@ -709,6 +735,181 @@ export default class Results extends React.Component {
                     <td>{result["Score"]}</td>
                   </>
                 )}
+                 {this.state.category === 'consensus' && (
+                  <>
+                   <td>
+                      {/* {console.log(result["ProteinA"])} */}
+
+                      {(() => {
+                        if (onlyNumbers(result['ProteinA_x'])) {
+                          return (
+                            <a
+                              href={` https://www.ncbi.nlm.nih.gov/protein/${result["ProteinA_x"]}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="interactor"
+                            >
+                              {result["ProteinA_x"]}
+                              {console.log(result["ProteinA_x"])}
+                            </a>
+                          )
+                        }
+                        else {
+                          return (
+                            <a
+                              href={` https://www.uniprot.org/uniprot/${result["ProteinA_x"]}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="interactor"
+                            >
+                              {result["ProteinA_x"]}
+
+                            </a>
+                          )
+                        }
+
+
+                      })()}
+
+
+                    </td>
+                    <td>
+                      {(() => {
+                        if (onlyNumbers(result['ProteinB_x'])) {
+                          return (
+                            <a
+                              href={` https://www.ncbi.nlm.nih.gov/protein/${result["ProteinB_x"]}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="interactor"
+                            >
+                              {result["ProteinB_x"]}
+
+                            </a>
+                          )
+                        }
+                        else {
+                          return (
+                            <a
+                              href={` https://www.uniprot.org/uniprot/${result["ProteinB_x"]}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="interactor"
+                            >
+                              {result["ProteinB_x"]}
+
+                            </a>
+                          )
+                        }
+
+
+                      })()}
+                    </td>
+                  <td>{result["intdb_x"]}</td>
+                    <td>{result["Method"]}</td>
+                    <td>{result["Type"]}</td>
+                    <td>{result["Confidence"]}</td>
+                    <td>
+                    {(() => {
+                        if (onlyNumbers(result['PMID'])) {
+                          return (
+                            <a
+                              href={` https://pubmed.ncbi.nlm.nih.gov/${result["PMID"]}/`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="interactor"
+                            >
+                      {result["PMID"]}
+                      </a>
+                    )}
+                        else{
+                       return(
+                        <>
+                         {result["PMID"]}
+                        </>
+                       )
+                           
+                          
+                        }
+                      })()}
+                      </td>
+                      <td>
+                      {/* {console.log(result["ProteinA"])} */}
+
+                      {(() => {
+                        if (onlyNumbers(result['ProteinA_x'])) {
+                          return (
+                            <a
+                              href={` https://www.ncbi.nlm.nih.gov/protein/${result["ProteinA_x"]}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="interactor"
+                            >
+                              {result["ProteinA_x"]}
+                              {console.log(result["ProteinA_x"])}
+                            </a>
+                          )
+                        }
+                        else {
+                          return (
+                            <a
+                              href={` https://www.uniprot.org/uniprot/${result["ProteinA_x"]}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="interactor"
+                            >
+                              {result["ProteinA_x"]}
+
+                            </a>
+                          )
+                        }
+
+
+                      })()}
+
+
+                    </td>
+                    <td>
+                      {(() => {
+                        if (onlyNumbers(result['ProteinB_y'])) {
+                          return (
+                            <a
+                              href={` https://www.ncbi.nlm.nih.gov/protein/${result["ProteinB_y"]}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="interactor"
+                            >
+                              {result["ProteinB_y"]}
+
+                            </a>
+                          )
+                        }
+                        else {
+                          return (
+                            <a
+                              href={` https://www.uniprot.org/uniprot/${result["ProteinB_y"]}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="interactor"
+                            >
+                              {result["ProteinB_y"]}
+
+                            </a>
+                          )
+                        }
+
+
+                      })()}
+                    </td>
+                    <td>{result["intdb"]}</td>
+                    <td>{result["DomainA_name"]}</td>
+                    <td>{result["DomainA_interpro"]}</td>
+                    <td>{result["DomainB_name"]}</td>
+                    <td>{result["DomainB_interpro"]}</td>
+                    <td>{result["Score"]}</td>
+                  </>
+                )}
+
                 {this.state.category === 'gosim' && (
                   <>
                     <td>{result["Host_GO"]}</td>
@@ -758,6 +959,53 @@ export default class Results extends React.Component {
 
     return (
       <div className="container">
+        {this.state.category === 'consensus' &&(
+          <>
+           <Divider />
+            <div className="row flex-lg-row align-items-center ">
+              <h5> <b>Host:</b> <i>{data[pdata.species]}</i> ({pdata.species})&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <b>Pathogen:</b> <i>{data[pdata.pathogen]}</i>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<b>Method:</b>  Interolog</h5>
+              <Divider />
+              <div className="col-md-2">
+                <b>Parameters:</b>
+              </div>
+              <div className="col-md-5">
+                <div className="row mx-4">
+                  <div className="col-md-2 heading2">
+                    <b>Host:</b>
+                  </div>
+                  <div className="col-md-10">
+                    <p className="heading2">
+                      {" "}
+                      Evalue:&nbsp; {pdata.he}&nbsp; &nbsp; Identity:&nbsp;{" "}
+                      {pdata.hi} &nbsp; &nbsp; Coverage:&nbsp; {pdata.hc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-5">
+                <div className="row mx-4">
+                  <div className="col-md-2 heading2">
+                    <b>Pathogen:</b>
+                  </div>
+                  <div className="col-md-10">
+                    <p className="heading2">
+                      {" "}
+                      evalue:&nbsp; {pdata.pe}&nbsp; &nbsp; identity:&nbsp;{" "}
+                      {pdata.pi} &nbsp; &nbsp; coverage:&nbsp; {pdata.pc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <Divider />
+              <p className="heading2"> Your selected domain databases: &nbsp;{pdata.domdb.toString()}</p>
+              <Divider />
+            </div>
+          {results}
+          </>
+        )
+
+        }
         {this.state.category === 'interolog' && (
           <>
             <Divider />

@@ -146,7 +146,8 @@ export default class Plant extends React.Component {
   }
   handlePathogen(e) {
     this.setState({
-      pathogen: e.target.value
+      pathogen: e.target.value,
+      genes:''
 
     })
   }
@@ -177,7 +178,7 @@ export default class Plant extends React.Component {
     let genePlaceholder 
     let geneSample;
     let hostgeneSample = host_genes['Wheat']
-    let pathogenGeneSample = host_genes['tindica']
+    let pathogenGeneSample = host_genes[this.state.pathogen]
 
     if (this.state.idtype === 'host') {
       geneSample = hostgeneSample

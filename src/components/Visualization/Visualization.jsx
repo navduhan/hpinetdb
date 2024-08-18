@@ -118,6 +118,10 @@ export const Visualization = React.memo(props => {
           id = `${item.intdb_x}-${item.Host_Protein}-${item.Pathogen_Protein}`;
           idDict[item.intdb_x].push(`#${id}`);
         }
+        if (rtype ==='consensus'){
+          id = `${item.intdb_x}-${item.Host_Protein}-${item.Pathogen_Protein}`;
+          idDict[item.intdb_x].push(`#${id}`);
+        }
         if (rtype ==='phylo'){
           id = `Phylo-${item.Host_Protein}-${item.Pathogen_Protein}`;
           idDict['phylo'].push(`#${id}`);
