@@ -1159,7 +1159,7 @@ export default class Interactome extends React.Component {
           {this.state.isOpen && (
 
             <div className="col-md-8">
-              <h5 className="mb-3">Please wait your query is processing</h5>
+              <h5 className="mb-3">Please wait your query is processing. It can take up to 10 minutes.</h5>
               <img
                 src={test}
                 className="loading"

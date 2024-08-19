@@ -33,7 +33,7 @@ export const fungi = [
 "bgraminisef2",
 "cgraminicola",
 "fpoae",
-"pcoronafaciens",
+
 "pcoronta",
 "pgriesea",
 "meleuinis",
@@ -44,6 +44,7 @@ export const fungi = [
 export const bacteria = [
     "psyringaewheat", 
     "psyringaewheat",
+    "pcoronafaciens",
     "xvasicola",
     "aavenae",
     "psyringae",

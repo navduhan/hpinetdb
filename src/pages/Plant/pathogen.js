@@ -12,7 +12,7 @@ export const pathogen = {
     bgraminisbarley:"Blumeria graminis f sp hordei", 
     fgramineadrum:"Fusarium graminearum RR1", 
     psyringaeatrofaciens:"Pseudomonas syringae pv atrofaciens", 
-    pgramini:"Puccinia graminisug 99", 
+    pgramini:"Puccinia graminis ug 99", 
     pteres:"Pyrenophora teres",
     boryzae:"Bipolaris oryzae", 
     bglumae:"Burkholderia glumae", 

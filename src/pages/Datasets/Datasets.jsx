@@ -142,6 +142,39 @@ export default class Datasets extends React.Component {
             </div>
           </div>
           <Divider />
+          <div className="row flex-lg-row justify-content-center g-2 my-2 mx-2">
+            <h4> Viral Species</h4>
+            <Divider />
+            <div className="col-md-6">
+              <p className="infod">
+                Link to <i>Wheat yellow mosaic virus</i>: <a href="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/862/385/GCF_000862385.1_ViralMultiSegProj15358/" rel="noreferrer" target="_blank" >NCBI<sup> <i> <LinkOutlined /></i></sup></a>
+                <br />
+                Link to <i>Wheat streak mosaic virus</i>: <a href="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/862/365/GCF_000862365.1_ViralProj15354/" rel="noreferrer" target="_blank" >NCBI<sup> <i> <LinkOutlined /></i></sup></a>
+                <br />
+                Link to <i>Maize dwarf mosaic virus</i>: <a href="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/863/225/GCF_000863225.1_ViralProj15355/" rel="noreferrer" target="_blank" >NCBI<sup> <i> <LinkOutlined /></i></sup></a>
+                <br />
+                Link to <i>Maize chlorotic mottle virus</i>: <a href="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/856/925/GCF_000856925.1_ViralProj15117/" rel="noreferrer" target="_blank" >NCBI<sup> <i> <LinkOutlined /></i></sup></a>
+                <br />
+                Link to <i>Sugarcane mosaic virus</i>: <a href="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/854/025/GCF_000854025.1_ViralProj14994/" rel="noreferrer" target="_blank" >NCBI<sup> <i> <LinkOutlined /></i></sup></a>
+                <br />
+              </p>
+            </div>
+            <div className="col-md-6">
+              <p className="infod">
+                Link to <i>Barley stripe mosaic virus </i>pv oryzae: <a href="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/855/725/GCF_000855725.1_ViralMultiSegProj15031/" rel="noreferrer" target="_blank" >NCBI<sup> <i> <LinkOutlined /></i></sup></a>
+                <br />
+                Link to <i>Rice yellow mottle virus</i>: <a href="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/863/085/GCF_000863085.1_ViralProj15327/" rel="noreferrer" target="_blank" >NCBI<sup> <i> <LinkOutlined /></i></sup></a>
+                <br />
+                Link to <i>Rice tungro spherical virus </i>pv vasculorum: <a href="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/860/625/GCF_000860625.1_ViralProj15332/" rel="noreferrer" target="_blank" >NCBI<sup> <i> <LinkOutlined /></i></sup></a>
+                <br />
+                Link to <i>Rice tungro bacilliform virus</i> pv syringae: <a href="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/849/605/GCF_000849605.1_ViralProj14579/" rel="noreferrer" target="_blank" >NCBI<sup> <i> <LinkOutlined /></i></sup></a>
+                <br />
+                Link to <i>Rice dwarf virus</i> pv syringae: <a href="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/850/725/GCF_000850725.1_ViralMultiSegProj14797/" rel="noreferrer" target="_blank" >NCBI<sup> <i> <LinkOutlined /></i></sup></a>
+                <br />
+              </p>
+            </div>
+          </div>
+          <Divider />
           <div className="row flex-lg-row justify-content-center g-2 my-2">
             <h5>Data Sources</h5>
             <Divider />
