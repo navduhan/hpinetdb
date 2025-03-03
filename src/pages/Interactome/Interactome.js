@@ -451,8 +451,8 @@ export default class Interactome extends React.Component {
     );
     let genePlaceholder = 'Example ENSEMBL-IDs: TraesCS6A02G059000, TraesCS5A02G216600, TraesCS2A02G417800';
     // let geneSample = 'TraesCS6A02G059000, TraesCS5A02G216600, TraesCS2A02G417800, TraesCS7A02G408100, TraesCS7A02G434500, TraesCS2A02G203000, TraesCS7A02G178900, TraesCS4B02G350800';
-    let geneSample = host_genes['Wheat']
-    let pathogenGeneSample = host_genes['tindica']
+    let geneSample = host_genes[mhost]
+    let pathogenGeneSample = host_genes[mpath]
     // if (this.state.idType === 'pathogen') {
     //   genePlaceholder = 'Example NCBI-IDs: OAJ02622, OAI99867, OAJ05030';
     //   geneSample = 'OAJ02622, OAI99867, OAJ05030, OAI99147';

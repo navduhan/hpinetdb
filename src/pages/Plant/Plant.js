@@ -177,7 +177,7 @@ export default class Plant extends React.Component {
 
     let genePlaceholder 
     let geneSample;
-    let hostgeneSample = host_genes['Wheat']
+    let hostgeneSample = host_genes[this.state.species]
     let pathogenGeneSample = host_genes[this.state.pathogen]
 
     if (this.state.idtype === 'host') {
