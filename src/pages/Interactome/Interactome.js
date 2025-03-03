@@ -929,7 +929,7 @@ export default class Interactome extends React.Component {
 
                 <Radio.Group name="radiogroup" defaultValue={"wang"}>
                   <h5>Select GO Sem Similarity Method</h5>
-                  <Radio value="wang" onClick={this.radioHandler}>
+                  <Radio value="wang" onClick={this.goMethodradioHandler}>
                     Wang
                   </Radio>
                   <Radio value="lowest_common_ancestor" onClick={this.goMethodradioHandler}>
